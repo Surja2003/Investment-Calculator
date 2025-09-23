@@ -35,6 +35,7 @@ import {
 const SWPCalculator = () => {
   const theme = useTheme();
   const [isCalculating, setIsCalculating] = useState(false);
+  const [showResults, setShowResults] = useState(false);
   
   // Initialize form data with default values
   const [formData, setFormData] = useState({
@@ -104,19 +105,10 @@ const SWPCalculator = () => {
         behavior: 'smooth'
       });
       setIsCalculating(false);
+      setShowResults(true);
     }, 600);
   }, [formData]);
-
-  // Initial calculation effect
-  useEffect(() => {
-    // Trigger calculation when component mounts
-    console.log('SWP Calculator - Initial calculation on mount');
-    
-    // Simulate a click on the calculate button
-    setTimeout(() => {
-      handleCalculateClick();
-    }, 100);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  // NOTE: initial auto-calculation removed. Results will appear only after the user clicks Calculate.
 
   // Generate chart data
   const chartData = useMemo(() => {
@@ -199,7 +191,8 @@ const SWPCalculator = () => {
       </FadeIn>
       
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-        {/* Summary Cards */}
+        {/* Summary Cards (hidden until Calculate) */}
+        {showResults && (
         <Box>
           <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', md: 'repeat(4, 1fr)' }, gap: 2 }}>
             <Box>
@@ -344,6 +337,7 @@ const SWPCalculator = () => {
             </Box>
           </Box>
         </Box>
+        )}
 
         {/* Calculator and Chart */}
         <Box>
@@ -594,6 +588,7 @@ const SWPCalculator = () => {
             </Box>
 
             {/* Chart */}
+            {showResults && (
             <Box>
               <AnimatedChart delay={0.2}>
                 <Card sx={{ 
@@ -765,10 +760,11 @@ const SWPCalculator = () => {
                 </Card>
               </AnimatedChart>
             </Box>
+            )}
           </Box>
         </Box>
-
         {/* Sustainability Info */}
+        {showResults && (
         <Box sx={{ mt: 6 }}>
           <FadeIn delay={0.3}>
             <Card 
@@ -895,6 +891,7 @@ const SWPCalculator = () => {
             </Card>
           </FadeIn>
         </Box>
+        )}
       </Box>
     </Box>
   );

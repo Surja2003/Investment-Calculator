@@ -49,6 +49,7 @@ const SIPCalculator = () => {
     name: 'moderate', // Must be one of: 'conservative', 'moderate', 'aggressive'
     returnRate: 12
   });
+  const [showResults, setShowResults] = useState(false);
 
   const handleAmountChange = (e) => {
     const value = e.target.value.replace(/[^0-9]/g, '');
@@ -148,6 +149,7 @@ const SIPCalculator = () => {
         behavior: 'smooth'
       });
     }, 100);
+    setShowResults(true);
   };
 
   const chartData = useMemo(() => {
@@ -257,8 +259,9 @@ const SIPCalculator = () => {
       
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
   {/* Summary Cards */}
+  {showResults && (
   <Box sx={{ order: { xs: 2, md: 2 } }}>
-          <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', md: 'repeat(4, 1fr)' }, gap: 2 }}>
+    <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', md: 'repeat(4, 1fr)' }, gap: 2 }}>
             <Box>
               <SlideIn direction="top" delay={0.1}>
                 <Card 
@@ -385,6 +388,7 @@ const SIPCalculator = () => {
             </Box>
           </Box>
         </Box>
+  )}
 
   {/* Calculator and Chart */}
   <Box sx={{ order: { xs: 1, md: 1 } }}>
@@ -755,6 +759,7 @@ const SIPCalculator = () => {
             </Box>
 
             {/* Chart */}
+            {showResults && (
             <Box>
               <AnimatedChart delay={0.4}>
                 <Card sx={{ 
@@ -843,6 +848,7 @@ const SIPCalculator = () => {
                 </Card>
               </AnimatedChart>
             </Box>
+            )}
           </Box>
         </Box>
 
@@ -859,6 +865,7 @@ const SIPCalculator = () => {
               </Typography>
             </Box>
             
+            {showResults && (
             <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '7fr 5fr' }, gap: 3 }}>
               <Box>
                 <ScenarioComparison
@@ -944,6 +951,7 @@ const SIPCalculator = () => {
                 </FadeIn>
               </Box>
             </Box>
+            )}
           </FadeIn>
         </Box>
 
