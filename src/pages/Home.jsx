@@ -57,17 +57,22 @@ const Home = () => {
             <div className="rounded-lg border border-white/10 bg-gray-900/40 text-white p-5">
               <h3 className="text-xl font-semibold text-white mb-2">Stay Updated</h3>
               <p className="text-sm text-gray-300 mb-4">Subscribe to our newsletter for daily market insights and investment tips.</p>
-              <form className="flex flex-col sm:flex-row gap-2" onSubmit={onNewsletterSubmit}>
-                <input
-                  value={newsletterEmail}
-                  onChange={(e)=>setNewsletterEmail(e.target.value)}
-                  type="email"
-                  required
-                  placeholder="Enter your email"
-                  className="w-full flex-1 px-4 py-2 rounded-lg border-2 border-gray-500/60 bg-gray-900 text-white placeholder-gray-400 caret-white focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400"
-                />
-                <button type="submit" className="px-6 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white">Subscribe</button>
-              </form>
+              <div className="p-2 rounded-md bg-white/5 border-2 border-transparent hover:border-white/20 focus-within:ring-2 focus-within:ring-indigo-400 focus-within:border-indigo-400">
+                <form className="flex flex-col sm:flex-row gap-2" onSubmit={onNewsletterSubmit}>
+                  <label className="sr-only" htmlFor="newsletter-email">Enter email to subscribe</label>
+                  <input
+                    id="newsletter-email"
+                    value={newsletterEmail}
+                    onChange={(e)=>setNewsletterEmail(e.target.value)}
+                    type="email"
+                    required
+                    placeholder="Enter your email"
+                    className="w-full flex-1 px-4 py-2 rounded-none border-2 border-white/30 bg-transparent text-white placeholder-gray-400 caret-white focus:outline-none"
+                  />
+                  <button type="submit" className="px-6 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white">Subscribe</button>
+                </form>
+                <p className="mt-2 text-xs text-gray-400">Enter email to subscribe — we’ll send occasional market tips.</p>
+              </div>
               {newsletterStatus && <p className="mt-2 text-xs text-gray-300">{newsletterStatus}</p>}
             </div>
             {/* Contact */}
@@ -77,34 +82,43 @@ const Home = () => {
               <ul className="mt-3 text-sm text-gray-300 space-y-1">
                 <li>Email: <a className="text-indigo-400 hover:underline" href="mailto:surjadas098@gmail.com">surjadas098@gmail.com</a></li>
               </ul>
-              <form className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3" onSubmit={onContactSubmit}>
-                <input
-                  value={contactForm.name}
-                  onChange={(e)=>setContactForm((p)=>({...p, name:e.target.value}))}
-                  className="w-full px-3 py-2 rounded border-2 border-gray-500/60 bg-gray-900 text-sm text-white placeholder-gray-400 caret-white focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400"
-                  placeholder="Your name"
-                  required
-                />
-                <input
-                  value={contactForm.email}
-                  onChange={(e)=>setContactForm((p)=>({...p, email:e.target.value}))}
-                  className="w-full px-3 py-2 rounded border-2 border-gray-500/60 bg-gray-900 text-sm text-white placeholder-gray-400 caret-white focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400"
-                  placeholder="Your email"
-                  type="email"
-                  required
-                />
-                <textarea
-                  value={contactForm.message}
-                  onChange={(e)=>setContactForm((p)=>({...p, message:e.target.value}))}
-                  className="sm:col-span-2 w-full px-3 py-2 rounded border-2 border-gray-500/60 bg-gray-900 text-sm text-white placeholder-gray-400 caret-white focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400"
-                  rows="4"
-                  placeholder="Message"
-                  required
-                />
-                <div className="sm:col-span-2">
-                  <button className="px-4 py-2 rounded bg-indigo-600 hover:bg-indigo-500 text-white">Send</button>
-                </div>
-              </form>
+              <div className="mt-4 p-3 rounded-md bg-white/5 border-2 border-transparent hover:border-white/20 focus-within:ring-2 focus-within:ring-indigo-400 focus-within:border-indigo-400">
+                <form className="grid grid-cols-1 sm:grid-cols-2 gap-3" onSubmit={onContactSubmit}>
+                  <label className="sr-only" htmlFor="contact-name">Your name</label>
+                  <input
+                    id="contact-name"
+                    value={contactForm.name}
+                    onChange={(e)=>setContactForm((p)=>({...p, name:e.target.value}))}
+                    className="w-full px-3 py-2 rounded-none border-2 border-white/30 bg-transparent text-sm text-white placeholder-gray-400 caret-white focus:outline-none"
+                    placeholder="Your name"
+                    required
+                  />
+                  <label className="sr-only" htmlFor="contact-email">Your email</label>
+                  <input
+                    id="contact-email"
+                    value={contactForm.email}
+                    onChange={(e)=>setContactForm((p)=>({...p, email:e.target.value}))}
+                    className="w-full px-3 py-2 rounded-none border-2 border-white/30 bg-transparent text-sm text-white placeholder-gray-400 caret-white focus:outline-none"
+                    placeholder="Your email"
+                    type="email"
+                    required
+                  />
+                  <label className="sr-only" htmlFor="contact-message">Message</label>
+                  <textarea
+                    id="contact-message"
+                    value={contactForm.message}
+                    onChange={(e)=>setContactForm((p)=>({...p, message:e.target.value}))}
+                    className="sm:col-span-2 w-full px-3 py-2 rounded-none border-2 border-white/30 bg-transparent text-sm text-white placeholder-gray-400 caret-white focus:outline-none"
+                    rows="4"
+                    placeholder="Message"
+                    required
+                  />
+                  <div className="sm:col-span-2">
+                    <button className="px-4 py-2 rounded bg-indigo-600 hover:bg-indigo-500 text-white">Send</button>
+                  </div>
+                </form>
+                <p className="mt-2 text-xs text-gray-400">We aim to reply within 2 business days. No spam.</p>
+              </div>
               {contactStatus && <p className="mt-2 text-xs text-gray-300">{contactStatus}</p>}
             </div>
           </div>
