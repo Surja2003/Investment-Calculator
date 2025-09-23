@@ -1,0 +1,2 @@
+This file prevents GitHub Pages from processing the site with Jekyll.
+Created to ensure Pages serves the built artifact from the Actions deployment.
