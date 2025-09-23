@@ -39,6 +39,25 @@ jobs:
           VITE_API_BASE_URL: ${{ secrets.VITE_API_BASE_URL }}
         run: npm run build
 
+      - name: Show `dist` contents for debugging
+        if: always()
+        run: |
+          echo "-- dist listing --"
+          ls -la dist || true
+          echo "-- recursive --"
+          find dist -maxdepth 3 -type f -print || true
+
+      - name: Assert `dist/index.html` exists
+        if: always()
+        run: |
+          if [ -f dist/index.html ]; then
+            echo "dist/index.html found"
+          else
+            echo "ERROR: dist/index.html missing - build likely failed or produced unexpected output"
+            ls -la || true
+            exit 1
+          fi
+
       - name: Add SPA fallback (copy 404.html)
         run: cp dist/index.html dist/404.html
 
