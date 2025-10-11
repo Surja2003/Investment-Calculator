@@ -18,7 +18,7 @@ import {
 import { Tooltip, PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
 import ProjectionChartLW from './ProjectionChartLW';
 import SWPBreakdown from './SWPBreakdown';
-import ScenarioComparison from './ScenarioComparison';
+
 import { 
   FadeIn, 
   SlideIn, 
@@ -773,24 +773,7 @@ const SWPCalculator = () => {
         )}
         
         {/* Scenario Comparison Section */}
-        {showComparison && (
-          <CardContent>
-            <Divider sx={{ mb: 2 }} />
-            <Box>
-              <ScenarioComparison 
-                defaultAmount={formInputs.withdrawalAmount}
-                defaultDuration={formInputs.withdrawalPeriod}
-                selectedScenario="moderate"
-                calculatorType="swp"
-                initialPrincipal={formInputs.initialInvestment}
-                onScenarioChange={(scenario, returnRate) => {
-                  // Update the calculator based on scenario changes
-                  handleInputChange('expectedReturn', returnRate);
-                }}
-              />
-            </Box>
-          </CardContent>
-        )}
+        {/* ScenarioComparison removed as requested */}
       </Card>
       </Box>
     </Box>

@@ -73,8 +73,8 @@ const GoalCalculator = () => {
       
       // If it's not a valid number, set to 0
       if (isNaN(value)) value = 0;
-    } catch (error) {
-      console.error("Error converting input to number:", error);
+    } catch {
+      // Silently fallback to 0 on invalid input
       value = 0;
     }
     
@@ -211,7 +211,7 @@ const GoalCalculator = () => {
             currentValue = monthlyInvestment * 
               ((Math.pow(1 + monthlyRate, month) - 1) / monthlyRate) * 
               (1 + monthlyRate);
-          } catch (error) {
+          } catch {
             // Fallback if math error
             currentValue = monthlyInvestment * month;
           }
@@ -241,14 +241,7 @@ const GoalCalculator = () => {
     return chartData;
   };
   
-  // Format currency values
-  const formatCurrency = (value) => {
-    return new Intl.NumberFormat('en-IN', {
-      style: 'currency',
-      currency: 'INR',
-      maximumFractionDigits: 0
-    }).format(value);
-  };
+  // Removed unused formatCurrency helper to satisfy ESLint
 
   return (
     <Box sx={{ maxWidth: '100%', margin: '0 auto' }}>

@@ -61,6 +61,17 @@ export const calculateLumpsumFutureValue = (
   includeInflation = false,
   inflationRate = 6
 ) => {
+  // Object-style API support
+  if (typeof principal === 'object' && principal !== null) {
+    const { investment = 0, years = 0, returnRate = 0, inflation = 6, adjustForInflation = false } = principal;
+    const fv = calculateLumpsumFutureValue(investment, returnRate, years, adjustForInflation, inflation);
+    return {
+      futureValue: fv,
+      investment: Math.round(Number(investment) || 0),
+      wealthGained: Math.round(fv - (Number(investment) || 0)),
+      returnPercentage: (Number(investment) || 0) > 0 ? ((fv - Number(investment)) / Number(investment)) * 100 : 0,
+    };
+  }
   // Ensure all parameters are valid numbers
   principal = Number(principal) || 0;
   ratePerAnnum = Number(ratePerAnnum) || 0;
@@ -104,6 +115,29 @@ export const calculateSIPFutureValue = (
   stepUpPercentage = 10,
   stepUpFrequency = 12
 ) => {
+  // Object-style API support
+  if (typeof monthlyInvestment === 'object' && monthlyInvestment !== null) {
+    const {
+      monthlyInvestment: mi = 0,
+      years: y = 0,
+      returnRate: rr = 0,
+      inflation: infl = 6,
+      adjustForInflation: adj = false,
+      isStepUp: isStep = false,
+      stepUpRate: stepRate = 10,
+      stepUpFrequency: stepFreq = 12,
+    } = monthlyInvestment;
+    const result = calculateSIPFutureValue(mi, rr, y, adj, infl, isStep, stepRate, stepFreq);
+    const wealthGained = result.futureValue - result.totalInvestment;
+    const returnPercentage = result.totalInvestment > 0 ? (wealthGained / result.totalInvestment) * 100 : 0;
+    return {
+      futureValue: result.futureValue,
+      totalInvestment: result.totalInvestment,
+      wealthGained: Math.round(wealthGained),
+      gains: Math.round(wealthGained),
+      returnPercentage,
+    };
+  }
   // Ensure all parameters are valid numbers
   monthlyInvestment = Number(monthlyInvestment) || 0;
   ratePerAnnum = Number(ratePerAnnum) || 0;
@@ -139,10 +173,16 @@ export const calculateSIPFutureValue = (
     futureValue = (futureValue + currentMonthlyAmount) * (1 + monthlyRate);
   }
 
+  const fv = Math.round(futureValue);
+  const ti = Math.round(totalInvestment);
+  const gains = Math.round(fv - ti);
+  const returnPercentage = ti > 0 ? (gains / ti) * 100 : 0;
   return {
-    futureValue: Math.round(futureValue),
-    totalInvestment: Math.round(totalInvestment),
-    gains: Math.round(futureValue - totalInvestment)
+    futureValue: fv,
+    totalInvestment: ti,
+    gains,
+    wealthGained: gains,
+    returnPercentage,
   };
 };
 
@@ -301,6 +341,23 @@ export const calculateRequiredSIP = (
   includeInflation = false,
   inflationRate = 6
 ) => {
+  // Object-style API support
+  if (typeof targetAmount === 'object' && targetAmount !== null) {
+    const { targetAmount: ta = 0, years: y = 0, returnRate: rr = 0, inflation = 6, adjustForInflation = false } = targetAmount;
+    const inflationAdjustedTarget = adjustForInflation ? (Number(ta) || 0) * Math.pow(1 + (Number(inflation) || 0) / 100, Number(y) || 0) : (Number(ta) || 0);
+    const requiredMonthlyInvestment = calculateRequiredSIP(inflationAdjustedTarget, rr, y, false, inflation);
+    const totalInvestment = requiredMonthlyInvestment * (Number(y) || 0) * 12;
+    const wealthGained = inflationAdjustedTarget - totalInvestment;
+    const returnPercentage = totalInvestment > 0 ? (wealthGained / totalInvestment) * 100 : 0;
+    return {
+      requiredMonthlyInvestment: Math.round(requiredMonthlyInvestment),
+      totalInvestment: Math.round(totalInvestment),
+      wealthGained: Math.round(wealthGained),
+      returnPercentage,
+      inflationAdjustedTarget: Math.round(inflationAdjustedTarget),
+      originalTarget: Math.round(Number(ta) || 0),
+    };
+  }
   // Ensure all parameters are valid numbers
   targetAmount = Number(targetAmount) || 0;
   ratePerAnnum = Number(ratePerAnnum) || 0;
@@ -329,4 +386,69 @@ export const calculateRequiredSIP = (
   const monthlyInvestment = targetAmount / denominator;
   
   return Math.round(monthlyInvestment);
+};
+
+/**
+ * Calculate SWP summary parameters for a given corpus and monthly withdrawal rate.
+ * Returns initial and final monthly withdrawal, total withdrawn, remaining corpus and percentages.
+ *
+ * @param {Object} opts
+ * @param {number} opts.corpus - Initial corpus amount
+ * @param {number} opts.withdrawalRate - Monthly withdrawal rate as percent (e.g., 0.5 for 0.5% per month)
+ * @param {number} opts.returnRate - Annual return rate percent
+ * @param {number} opts.years - Duration in years
+ * @param {number} [opts.inflation=0] - Annual inflation rate percent
+ * @param {boolean} [opts.adjustForInflation=false] - Whether to index withdrawals to inflation
+ */
+export const calculateSWPParameters = ({
+  corpus,
+  withdrawalRate,
+  returnRate,
+  years,
+  inflation = 0,
+  adjustForInflation = false,
+} = {}) => {
+  let initialCorpus = Number(corpus) || 0;
+  const months = (Number(years) || 0) * 12;
+  const monthlyReturn = (Number(returnRate) || 0) / 100 / 12;
+  const monthlyInflation = (Number(inflation) || 0) / 100 / 12;
+  let monthlyWithdrawal = initialCorpus * ((Number(withdrawalRate) || 0) / 100);
+  const initialMonthlyWithdrawal = Math.round(monthlyWithdrawal);
+
+  let currentCorpus = initialCorpus;
+  let totalWithdrawal = 0;
+
+  for (let m = 1; m <= months; m++) {
+    // Withdraw first, then apply monthly return
+    const withdraw = Math.min(monthlyWithdrawal, currentCorpus);
+    currentCorpus -= withdraw;
+    totalWithdrawal += withdraw;
+
+    // Apply growth on remaining corpus
+    currentCorpus = currentCorpus * (1 + monthlyReturn);
+    
+    // Index withdrawals to inflation if requested
+    if (adjustForInflation) {
+      monthlyWithdrawal = monthlyWithdrawal * (1 + monthlyInflation);
+    }
+
+    if (currentCorpus <= 0) {
+      currentCorpus = 0;
+      break;
+    }
+  }
+
+  const remainingCorpus = Math.round(currentCorpus);
+  const finalMonthlyWithdrawal = Math.round(monthlyWithdrawal);
+  const withdrawalPercentage = initialCorpus > 0 ? (totalWithdrawal / initialCorpus) * 100 : 0;
+  const remainingCorpusPercentage = initialCorpus > 0 ? (remainingCorpus / initialCorpus) * 100 : 0;
+
+  return {
+    initialMonthlyWithdrawal,
+    finalMonthlyWithdrawal,
+    totalWithdrawal: Math.round(totalWithdrawal),
+    remainingCorpus,
+    withdrawalPercentage,
+    remainingCorpusPercentage,
+  };
 };

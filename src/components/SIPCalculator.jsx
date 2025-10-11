@@ -24,7 +24,6 @@ import {
 import ProjectionChartLW from './ProjectionChartLW';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import ScenarioComparison from './ScenarioComparison';
 import InvestmentBreakdown from './InvestmentBreakdown';
 
 
@@ -44,11 +43,7 @@ const SIPCalculator = () => {
     _timestamp: Date.now() // Add timestamp to force re-renders
   });
   
-  // State to track selected scenario and sync between components
-  const [selectedScenario, setSelectedScenario] = useState({
-    name: 'moderate', // Must be one of: 'conservative', 'moderate', 'aggressive'
-    returnRate: 12
-  });
+  // Removed unused selectedScenario state
   const [showResults, setShowResults] = useState(false);
 
   const handleAmountChange = (e) => {
@@ -126,6 +121,7 @@ const SIPCalculator = () => {
     }));
     
     console.log('Calculating returns with:', formData);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   
   // Function to handle Calculate Returns button click
@@ -760,200 +756,109 @@ const SIPCalculator = () => {
 
             {/* Chart */}
             {showResults && (
-            <Box>
-              <AnimatedChart delay={0.4}>
-                <Card sx={{ 
-                  height: '100%', 
-                  display: 'flex', 
-                  flexDirection: 'column',
-                  borderRadius: 2,
-                  overflow: 'hidden',
-                  boxShadow: '0 8px 24px rgba(0,0,0,0.12)'
-                }}>
-                  <Box sx={{ 
-                    p: 2, 
-                    borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center'
-                  }}>
-                    <Typography variant="h6" fontWeight="500">
-                      Investment Growth Projection
-                    </Typography>
-                    <Box sx={{ 
-                      display: 'flex', 
-                      gap: 2,
-                      '& .legend-item': {
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: 1
-                      }
-                    }}>
-                      <Box className="legend-item">
-                        <Box sx={{ width: 12, height: 12, borderRadius: '50%', bgcolor: theme.palette.primary.main }} />
-                        <Typography variant="caption">Investment</Typography>
-                      </Box>
-                      <Box className="legend-item">
-                        <Box sx={{ width: 12, height: 12, borderRadius: '50%', bgcolor: theme.palette.success.main }} />
-                        <Typography variant="caption">Returns</Typography>
-                      </Box>
-                    </Box>
-                  </Box>
-                  <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', p: 0 }}>
-                    <Box sx={{ height: 450, width: '100%', flexGrow: 1, pt: 2 }}>
-                      <ProjectionChartLW data={chartData} title="Investment Growth Projection" currency="INR" precision={0} />
-                    </Box>
-                    
-                    <Box sx={{ 
-                      display: 'flex', 
-                      justifyContent: 'space-between', 
-                      p: 3,
-                      borderTop: '1px solid rgba(255,255,255,0.1)',
-                      bgcolor: 'background.paper'
-                    }}>
-                      <Box>
-                        <Typography variant="body2" color="text.secondary" gutterBottom>
-                          Investment Duration
-                        </Typography>
-                        <Typography variant="body1" fontWeight="500">
-                          {formData.years} Years
-                        </Typography>
-                      </Box>
-                      <Box>
-                        <Typography variant="body2" color="text.secondary" gutterBottom>
-                          Monthly SIP
-                        </Typography>
-                        <Typography variant="body1" fontWeight="500">
-                          {formatCurrency(formData.amount)}
-                        </Typography>
-                      </Box>
-                      <Box>
-                        <Typography variant="body2" color="text.secondary" gutterBottom>
-                          Expected Return
-                        </Typography>
-                        <Typography variant="body1" fontWeight="500">
-                          {formData.annualRate}% p.a.
-                        </Typography>
-                      </Box>
-                      <Box>
-                        <Typography variant="body2" color="text.secondary" gutterBottom>
-                          Maturity Amount
-                        </Typography>
-                        <Typography variant="body1" fontWeight="500" color="primary.main">
-                          {formatCurrency(expectedAmount)}
-                        </Typography>
-                      </Box>
-                    </Box>
-                  </CardContent>
-                </Card>
-              </AnimatedChart>
-            </Box>
-            )}
-          </Box>
-        </Box>
-
-  {/* Scenario Comparison Section */}
-  <Box sx={{ mt: 6, order: { xs: 3, md: 3 } }}>
-          <FadeIn delay={0.3}>
-            <Box sx={{ mb: 4 }}>
-              <Typography variant="h5" fontWeight="500" sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                <BarChartIcon sx={{ mr: 1 }} />
-                SIP Scenarios
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Compare how your SIP investment would perform under different market conditions.
-              </Typography>
-            </Box>
-            
-            {showResults && (
-            <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '7fr 5fr' }, gap: 3 }}>
               <Box>
-                <ScenarioComparison
-                  defaultAmount={formData.amount}
-                  defaultDuration={formData.years}
-                  selectedScenario={selectedScenario.name}
-                  onScenarioChange={(scenario, returnRate) => {
-                    setSelectedScenario({
-                      name: scenario,
-                      returnRate: returnRate
-                    });
-                  }}
-                  includeInflation={formData.includeInflation}
-                  inflationRate={formData.inflation}
-                  isStepUpSIP={formData.isStepUpSIP}
-                  stepUpPercentage={formData.stepUpPercentage}
-                  stepUpFrequency={formData.stepUpFrequency}
-                />
-              </Box>
-              
-              <Box>
-                <FadeIn delay={0.4}>
+                <AnimatedChart delay={0.4}>
                   <Card sx={{ 
-                    p: 0, 
-                    borderRadius: 2, 
-                    overflow: 'hidden', 
-                    bgcolor: theme.palette.mode === 'dark' ? 'rgba(30, 41, 59, 0.95)' : 'background.paper',
-                    boxShadow: theme.palette.mode === 'dark' ? '0 8px 32px rgba(0, 0, 0, 0.25)' : '0 4px 20px rgba(0, 0, 0, 0.1)',
-                    height: '100%'
+                    height: '100%', 
+                    display: 'flex', 
+                    flexDirection: 'column',
+                    borderRadius: 2,
+                    overflow: 'hidden',
+                    boxShadow: '0 8px 24px rgba(0,0,0,0.12)'
                   }}>
                     <Box sx={{ 
                       p: 2, 
                       borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
                       display: 'flex',
+                      justifyContent: 'space-between',
                       alignItems: 'center'
                     }}>
-                      <AccessTimeIcon sx={{ mr: 1 }} />
                       <Typography variant="h6" fontWeight="500">
-                        Investment vs Returns Breakdown
+                        Investment Growth Projection
                       </Typography>
+                      <Box sx={{ 
+                        display: 'flex', 
+                        gap: 2,
+                        '& .legend-item': {
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 1
+                        }
+                      }}>
+                        <Box className="legend-item">
+                          <Box sx={{ width: 12, height: 12, borderRadius: '50%', bgcolor: theme.palette.primary.main }} />
+                          <Typography variant="caption">Investment</Typography>
+                        </Box>
+                        <Box className="legend-item">
+                          <Box sx={{ width: 12, height: 12, borderRadius: '50%', bgcolor: theme.palette.success.main }} />
+                          <Typography variant="caption">Returns</Typography>
+                        </Box>
+                      </Box>
                     </Box>
-                    <CardContent sx={{ p: 3 }}>
-                      <InvestmentBreakdown 
-                        selectedScenario={selectedScenario.name}
-                        customScenarios={{
-                          moderate: {
-                            name: 'Your SIP',
-                            return: selectedScenario.name === 'moderate' ? selectedScenario.returnRate || formData.annualRate : 12,
-                            years: formData.years,
-                            monthlyAmount: formData.amount,
-                            includeInflation: formData.includeInflation,
-                            inflationRate: formData.inflation,
-                            isStepUpSIP: formData.isStepUpSIP,
-                            stepUpPercentage: formData.stepUpPercentage,
-                            stepUpFrequency: formData.stepUpFrequency
-                          },
-                          conservative: {
-                            name: 'Conservative',
-                            return: 8,
-                            years: formData.years,
-                            monthlyAmount: formData.amount,
-                            includeInflation: formData.includeInflation,
-                            inflationRate: formData.inflation,
-                            isStepUpSIP: formData.isStepUpSIP,
-                            stepUpPercentage: formData.stepUpPercentage,
-                            stepUpFrequency: formData.stepUpFrequency
-                          },
-                          aggressive: {
-                            name: 'Aggressive',
-                            return: 15,
-                            years: formData.years,
-                            monthlyAmount: formData.amount,
-                            includeInflation: formData.includeInflation,
-                            inflationRate: formData.inflation,
-                            isStepUpSIP: formData.isStepUpSIP,
-                            stepUpPercentage: formData.stepUpPercentage,
-                            stepUpFrequency: formData.stepUpFrequency
-                          }
-                        }}
-                      />
+                    <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', p: 0 }}>
+                      <Box sx={{ height: 450, width: '100%', flexGrow: 1, pt: 2 }}>
+                        <ProjectionChartLW
+                          data={chartData}
+                          title="Investment Growth Projection"
+                          currency="INR"
+                          precision={0}
+                          mode="sip"
+                          monthlySip={Number(formData.amount) || 0}
+                          annualRate={Number(formData.annualRate) || 0}
+                          years={Number(formData.years) || 0}
+                          startYear={new Date().getFullYear()}
+                        />
+                      </Box>
+                      <Box sx={{ 
+                        display: 'flex', 
+                        justifyContent: 'space-between', 
+                        p: 3,
+                        borderTop: '1px solid rgba(255,255,255,0.1)',
+                        bgcolor: 'background.paper'
+                      }}>
+                        <Box>
+                          <Typography variant="body2" color="text.secondary" gutterBottom>
+                            Investment Duration
+                          </Typography>
+                          <Typography variant="body1" fontWeight="500">
+                            {formData.years} Years
+                          </Typography>
+                        </Box>
+                        <Box>
+                          <Typography variant="body2" color="text.secondary" gutterBottom>
+                            Monthly SIP
+                          </Typography>
+                          <Typography variant="body1" fontWeight="500">
+                            {formatCurrency(formData.amount)}
+                          </Typography>
+                        </Box>
+                        <Box>
+                          <Typography variant="body2" color="text.secondary" gutterBottom>
+                            Expected Return
+                          </Typography>
+                          <Typography variant="body1" fontWeight="500">
+                            {formData.annualRate}% p.a.
+                          </Typography>
+                        </Box>
+                        <Box>
+                          <Typography variant="body2" color="text.secondary" gutterBottom>
+                            Maturity Amount
+                          </Typography>
+                          <Typography variant="body1" fontWeight="500" color="primary.main">
+                            {formatCurrency(expectedAmount)}
+                          </Typography>
+                        </Box>
+                      </Box>
                     </CardContent>
                   </Card>
-                </FadeIn>
+                </AnimatedChart>
               </Box>
-            </Box>
             )}
-          </FadeIn>
+          </Box>
         </Box>
+
+  {/* Scenario Comparison Section */}
+  {/* Investment vs Returns Breakdown card removed as requested */}
 
         {/* End of main content */}
       </Box>

@@ -1,4 +1,4 @@
-import * as calculatorUtils from '../utils/calculatorUtils';
+import * as calculatorUtils from '../utils/calculatorUtils.js';
 
 // Import the test file
-import '../tests/calculatorTest';
+import '../tests/calculatorTest.js';

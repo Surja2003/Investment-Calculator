@@ -26,7 +26,7 @@ import {
 } from './animations';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import ScenarioComparison from './ScenarioComparison';
+
 import InvestmentBreakdown from './InvestmentBreakdown';
 import { 
   formatCurrency, 

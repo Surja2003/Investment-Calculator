@@ -5,7 +5,7 @@ import LightweightChart from './LightweightChart';
 // Expects data as array of { year: string | number, value: number } or
 // generic arrays where a selector function maps to { time, value }
 
-const ProjectionChartLW = ({ data, title = 'Projection', currency = 'INR', precision = 0 }) => {
+const ProjectionChartLW = ({ data, title = 'Projection', currency = 'INR', precision = 0, mode = 'lumpsum', principal = 100000, monthlySip = 5000, annualRate = 12, years = 5, startYear }) => {
   const series = useMemo(() => {
     if (!Array.isArray(data)) return [];
     const baseTs = Date.UTC(2000, 0, 1) / 1000; // UTCTimestamp (seconds)
@@ -23,7 +23,7 @@ const ProjectionChartLW = ({ data, title = 'Projection', currency = 'INR', preci
     return [];
   }, [data]);
 
-  return <LightweightChart title={title} data={series} currency={currency} precision={precision} />;
+  return <LightweightChart title={title} data={series} currency={currency} precision={precision} mode={mode} principal={principal} monthlySip={monthlySip} annualRate={annualRate} years={years} startYear={startYear} />;
 };
 
 export default ProjectionChartLW;

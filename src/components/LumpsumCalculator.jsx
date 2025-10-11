@@ -27,7 +27,7 @@ import {
 import ProjectionChartLW from './ProjectionChartLW';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import ScenarioComparison from './ScenarioComparison';
+
 import InvestmentBreakdown from './InvestmentBreakdown';
 
 const LumpsumCalculator = () => {
@@ -42,10 +42,7 @@ const LumpsumCalculator = () => {
   });
   
   // State to track selected scenario and sync between components
-  const [selectedScenario, setSelectedScenario] = useState({
-    name: 'moderate', // Must be one of: 'conservative', 'moderate', 'aggressive'
-    returnRate: 12
-  });
+  // Removed unused selectedScenario state
   const [showResults, setShowResults] = useState(false);
 
   const handleAmountChange = (e) => {
@@ -88,11 +85,7 @@ const LumpsumCalculator = () => {
     
     console.log('Calculating lumpsum returns with:', updatedFormData);
     
-    // Also force a re-calculation of scenario comparison by updating the selectedScenario
-    setSelectedScenario(prev => ({
-      ...prev,
-      _timestamp: Date.now() // Add a timestamp to force re-render
-    }));
+    // Removed unused selectedScenario update
     setShowResults(true);
     
     // Scroll to results section
@@ -131,14 +124,11 @@ const LumpsumCalculator = () => {
         _timestamp: Date.now()
       }));
       
-      // Also force a re-calculation of scenario comparison by updating the selectedScenario
-      setSelectedScenario(prev => ({
-        ...prev,
-        _timestamp: Date.now() // Add a timestamp to force re-render
-      }));
+      // Removed unused selectedScenario update
     }, 100);
     
     console.log('Calculating lumpsum returns with:', formData);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const chartData = useMemo(() => {
@@ -592,7 +582,17 @@ const LumpsumCalculator = () => {
                   </Box>
                   <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', p: 0 }}>
                     <Box sx={{ height: 450, width: '100%', flexGrow: 1, pt: 2 }}>
-                      <ProjectionChartLW data={chartData} title="Investment Growth Projection" currency="INR" precision={0} />
+                      <ProjectionChartLW
+                        data={chartData}
+                        title="Investment Growth Projection"
+                        currency="INR"
+                        precision={0}
+                        mode="lumpsum"
+                        principal={Number(formData.amount) || 0}
+                        annualRate={Number(formData.annualRate) || 0}
+                        years={Number(formData.years) || 0}
+                        startYear={new Date().getFullYear()}
+                      />
                     </Box>
                     
                     <Box sx={{ 
@@ -644,89 +644,7 @@ const LumpsumCalculator = () => {
         </Box>
 
   {/* Scenario Comparison Section */}
-  <Box sx={{ mt: 6, order: { xs: 3, md: 3 } }}>
-          <FadeIn delay={0.3}>
-            <Box sx={{ mb: 4 }}>
-              <Typography variant="h5" fontWeight="500" sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                <BarChartIcon sx={{ mr: 1 }} />
-                Lumpsum Scenarios
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Compare how your one-time investment would perform under different market conditions.
-              </Typography>
-            </Box>
-            
-            {showResults && (
-            <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '7fr 5fr' }, gap: 3 }}>
-              <Box>
-                <ScenarioComparison
-                  defaultAmount={formData.amount}
-                  defaultDuration={formData.years}
-                  selectedScenario={selectedScenario.name}
-                  calculatorType="lumpsum"
-                  onScenarioChange={(scenario, returnRate) => {
-                    setSelectedScenario({
-                      name: scenario,
-                      returnRate: returnRate
-                    });
-                  }}
-                />
-              </Box>
-              
-              <Box>
-                <FadeIn delay={0.4}>
-                  <Card sx={{ 
-                    p: 0, 
-                    borderRadius: 2, 
-                    overflow: 'hidden', 
-                    bgcolor: theme.palette.mode === 'dark' ? 'rgba(30, 41, 59, 0.95)' : 'background.paper',
-                    boxShadow: theme.palette.mode === 'dark' ? '0 8px 32px rgba(0, 0, 0, 0.25)' : '0 4px 20px rgba(0, 0, 0, 0.1)',
-                    height: '100%'
-                  }}>
-                    <Box sx={{ 
-                      p: 2, 
-                      borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
-                      display: 'flex',
-                      alignItems: 'center'
-                    }}>
-                      <AccessTimeIcon sx={{ mr: 1 }} />
-                      <Typography variant="h6" fontWeight="500">
-                        Investment vs Returns Breakdown
-                      </Typography>
-                    </Box>
-                    <CardContent sx={{ p: 3 }}>
-                      <InvestmentBreakdown 
-                        selectedScenario={selectedScenario.name}
-                        calculatorType="lumpsum"
-                        customScenarios={{
-                          moderate: {
-                            name: 'Your Investment',
-                            return: selectedScenario.name === 'moderate' ? selectedScenario.returnRate || formData.annualRate : 12,
-                            years: formData.years,
-                            monthlyAmount: formData.amount
-                          },
-                          conservative: {
-                            name: 'Conservative',
-                            return: 8,
-                            years: formData.years,
-                            monthlyAmount: formData.amount
-                          },
-                          aggressive: {
-                            name: 'Aggressive',
-                            return: 15,
-                            years: formData.years,
-                            monthlyAmount: formData.amount
-                          }
-                        }}
-                      />
-                    </CardContent>
-                  </Card>
-                </FadeIn>
-              </Box>
-            </Box>
-            )}
-          </FadeIn>
-        </Box>
+  {/* Investment vs Returns Breakdown card removed as requested */}
       </Box>
     </Box>
   );

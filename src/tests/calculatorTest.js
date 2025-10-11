@@ -5,7 +5,7 @@ import {
   calculateLumpsumFutureValue,
   calculateRequiredSIP,
   calculateSWPParameters
-} from './utils/calculatorUtils';
+} from '../utils/calculatorUtils.js';
 
 // Test formatCurrency
 console.log("\n=== Testing formatCurrency ===");
