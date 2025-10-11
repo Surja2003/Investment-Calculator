@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
 import PropTypes from 'prop-types';
 
@@ -8,7 +8,6 @@ const CountUp = ({
   duration = 1.5, 
   delay = 0,
   formatter = (value) => Math.round(value).toString(),
-  ...props 
 }) => {
   // Create a reference for the span element
   const nodeRef = useRef(null);
@@ -30,18 +29,16 @@ const CountUp = ({
     // Ensure 'to' is a valid number, otherwise default to 0
     const targetValue = (isNaN(to) || to === null || to === undefined) ? 0 : Number(to);
     
-    // Animate the count to the target value with a smooth spring
+    // Animate the count to the target value using duration for smooth tween
     const animation = animate(count, targetValue, {
-      type: 'spring',
-      stiffness: 200,
-      damping: 28,
-      mass: 1,
-      delay
+      duration,
+      delay,
+      ease: 'easeOut'
     });
     
     // Clean up the animation when the component unmounts or when dependencies change
     return animation.stop;
-  }, [to, delay, from, formatter]);
+  }, [to, delay, from, formatter, duration, count]);
 
   return (
     <motion.span
@@ -49,7 +46,6 @@ const CountUp = ({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.3 }}
-      {...props}
     >
       {formattedCount}
     </motion.span>

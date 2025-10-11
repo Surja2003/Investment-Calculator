@@ -243,6 +243,15 @@ const GoalCalculator = () => {
   
   // Removed unused formatCurrency helper to satisfy ESLint
 
+  // Compact Indian number formatter for Y-axis labels
+  const formatINCompact = (num) => {
+    const n = Math.abs(Number(num)) || 0;
+    if (n >= 1e7) return `${(n / 1e7).toFixed(n >= 1e9 ? 0 : 2)} Cr`;
+    if (n >= 1e5) return `${(n / 1e5).toFixed(n >= 1e7 ? 0 : 2)} L`;
+    if (n >= 1e3) return `${(n / 1e3).toFixed(0)}K`;
+    return String(Math.round(n));
+  };
+
   return (
     <Box sx={{ maxWidth: '100%', margin: '0 auto' }}>
       <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
@@ -617,7 +626,7 @@ const GoalCalculator = () => {
                   <ResponsiveContainer width="100%" height="100%">
                     <AreaChart data={results.chartData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
                       <XAxis dataKey="year" />
-                      <YAxis />
+                      <YAxis tickFormatter={formatINCompact} />
                       <Tooltip formatter={(value) => `₹${value.toLocaleString()}`} />
                       <Area
                         type="monotone"

@@ -112,6 +112,15 @@ const LightweightChart = ({
     return grad;
   };
 
+  // Compact Indian currency formatter for axis ticks (K, L, Cr)
+  const formatINCompact = (num) => {
+    const n = Math.abs(Number(num)) || 0;
+    if (n >= 1e7) return `${(n / 1e7).toFixed(n >= 1e9 ? 0 : 2)} Cr`;
+    if (n >= 1e5) return `${(n / 1e5).toFixed(n >= 1e7 ? 0 : 2)} L`;
+    if (n >= 1e3) return `${(n / 1e3).toFixed(0)}K`;
+    return String(Math.round(n));
+  };
+
   const options = {
     responsive: true,
     maintainAspectRatio: false,
@@ -159,7 +168,7 @@ const LightweightChart = ({
         title: { display: true, text: 'Value', color: theme === 'dark' ? '#cbd5e1' : '#374151' },
         ticks: {
           color: theme === 'dark' ? '#cbd5e1' : '#374151',
-          callback: (v) => nf.format(Number(v)),
+          callback: (v) => formatINCompact(v),
           maxTicksLimit: 6,
           padding: 8,
         },
