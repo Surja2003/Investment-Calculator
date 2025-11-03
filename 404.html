@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Redirecting…</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="refresh" content="0; url=/Investment-Calculator/" />
+  </head>
+  <body>
+    <noscript>
+      This site requires JavaScript to work. Please enable JavaScript and reload.
+    </noscript>
+    <script>
+      (function() {
+        var l = window.location;
+        var base = '/Investment-Calculator/';
+        // Compute the path below the repo base if present
+        var path = l.pathname;
+        var repoPrefix = '/Investment-Calculator';
+        if (path.indexOf(repoPrefix) === 0) {
+          path = path.slice(repoPrefix.length);
+        }
+        if (!path.startsWith('/')) path = '/' + path;
+        // Preserve query and hash by encoding into ?p=
+        var p = encodeURIComponent(path + (l.search || '') + (l.hash || ''));
+        l.replace(base + '?p=' + p);
+      })();
+    </script>
+  </body>
+</html>

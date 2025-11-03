@@ -400,10 +400,20 @@ const LumpsumCalculator = () => {
                             onChange={handleRangeChange('years')}
                           />
                           <Button size="small" variant="outlined" onClick={() => handleRangeChange('years')(Math.min(60, formData.years + 1))}>+1y</Button>
-                          <TextField size="small" type="number" value={formData.years}
+                          <TextField
+                            size="small"
+                            type="number"
+                            value={formData.years}
                             onChange={(e) => handleRangeChange('years')(Math.max(1, Number(e.target.value)))}
-                            InputProps={{ endAdornment: <InputAdornment position="end">yrs</InputAdornment>, inputProps: { min: 1, step: 1 } }}
-                            sx={{ width: 110 }}
+                            InputProps={{
+                              endAdornment: <InputAdornment position="end" sx={{ mr: 0, fontSize: '0.75rem' }}>yrs</InputAdornment>,
+                              inputProps: { min: 1, step: 1 }
+                            }}
+                            sx={{
+                              width: { xs: 96, sm: 110 },
+                              '& .MuiInputBase-input': { pr: 0 },
+                              '& .MuiInputAdornment-root': { mr: 0 }
+                            }}
                           />
                         </Box>
                         <AnimatedProgressBar 
@@ -439,10 +449,20 @@ const LumpsumCalculator = () => {
                             onChange={handleRangeChange('annualRate')}
                           />
                           <Button size="small" variant="outlined" onClick={() => handleRangeChange('annualRate')(Math.min(100, +(formData.annualRate + 1).toFixed(2)))}>+1%</Button>
-                          <TextField size="small" type="number" value={formData.annualRate}
+                          <TextField
+                            size="small"
+                            type="number"
+                            value={formData.annualRate}
                             onChange={(e) => handleRangeChange('annualRate')(Number(e.target.value))}
-                            InputProps={{ endAdornment: <InputAdornment position="end">%</InputAdornment>, inputProps: { step: 0.1 } }}
-                            sx={{ width: 110 }}
+                            InputProps={{
+                              endAdornment: <InputAdornment position="end" sx={{ mr: 0, fontSize: '0.75rem' }}>%</InputAdornment>,
+                              inputProps: { step: 0.1 }
+                            }}
+                            sx={{
+                              width: { xs: 96, sm: 110 },
+                              '& .MuiInputBase-input': { pr: 0 },
+                              '& .MuiInputAdornment-root': { mr: 0 }
+                            }}
                           />
                         </Box>
                         <AnimatedProgressBar 
@@ -501,10 +521,20 @@ const LumpsumCalculator = () => {
                                 onChange={handleRangeChange('inflation')}
                               />
                               <Button size="small" variant="outlined" onClick={() => handleRangeChange('inflation')(Math.min(100, +(formData.inflation + 1).toFixed(2)))}>+1%</Button>
-                              <TextField size="small" type="number" value={formData.inflation}
+                              <TextField
+                                size="small"
+                                type="number"
+                                value={formData.inflation}
                                 onChange={(e) => handleRangeChange('inflation')(Number(e.target.value))}
-                                InputProps={{ endAdornment: <InputAdornment position="end">%</InputAdornment>, inputProps: { step: 0.1, min: 0 } }}
-                                sx={{ width: 110 }}
+                                InputProps={{
+                                  endAdornment: <InputAdornment position="end" sx={{ mr: 0, fontSize: '0.75rem' }}>%</InputAdornment>,
+                                  inputProps: { step: 0.1, min: 0 }
+                                }}
+                                sx={{
+                                  width: { xs: 96, sm: 110 },
+                                  '& .MuiInputBase-input': { pr: 0 },
+                                  '& .MuiInputAdornment-root': { mr: 0 }
+                                }}
                               />
                             </Box>
                             <AnimatedProgressBar 

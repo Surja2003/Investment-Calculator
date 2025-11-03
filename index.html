@@ -10,6 +10,22 @@
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      // SPA redirect support for GitHub Pages (handles /Investment-Calculator/404.html?p=/route)
+      (function () {
+        try {
+          var params = new URLSearchParams(window.location.search);
+          var p = params.get('p');
+          if (p) {
+            var target = decodeURIComponent(p) + (window.location.hash || '');
+            // Replace the url so refresh/back works
+            window.history.replaceState(null, '', target);
+          }
+        } catch (e) {
+          // no-op
+        }
+      })();
+    </script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
