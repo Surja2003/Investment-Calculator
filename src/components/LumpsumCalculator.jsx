@@ -408,17 +408,18 @@ const LumpsumCalculator = () => {
                               value={formData.years}
                               onChange={(e) => handleRangeChange('years')(Math.max(1, Number(e.target.value)))}
                               inputProps={{ min: 1, step: 1 }}
-                              sx={{ width: { xs: 100, sm: 120 } }}
+                              sx={{ width: { xs: 80, sm: 120 } }}
                             />
                             <Box 
                               sx={{ 
                                 bgcolor: 'background.paper', 
                                 py: 1, 
-                                px: 2, 
+                                px: 1.5, 
                                 borderRadius: 1,
                                 border: '1px solid rgba(255,255,255,0.1)',
-                                minWidth: '40px',
-                                textAlign: 'center'
+                                minWidth: '36px',
+                                textAlign: 'center',
+                                fontSize: '0.875rem'
                               }}
                             >
                               yrs
@@ -465,17 +466,18 @@ const LumpsumCalculator = () => {
                               value={formData.annualRate}
                               onChange={(e) => handleRangeChange('annualRate')(Number(e.target.value))}
                               inputProps={{ step: 0.1 }}
-                              sx={{ width: { xs: 100, sm: 120 } }}
+                              sx={{ width: { xs: 80, sm: 120 } }}
                             />
                             <Box 
                               sx={{ 
                                 bgcolor: 'background.paper', 
                                 py: 1, 
-                                px: 2, 
+                                px: 1.5, 
                                 borderRadius: 1,
                                 border: '1px solid rgba(255,255,255,0.1)',
-                                minWidth: '32px',
-                                textAlign: 'center'
+                                minWidth: '28px',
+                                textAlign: 'center',
+                                fontSize: '0.875rem'
                               }}
                             >
                               %

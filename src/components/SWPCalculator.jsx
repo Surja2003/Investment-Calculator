@@ -573,17 +573,18 @@ function SWPCalculator() {
                         value={withdrawalRate}
                         onChange={(e) => handleWithdrawalRateChange(Number(e.target.value))}
                         inputProps={{ step: 0.1 }}
-                        sx={{ width: { xs: 140, sm: 160 } }}
+                        sx={{ width: { xs: 100, sm: 160 } }}
                       />
                       <Box 
                         sx={{ 
                           bgcolor: 'background.paper', 
                           py: 1, 
-                          px: 2, 
+                          px: 1.5, 
                           borderRadius: 1,
                           border: '1px solid rgba(255,255,255,0.1)',
-                          minWidth: '32px',
-                          textAlign: 'center'
+                          minWidth: '28px',
+                          textAlign: 'center',
+                          fontSize: '0.875rem'
                         }}
                       >
                         %
@@ -635,17 +636,18 @@ function SWPCalculator() {
                         value={expectedReturn}
                         onChange={(e) => handleInputChange('expectedReturn', Number(e.target.value))}
                         inputProps={{ step: 0.1 }}
-                        sx={{ width: { xs: 140, sm: 160 } }}
+                        sx={{ width: { xs: 100, sm: 160 } }}
                       />
                       <Box 
                         sx={{ 
                           bgcolor: 'background.paper', 
                           py: 1, 
-                          px: 2, 
+                          px: 1.5, 
                           borderRadius: 1,
                           border: '1px solid rgba(255,255,255,0.1)',
-                          minWidth: '32px',
-                          textAlign: 'center'
+                          minWidth: '28px',
+                          textAlign: 'center',
+                          fontSize: '0.875rem'
                         }}
                       >
                         %
@@ -679,17 +681,18 @@ function SWPCalculator() {
                         value={withdrawalPeriod}
                         onChange={(e) => handleInputChange('withdrawalPeriod', Math.max(1, Number(e.target.value)))}
                         inputProps={{ step: 1, min: 1 }}
-                        sx={{ width: { xs: 140, sm: 160 } }}
+                        sx={{ width: { xs: 100, sm: 160 } }}
                       />
                       <Box 
                         sx={{ 
                           bgcolor: 'background.paper', 
                           py: 1, 
-                          px: 2, 
+                          px: 1.5, 
                           borderRadius: 1,
                           border: '1px solid rgba(255,255,255,0.1)',
-                          minWidth: '40px',
-                          textAlign: 'center'
+                          minWidth: '36px',
+                          textAlign: 'center',
+                          fontSize: '0.875rem'
                         }}
                       >
                         yrs
@@ -724,17 +727,18 @@ function SWPCalculator() {
                         value={inflationRate}
                         onChange={(e) => handleInputChange('inflationRate', Number(e.target.value))}
                         inputProps={{ step: 0.1, min: 0 }}
-                        sx={{ width: { xs: 140, sm: 160 } }}
+                        sx={{ width: { xs: 100, sm: 160 } }}
                       />
                       <Box 
                         sx={{ 
                           bgcolor: 'background.paper', 
                           py: 1, 
-                          px: 2, 
+                          px: 1.5, 
                           borderRadius: 1,
                           border: '1px solid rgba(255,255,255,0.1)',
-                          minWidth: '32px',
-                          textAlign: 'center'
+                          minWidth: '28px',
+                          textAlign: 'center',
+                          fontSize: '0.875rem'
                         }}
                       >
                         %
