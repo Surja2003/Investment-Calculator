@@ -568,9 +568,9 @@ function SWPCalculator() {
             </Box>
           </Box>
           
-          <Grid container spacing={3} sx={{ maxWidth: { xs: 480, sm: 720, md: '100%' }, mx: 'auto' }}>
+          <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '5fr 7fr', lg: '4fr 8fr' }, gap: { xs: 2, md: 3 }, justifyContent: 'center', alignItems: 'stretch' }}>
             {/* Input Section */}
-            <Grid sx={{ gridColumn: { xs: 'span 12', md: 'span 6' } }}>
+            <Box>
               <Typography variant="h6" gutterBottom>
                 Input Parameters
               </Typography>
@@ -824,10 +824,10 @@ function SWPCalculator() {
                   </Button>
                 </Grid>
               </Grid>
-            </Grid>
+            </Box>
             
             {/* Results Section */}
-            <Grid sx={{ gridColumn: { xs: 'span 12', md: 'span 6' } }}>
+            <Box>
               <Typography variant="h6" gutterBottom>
                 SWP Results
               </Typography>
@@ -875,7 +875,7 @@ function SWPCalculator() {
                       <Typography variant="subtitle1" gutterBottom>
                         Corpus Projection
                       </Typography>
-                      <ProjectionChartLW data={chartData} title="Corpus Projection" currency="INR" precision={0} mode="swp" theme={theme.palette.mode === 'dark' ? 'dark' : 'light'} />
+                      <ProjectionChartLW data={chartData} title="Corpus Projection" currency="INR" precision={0} mode="swp" theme={theme.palette.mode === 'dark' ? 'dark' : 'light'} height={'clamp(260px, 45vh, 420px)'} />
                     </Box>
                     
                     <Box mt={3}>
@@ -949,8 +949,8 @@ function SWPCalculator() {
                   Click Calculate to see your SWP results.
                 </Typography>
               )}
-            </Grid>
-          </Grid>
+            </Box>
+          </Box>
         </CardContent>
         
         {/* SWP Breakdown Section */}

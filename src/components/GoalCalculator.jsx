@@ -263,8 +263,9 @@ const GoalCalculator = () => {
       </Box>
       
       <Box sx={{ 
-        maxWidth: { xs: '100%', sm: 600, md: 1200 }, 
-        width: '100%'
+        maxWidth: { xs: 480, sm: 720, md: 1200 }, 
+        width: '100%',
+        mx: 'auto'
       }}>
       <Card sx={{ borderRadius: { xs: 1, md: 2 }, overflow: 'hidden', mb: 3, mx: { xs: 0, md: 0 } }}>
   <Grid container>
