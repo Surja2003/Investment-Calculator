@@ -548,7 +548,7 @@ function SWPCalculator() {
           mx: { xs: 0, md: 0 },
           width: '100%'
         }}>
-        <CardContent>
+  <CardContent sx={{ px: { xs: 1, sm: 2, md: 3 }, py: { xs: 2, sm: 3 } }}>
           {/* Desktop/Tablet single-line heading; mobile two-line */}
           <Box sx={{ textAlign: 'center', mb: 1 }}>
             <Typography
@@ -597,7 +597,7 @@ function SWPCalculator() {
                   <Typography component="label" htmlFor="swp-withdrawal-rate" gutterBottom>
                     Withdrawal Rate: {formatPercentage(withdrawalRate)}
                   </Typography>
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, flexWrap: { xs: 'wrap', sm: 'nowrap' } }}>
                     <Button size="small" variant="outlined" onClick={() => handleWithdrawalRateChange(Math.max(0, +(withdrawalRate - 1).toFixed(2)))}>-1%</Button>
                     <Slider
                       id="swp-withdrawal-rate"
@@ -612,7 +612,7 @@ function SWPCalculator() {
                       sx={{ flexGrow: 1 }}
                     />
                     <Button size="small" variant="outlined" onClick={() => handleWithdrawalRateChange(Math.min(100, +(withdrawalRate + 1).toFixed(2)))}>+1%</Button>
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, width: { xs: '100%', sm: 'auto' }, justifyContent: { xs: 'flex-end', sm: 'flex-start' }, mt: { xs: 1, sm: 0 } }}>
                       <TextField
                         size="small"
                         type="number"
@@ -660,7 +660,7 @@ function SWPCalculator() {
                   <Typography component="label" htmlFor="swp-expected-return" gutterBottom>
                     Expected Return: {formatPercentage(expectedReturn)}
                   </Typography>
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, flexWrap: { xs: 'wrap', sm: 'nowrap' } }}>
                     <Button size="small" variant="outlined" onClick={() => handleInputChange('expectedReturn', Math.max(0, +(expectedReturn - 1).toFixed(2)))}>-1%</Button>
                     <Slider
                       id="swp-expected-return"
@@ -675,7 +675,7 @@ function SWPCalculator() {
                       sx={{ flexGrow: 1 }}
                     />
                     <Button size="small" variant="outlined" onClick={() => handleInputChange('expectedReturn', Math.min(100, +(expectedReturn + 1).toFixed(2)))}>+1%</Button>
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, width: { xs: '100%', sm: 'auto' }, justifyContent: { xs: 'flex-end', sm: 'flex-start' }, mt: { xs: 1, sm: 0 } }}>
                       <TextField
                         size="small"
                         type="number"
@@ -706,7 +706,7 @@ function SWPCalculator() {
                   <Typography component="label" htmlFor="swp-withdrawal-period" gutterBottom>
                     Withdrawal Period: {withdrawalPeriod} years
                   </Typography>
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, flexWrap: { xs: 'wrap', sm: 'nowrap' } }}>
                     <Button size="small" variant="outlined" onClick={() => handleInputChange('withdrawalPeriod', Math.max(1, withdrawalPeriod - 1))}>-1y</Button>
                     <Slider
                       id="swp-withdrawal-period"
@@ -720,7 +720,7 @@ function SWPCalculator() {
                       sx={{ flexGrow: 1 }}
                     />
                     <Button size="small" variant="outlined" onClick={() => handleInputChange('withdrawalPeriod', Math.min(60, withdrawalPeriod + 1))}>+1y</Button>
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, width: { xs: '100%', sm: 'auto' }, justifyContent: { xs: 'flex-end', sm: 'flex-start' }, mt: { xs: 1, sm: 0 } }}>
                       <TextField
                         size="small"
                         type="number"
@@ -751,7 +751,7 @@ function SWPCalculator() {
                   <Typography component="label" htmlFor="swp-inflation-rate" gutterBottom>
                     Inflation Rate: {formatPercentage(inflationRate)}
                   </Typography>
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, flexWrap: { xs: 'wrap', sm: 'nowrap' } }}>
                     <Button size="small" variant="outlined" onClick={() => handleInputChange('inflationRate', Math.max(0, +(inflationRate - 1).toFixed(2)))}>-1%</Button>
                     <Slider
                       id="swp-inflation-rate"
@@ -766,7 +766,7 @@ function SWPCalculator() {
                       sx={{ flexGrow: 1 }}
                     />
                     <Button size="small" variant="outlined" onClick={() => handleInputChange('inflationRate', Math.min(100, +(inflationRate + 1).toFixed(2)))}>+1%</Button>
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, width: { xs: '100%', sm: 'auto' }, justifyContent: { xs: 'flex-end', sm: 'flex-start' }, mt: { xs: 1, sm: 0 } }}>
                       <TextField
                         size="small"
                         type="number"
