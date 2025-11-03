@@ -191,7 +191,7 @@ const LumpsumCalculator = () => {
   };
 
   return (
-    <Box sx={{ maxWidth: '100%', margin: '0 auto' }}>
+  <Box sx={{ maxWidth: 1200, mx: 'auto', px: { xs: 2, sm: 3 } }}>
       <FadeIn>
         <Typography variant="h4" component="h1" gutterBottom align="center" 
           sx={{ fontWeight: 'bold', mb: 4, color: 'primary.main' }}>
