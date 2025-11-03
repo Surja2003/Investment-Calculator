@@ -245,7 +245,7 @@ const SIPCalculator = () => {
   };
 
   return (
-  <Box sx={{ maxWidth: 1200, mx: 'auto', px: { xs: 2, sm: 3 } }}>
+  <Box sx={{ width: '100%', px: { xs: 2, sm: 3, md: 4 }, py: 2 }}>
       <FadeIn>
         <Typography variant="h4" component="h1" gutterBottom align="center" 
           sx={{ fontWeight: 'bold', mb: 4, color: 'primary.main' }}>
@@ -253,7 +253,7 @@ const SIPCalculator = () => {
         </Typography>
       </FadeIn>
       
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, maxWidth: 1200, mx: 'auto' }}>
   {/* Summary Cards */}
   {showResults && (
   <Box sx={{ order: { xs: 2, md: 2 } }}>

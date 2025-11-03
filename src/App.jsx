@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { useTheme } from './hooks/useTheme';
-import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import { 
   ThemeProvider, 
   createTheme,

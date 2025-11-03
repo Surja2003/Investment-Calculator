@@ -343,7 +343,7 @@ function SWPCalculator() {
   };
 
   return (
-    <Box sx={{ maxWidth: 1200, mx: 'auto', px: { xs: 2, sm: 3 } }}>
+    <Box sx={{ width: '100%', px: { xs: 2, sm: 3, md: 4 }, py: 2 }}>
       <FadeIn>
         <Typography variant="h4" component="h1" gutterBottom align="center" 
           sx={{ fontWeight: 'bold', mb: 4, color: 'primary.main' }}>
@@ -351,9 +351,10 @@ function SWPCalculator() {
         </Typography>
       </FadeIn>
       
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-        {/* Summary Cards */}
-        <Box sx={{ order: { xs: 2, md: 1 } }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, maxWidth: 1200, mx: 'auto' }}>
+        {/* Summary Cards - Hidden until Calculate clicked */}
+        {showDetails && (
+        <Box sx={{ order: { xs: 2, md: 2 } }}>
           <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', md: formInputs.adjustForInflation ? 'repeat(5, 1fr)' : 'repeat(4, 1fr)' }, gap: 2 }}>
             <Box>
               <SlideIn direction="top" delay={0.1}>
@@ -505,10 +506,11 @@ function SWPCalculator() {
             )}
           </Box>
         </Box>
+        )}
       
-        {/* Main Calculator Card */}
+        {/* Main Calculator Card - Always Visible */}
+        <Box sx={{ order: { xs: 1, md: 1 } }}>
         <Card elevation={3} sx={{ 
-          order: { xs: 1, md: 2 },
           bgcolor: theme.palette.mode === 'dark' ? 'rgba(20, 30, 50, 0.95)' : '#fff',
           borderRadius: 2,
           boxShadow: theme.palette.mode === 'dark' ? '0 8px 24px rgba(0,0,0,0.15)' : '0 2px 10px rgba(0,0,0,0.08)',
@@ -882,6 +884,7 @@ function SWPCalculator() {
         {/* Scenario Comparison Section */}
         {/* ScenarioComparison removed as requested */}
       </Card>
+      </Box>
       </Box>
     </Box>
   );
