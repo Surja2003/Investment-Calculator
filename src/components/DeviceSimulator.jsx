@@ -9,13 +9,11 @@ import {
   IconButton,
   Tooltip
 } from '@mui/material';
-import { 
-  Smartphone, 
-  Tablet, 
-  Desktop, 
-  RotateLeft,
-  Close
-} from '@mui/icons-material';
+import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
+import TabletIcon from '@mui/icons-material/Tablet';
+import DesktopWindowsIcon from '@mui/icons-material/DesktopWindows';
+import RotateLeftIcon from '@mui/icons-material/RotateLeft';
+import CloseIcon from '@mui/icons-material/Close';
 
 const devices = {
   'galaxy-s24-fe': {
@@ -75,9 +73,9 @@ const DeviceSimulator = ({ children, onClose }) => {
   };
 
   const getDeviceIcon = () => {
-    if (selectedDevice === 'desktop') return <Desktop />;
-    if (selectedDevice === 'ipad') return <Tablet />;
-    return <Smartphone />;
+    if (selectedDevice === 'desktop') return <DesktopWindowsIcon />;
+    if (selectedDevice === 'ipad') return <TabletIcon />;
+    return <PhoneAndroidIcon />;
   };
 
   return (
@@ -109,9 +107,9 @@ const DeviceSimulator = ({ children, onClose }) => {
             {Object.entries(devices).map(([key, device]) => (
               <MenuItem key={key} value={key}>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                  {key === 'desktop' ? <Desktop fontSize="small" /> : 
-                   key === 'ipad' ? <Tablet fontSize="small" /> : 
-                   <Smartphone fontSize="small" />}
+                  {key === 'desktop' ? <DesktopWindowsIcon fontSize="small" /> : 
+                   key === 'ipad' ? <TabletIcon fontSize="small" /> : 
+                   <PhoneAndroidIcon fontSize="small" />}
                   {device.name}
                 </Box>
               </MenuItem>
@@ -137,14 +135,14 @@ const DeviceSimulator = ({ children, onClose }) => {
         {selectedDevice !== 'desktop' && (
           <Tooltip title="Rotate Device">
             <IconButton onClick={toggleOrientation} size="small">
-              <RotateLeft />
+              <RotateLeftIcon />
             </IconButton>
           </Tooltip>
         )}
 
         <Tooltip title="Close Simulator">
           <IconButton onClick={onClose} size="small">
-            <Close />
+            <CloseIcon />
           </IconButton>
         </Tooltip>
       </Paper>
