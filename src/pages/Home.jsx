@@ -43,8 +43,8 @@ const Home = () => {
       }>
         <div className="container mx-auto px-4 py-10 md:py-16">
           <div className="max-w-5xl mx-auto text-center">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 md:mb-6">SIP Calculator Pro</h1>
-            <p className="text-base sm:text-lg md:text-xl text-indigo-100 mb-6 md:mb-8">Modern SIP, Lumpsum, and SWP tools with live market context.</p>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 md:mb-6">Investment Calculator</h1>
+            <p className="text-base sm:text-lg md:text-xl text-indigo-100 mb-6 md:mb-8">Modern SIP, Lumpsum, and SWP tools for smart financial planning.</p>
             <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
               <Link to="/sip" className={
                 isDarkMode

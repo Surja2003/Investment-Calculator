@@ -25,6 +25,7 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import MenuIcon from '@mui/icons-material/Menu';
 import CalculateIcon from '@mui/icons-material/Calculate';
+import CalculatorLogo from './components/CalculatorLogo';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import FlagIcon from '@mui/icons-material/Flag';
 import TimelineIcon from '@mui/icons-material/Timeline';
@@ -102,7 +103,10 @@ function MobileDrawer({ open, onClose }) {
       }}
     >
       <Box sx={{ p: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Typography variant="h6">SIP Calculator Pro</Typography>
+        <div className="flex items-center gap-2">
+          <CalculatorLogo size="24" />
+          <Typography variant="h6">Investment Calculator</Typography>
+        </div>
         <IconButton onClick={onClose}>
           <CloseIcon />
         </IconButton>
@@ -206,7 +210,7 @@ function App() {
               )}
               
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, flexGrow: 1 }}>
-                <CalculateIcon sx={{ color: 'primary.main' }} />
+                <CalculatorLogo size="28" />
                 <Typography 
                   variant="h6" 
                   component={Link} 
@@ -218,7 +222,7 @@ function App() {
                     display: { xs: 'none', sm: 'block' }
                   }}
                 >
-                  SIP Calculator Pro
+                  Investment Calculator
                 </Typography>
               </Box>
               
