@@ -470,7 +470,7 @@ const SIPCalculator = () => {
                               value={formData.years}
                               onChange={(e) => handleRangeChange('years')(Math.max(1, Number(e.target.value)))}
                               inputProps={{ min: 1, step: 1 }}
-                              sx={{ width: { xs: 70, sm: 80 } }}
+                              sx={{ width: { xs: 100, sm: 120 } }}
                             />
                             <Box 
                               sx={{ 
@@ -479,7 +479,7 @@ const SIPCalculator = () => {
                                 px: 2, 
                                 borderRadius: 1,
                                 border: '1px solid rgba(255,255,255,0.1)',
-                                minWidth: '32px',
+                                minWidth: '40px',
                                 textAlign: 'center'
                               }}
                             >
@@ -526,7 +526,7 @@ const SIPCalculator = () => {
                               value={formData.annualRate}
                               onChange={(e) => handleRangeChange('annualRate')(Number(e.target.value))}
                               inputProps={{ step: 0.1 }}
-                              sx={{ width: { xs: 70, sm: 80 } }}
+                              sx={{ width: { xs: 100, sm: 120 } }}
                             />
                             <Box 
                               sx={{ 
@@ -535,7 +535,7 @@ const SIPCalculator = () => {
                                 px: 2, 
                                 borderRadius: 1,
                                 border: '1px solid rgba(255,255,255,0.1)',
-                                minWidth: '24px',
+                                minWidth: '32px',
                                 textAlign: 'center'
                               }}
                             >

@@ -573,7 +573,7 @@ function SWPCalculator() {
                         value={withdrawalRate}
                         onChange={(e) => handleWithdrawalRateChange(Number(e.target.value))}
                         inputProps={{ step: 0.1 }}
-                        sx={{ width: { xs: 70, sm: 80 } }}
+                        sx={{ width: { xs: 140, sm: 160 } }}
                       />
                       <Box 
                         sx={{ 
@@ -582,7 +582,7 @@ function SWPCalculator() {
                           px: 2, 
                           borderRadius: 1,
                           border: '1px solid rgba(255,255,255,0.1)',
-                          minWidth: '24px',
+                          minWidth: '32px',
                           textAlign: 'center'
                         }}
                       >
@@ -635,7 +635,7 @@ function SWPCalculator() {
                         value={expectedReturn}
                         onChange={(e) => handleInputChange('expectedReturn', Number(e.target.value))}
                         inputProps={{ step: 0.1 }}
-                        sx={{ width: { xs: 70, sm: 80 } }}
+                        sx={{ width: { xs: 140, sm: 160 } }}
                       />
                       <Box 
                         sx={{ 
@@ -644,7 +644,7 @@ function SWPCalculator() {
                           px: 2, 
                           borderRadius: 1,
                           border: '1px solid rgba(255,255,255,0.1)',
-                          minWidth: '24px',
+                          minWidth: '32px',
                           textAlign: 'center'
                         }}
                       >
@@ -679,7 +679,7 @@ function SWPCalculator() {
                         value={withdrawalPeriod}
                         onChange={(e) => handleInputChange('withdrawalPeriod', Math.max(1, Number(e.target.value)))}
                         inputProps={{ step: 1, min: 1 }}
-                        sx={{ width: { xs: 70, sm: 80 } }}
+                        sx={{ width: { xs: 140, sm: 160 } }}
                       />
                       <Box 
                         sx={{ 
@@ -688,7 +688,7 @@ function SWPCalculator() {
                           px: 2, 
                           borderRadius: 1,
                           border: '1px solid rgba(255,255,255,0.1)',
-                          minWidth: '32px',
+                          minWidth: '40px',
                           textAlign: 'center'
                         }}
                       >
@@ -724,7 +724,7 @@ function SWPCalculator() {
                         value={inflationRate}
                         onChange={(e) => handleInputChange('inflationRate', Number(e.target.value))}
                         inputProps={{ step: 0.1, min: 0 }}
-                        sx={{ width: { xs: 70, sm: 80 } }}
+                        sx={{ width: { xs: 140, sm: 160 } }}
                       />
                       <Box 
                         sx={{ 
@@ -733,7 +733,7 @@ function SWPCalculator() {
                           px: 2, 
                           borderRadius: 1,
                           border: '1px solid rgba(255,255,255,0.1)',
-                          minWidth: '24px',
+                          minWidth: '32px',
                           textAlign: 'center'
                         }}
                       >
