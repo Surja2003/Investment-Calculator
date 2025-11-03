@@ -1,20 +1,21 @@
 import { useEffect, useState } from 'react';
 import { fetchYahooQuotes } from '../utils/quoteData';
+import { useTheme } from '../hooks/useTheme';
 
 const inr = new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 });
 const usd = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 2 });
 
-const Row = ({ name, price, changePercent, currency }) => {
+const CryptoCard = ({ name, price, changePercent, currency, isDarkMode }) => {
   const positive = (changePercent ?? 0) >= 0;
   const fmt = currency === 'INR' ? inr : usd;
   return (
-    <div className="flex items-center justify-between py-2">
-      <div className="text-sm text-gray-200">{name}</div>
-      <div className="flex items-center gap-3">
-        <div className="text-sm font-semibold text-gray-100">{price != null ? fmt.format(price) : '—'}</div>
-        <div className={`text-xs px-2 py-0.5 rounded ${positive ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300' : 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300'}`}>
-          {changePercent != null ? `${positive ? '+' : ''}${changePercent.toFixed(2)}%` : '—'}
-        </div>
+    <div className="text-center">
+      <div className={isDarkMode ? "text-xs text-gray-400 mb-1" : "text-xs text-gray-600 mb-1"}>{name}</div>
+      <div className={isDarkMode ? "text-sm font-semibold text-white mb-1" : "text-sm font-semibold text-gray-900 mb-1"}>
+        {price != null ? fmt.format(price) : '—'}
+      </div>
+      <div className={`text-xs px-2 py-0.5 rounded ${positive ? (isDarkMode ? 'bg-green-900/40 text-green-300' : 'bg-green-100 text-green-700') : (isDarkMode ? 'bg-red-900/40 text-red-300' : 'bg-red-100 text-red-700')}`}>
+        {changePercent != null ? `${positive ? '+' : ''}${changePercent.toFixed(2)}%` : '—'}
       </div>
     </div>
   );
@@ -23,6 +24,7 @@ const Row = ({ name, price, changePercent, currency }) => {
 const SimpleQuoteCards = () => {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { isDarkMode } = useTheme();
 
   useEffect(() => {
     let mounted = true;
@@ -51,13 +53,12 @@ const SimpleQuoteCards = () => {
 
   return (
     <div>
-      {loading && <div className="py-6 text-sm text-gray-400">Loading…</div>}
+      {loading && <div className={isDarkMode ? "py-6 text-sm text-gray-400" : "py-6 text-sm text-gray-600"}>Loading…</div>}
       {!loading && (
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div className="flex justify-center gap-6 overflow-x-auto pb-2">
           {items.map((it) => (
-            <div key={it.key} className="rounded-xl border border-gray-200/10 bg-white/5 p-3">
-              <div className="text-[10px] text-gray-400 mb-1">{it.group}</div>
-              <Row name={it.name} price={it.price} changePercent={it.changePercent} currency={it.currency} />
+            <div key={it.key} className={`flex-shrink-0 ${isDarkMode ? "rounded-lg border border-gray-600 bg-gray-800/60 shadow-lg p-4" : "rounded-lg border border-gray-300 bg-white shadow-lg p-4"}`}>
+              <CryptoCard name={it.name} price={it.price} changePercent={it.changePercent} currency={it.currency} isDarkMode={isDarkMode} />
             </div>
           ))}
         </div>

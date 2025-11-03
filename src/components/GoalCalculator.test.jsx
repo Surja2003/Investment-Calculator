@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo } from 'react';
+import React from 'react';
 import {
   Card,
   TextField,
@@ -25,16 +25,8 @@ import { CHART_COLORS } from '../constants/theme';
 import FlagIcon from '@mui/icons-material/Flag';
 import CalculateIcon from '@mui/icons-material/Calculate';
 import InfoIcon from '@mui/icons-material/Info';
-import {
-  FadeIn,
-  SlideIn,
-  AnimatedChart,
-  AnimatedProgressBar,
-  CountUp
-} from './animations/index.fixed';
+import { FadeIn } from './animations';
 
-const GoalCalculator = () => {
-  return <div>Test Component</div>;
-};
+const GoalCalculator = () => <div>Test Component</div>;
 
 export default GoalCalculator;

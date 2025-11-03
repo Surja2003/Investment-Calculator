@@ -210,10 +210,11 @@ const LumpsumCalculator = () => {
                 <Card 
                   elevation={3} 
                   sx={{ 
-                    bgcolor: 'rgba(20, 30, 50, 0.95)', 
+                    bgcolor: theme.palette.mode === 'dark' ? 'rgba(20, 30, 50, 0.95)' : '#fff',
                     borderRadius: 2,
-                    boxShadow: '0 8px 24px rgba(0,0,0,0.15)',
-                    height: '100%'
+                    boxShadow: theme.palette.mode === 'dark' ? '0 8px 24px rgba(0,0,0,0.15)' : '0 2px 10px rgba(0,0,0,0.08)',
+                    height: '100%',
+                    color: theme.palette.mode === 'dark' ? '#fff' : '#222',
                   }}
                 >
                   <CardContent>
@@ -239,14 +240,15 @@ const LumpsumCalculator = () => {
                 <Card 
                   elevation={3} 
                   sx={{ 
-                    bgcolor: 'rgba(20, 30, 50, 0.95)', 
+                    bgcolor: theme.palette.mode === 'dark' ? 'rgba(20, 30, 50, 0.95)' : '#fff',
                     borderRadius: 2,
-                    boxShadow: '0 8px 24px rgba(0,0,0,0.15)',
-                    height: '100%'
+                    boxShadow: theme.palette.mode === 'dark' ? '0 8px 24px rgba(0,0,0,0.15)' : '0 2px 10px rgba(0,0,0,0.08)',
+                    height: '100%',
+                    color: theme.palette.mode === 'dark' ? '#fff' : '#222',
                   }}
                 >
                   <CardContent>
-                    <Typography variant="subtitle2" sx={{ color: 'rgba(255, 255, 255, 0.7)' }}>
+                    <Typography variant="subtitle2" sx={{ color: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(30, 41, 59, 0.7)' }}>
                       Initial Investment
                     </Typography>
                     <Typography variant="h5" color="#E5E7EB" sx={{ fontWeight: 'bold', my: 1 }}>
@@ -256,7 +258,7 @@ const LumpsumCalculator = () => {
                         duration={0.6}
                       />
                     </Typography>
-                    <Typography variant="caption" sx={{ color: 'rgba(255, 255, 255, 0.5)' }}>
+                    <Typography variant="caption" sx={{ color: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.5)' : 'rgba(30, 41, 59, 0.5)' }}>
                       One-time investment
                     </Typography>
                   </CardContent>
@@ -268,14 +270,15 @@ const LumpsumCalculator = () => {
                 <Card 
                   elevation={3} 
                   sx={{ 
-                    bgcolor: 'rgba(20, 30, 50, 0.95)', 
+                    bgcolor: theme.palette.mode === 'dark' ? 'rgba(20, 30, 50, 0.95)' : '#fff',
                     borderRadius: 2,
-                    boxShadow: '0 8px 24px rgba(0,0,0,0.15)',
-                    height: '100%'
+                    boxShadow: theme.palette.mode === 'dark' ? '0 8px 24px rgba(0,0,0,0.15)' : '0 2px 10px rgba(0,0,0,0.08)',
+                    height: '100%',
+                    color: theme.palette.mode === 'dark' ? '#fff' : '#222',
                   }}
                 >
                   <CardContent>
-                    <Typography variant="subtitle2" sx={{ color: 'rgba(255, 255, 255, 0.7)' }}>
+                    <Typography variant="subtitle2" sx={{ color: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(30, 41, 59, 0.7)' }}>
                       Total Gains
                     </Typography>
                     <Typography variant="h5" color="#10B981" sx={{ fontWeight: 'bold', my: 1 }}>
@@ -297,14 +300,15 @@ const LumpsumCalculator = () => {
                 <Card 
                   elevation={3} 
                   sx={{ 
-                    bgcolor: 'rgba(20, 30, 50, 0.95)', 
+                    bgcolor: theme.palette.mode === 'dark' ? 'rgba(20, 30, 50, 0.95)' : '#fff',
                     borderRadius: 2,
-                    boxShadow: '0 8px 24px rgba(0,0,0,0.15)',
-                    height: '100%'
+                    boxShadow: theme.palette.mode === 'dark' ? '0 8px 24px rgba(0,0,0,0.15)' : '0 2px 10px rgba(0,0,0,0.08)',
+                    height: '100%',
+                    color: theme.palette.mode === 'dark' ? '#fff' : '#222',
                   }}
                 >
                   <CardContent>
-                    <Typography variant="subtitle2" sx={{ color: 'rgba(255, 255, 255, 0.7)' }}>
+                    <Typography variant="subtitle2" sx={{ color: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(30, 41, 59, 0.7)' }}>
                       Investment Duration
                     </Typography>
                     <Typography variant="h5" color="#E5E7EB" sx={{ fontWeight: 'bold', my: 1 }}>
@@ -313,7 +317,7 @@ const LumpsumCalculator = () => {
                         duration={0.4}
                       /> Years
                     </Typography>
-                    <Typography variant="caption" sx={{ color: 'rgba(255, 255, 255, 0.5)' }}>
+                    <Typography variant="caption" sx={{ color: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.5)' : 'rgba(30, 41, 59, 0.5)' }}>
                       Time horizon
                     </Typography>
                   </CardContent>
@@ -333,9 +337,10 @@ const LumpsumCalculator = () => {
                 <Card 
                   elevation={3}
                   sx={{ 
-                    bgcolor: 'rgba(20, 30, 50, 0.95)', 
+                    bgcolor: theme.palette.mode === 'dark' ? 'rgba(20, 30, 50, 0.95)' : '#fff',
                     borderRadius: 2,
-                    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.25)' 
+                    boxShadow: theme.palette.mode === 'dark' ? '0 8px 32px rgba(0, 0, 0, 0.25)' : '0 2px 10px rgba(0,0,0,0.08)',
+                    color: theme.palette.mode === 'dark' ? '#fff' : '#222',
                   }}
                 >
                   <CardContent>
@@ -359,14 +364,15 @@ const LumpsumCalculator = () => {
                           }}
                           sx={{
                             '& .MuiOutlinedInput-root': {
-                              bgcolor: 'rgba(30, 41, 59, 0.8)',
+                              bgcolor: theme.palette.mode === 'dark' ? 'rgba(30, 41, 59, 0.8)' : '#fff',
+                              color: theme.palette.mode === 'dark' ? '#fff' : '#222',
                               borderRadius: 1.5,
                               '&:hover .MuiOutlinedInput-notchedOutline': {
-                                borderColor: 'rgba(255, 255, 255, 0.3)',
+                                borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.3)' : '#3B82F6',
                               },
                             },
                             '& .MuiInputLabel-root': {
-                              color: 'rgba(255, 255, 255, 0.7)',
+                              color: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : '#222',
                             },
                           }}
                         />
@@ -375,7 +381,8 @@ const LumpsumCalculator = () => {
                         <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
                           <Typography variant="body2" component="label" htmlFor="lumpsum-investment-duration">Investment Duration</Typography>
                           <Box sx={{ 
-                            bgcolor: 'rgba(30, 41, 59, 0.5)',
+                            bgcolor: theme.palette.mode === 'dark' ? 'rgba(30, 41, 59, 0.5)' : '#f3f4f6',
+                            color: theme.palette.mode === 'dark' ? '#fff' : '#222',
                             px: 2, 
                             py: 0.5, 
                             borderRadius: 1, 
@@ -592,6 +599,7 @@ const LumpsumCalculator = () => {
                         annualRate={Number(formData.annualRate) || 0}
                         years={Number(formData.years) || 0}
                         startYear={new Date().getFullYear()}
+                        theme={theme.palette.mode === 'dark' ? 'dark' : 'light'}
                       />
                     </Box>
                     

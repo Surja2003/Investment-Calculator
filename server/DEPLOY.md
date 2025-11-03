@@ -39,7 +39,7 @@ Environment variables used by the server:
 
 4) Frontend configuration (GitHub Pages)
 - In your GitHub repo, set repository secret `VITE_API_BASE_URL` to `https://your-api.onrender.com/api`
-- Frontend will call `GET ${VITE_API_BASE_URL}/yahoo/...` for Yahoo Finance data (proxy) and `GET ${VITE_API_BASE_URL}/newsletter` and `/contacts` for forms.
+- Frontend will call `GET ${VITE_API_BASE_URL}/newsletter` and `/contacts` for forms.
 - Push to main or re-run the Pages workflow to rebuild the frontend.
 
 ---
@@ -66,7 +66,7 @@ Environment variables used by the server:
 
 5) Frontend configuration (GitHub Pages)
 - Set repository secret `VITE_API_BASE_URL` to `https://your-api.up.railway.app/api`
-- Frontend Yahoo requests route via `${VITE_API_BASE_URL}/yahoo` to bypass CORS.
+- Market data now uses mock data or alternative APIs (Binance, AlphaVantage).
 - Re-run the Pages workflow to update the frontend.
 
 ---
@@ -89,7 +89,7 @@ Environment variables used by the server:
 ## Local vs Production
 - Dev uses Vite proxy for `/api` to `http://localhost:5175`.
 - Production uses `VITE_API_BASE_URL` provided at build time by the Pages workflow.
-- Yahoo Finance requests:
-  - Dev: `/yahoo/...` → Vite proxy to `https://query1.finance.yahoo.com`
-  - Prod: `${VITE_API_BASE_URL}/yahoo/...` → Backend proxy to Yahoo (avoids CORS)
+- Market Data requests:
+  - Uses Binance API directly for crypto data
+  - Mock data for other symbols (replace with your preferred provider)
 

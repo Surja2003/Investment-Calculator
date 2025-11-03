@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import formatINCompact from '../utils/numberFormat';
 import { Line } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -68,7 +69,7 @@ function getLumpsumSeries(principal, annualRate, years, startYear) {
 
 const LightweightChart = ({
   height = 420,
-  mode = 'lumpsum', // 'sip' | 'lumpsum'
+  mode = 'lumpsum', // 'sip' | 'lumpsum' | 'swp'
   principal = 100000,
   monthlySip = 5000,
   annualRate = 12,
@@ -79,12 +80,25 @@ const LightweightChart = ({
   currency = 'INR',
   precision = 0,
   showFooter = false,
+  data = null, // External data for SWP or custom projections
 }) => {
   const { labels, invested, total, returns } = useMemo(() => {
+    // If external data is provided (e.g., for SWP), use it
+    if (data && Array.isArray(data) && data.length > 0) {
+      const baseYear = startYear || 2025;
+      const labels = data.map((point, index) => String(baseYear + index));
+      const total = data.map((point) => point.value);
+      // For SWP, we show corpus remaining (total) and no separate invested/returns breakdown
+      const invested = data.map(() => 0);
+      const returns = data.map(() => 0);
+      return { labels, invested, total, returns };
+    }
+    
+    // Otherwise use calculated series
     return mode === 'sip'
       ? getSIPSeries(monthlySip, annualRate, years, startYear)
       : getLumpsumSeries(principal, annualRate, years, startYear);
-  }, [mode, principal, monthlySip, annualRate, years, startYear]);
+  }, [mode, principal, monthlySip, annualRate, years, startYear, data]);
 
   const nf = useMemo(() => new Intl.NumberFormat('en-IN', {
     style: 'currency', currency, maximumFractionDigits: precision,
@@ -112,14 +126,7 @@ const LightweightChart = ({
     return grad;
   };
 
-  // Compact Indian currency formatter for axis ticks (K, L, Cr)
-  const formatINCompact = (num) => {
-    const n = Math.abs(Number(num)) || 0;
-    if (n >= 1e7) return `${(n / 1e7).toFixed(n >= 1e9 ? 0 : 2)} Cr`;
-    if (n >= 1e5) return `${(n / 1e5).toFixed(n >= 1e7 ? 0 : 2)} L`;
-    if (n >= 1e3) return `${(n / 1e3).toFixed(0)}K`;
-    return String(Math.round(n));
-  };
+  // Use shared compact formatter for axis ticks
 
   const options = {
     responsive: true,
@@ -153,6 +160,7 @@ const LightweightChart = ({
             if (ctx.dataset.label === 'Invested') return `Invested: ${nf.format(invested[idx])}`;
             if (ctx.dataset.label === 'Returns') return `Returns: ${nf.format(returns[idx])}`;
             if (ctx.dataset.label === 'Total') return `Total: ${nf.format(total[idx])}`;
+            if (ctx.dataset.label === 'Corpus') return `Corpus: ${nf.format(total[idx])}`;
             return nf.format(ctx.parsed.y);
           },
         },
@@ -181,7 +189,23 @@ const LightweightChart = ({
 
   const dataObj = {
     labels,
-    datasets: [
+    datasets: data && Array.isArray(data) && data.length > 0 ? [
+      // For external data (SWP), show only corpus
+      {
+        label: 'Corpus',
+        data: total,
+        borderColor: COLORS.blue,
+        backgroundColor: (context) => totalGradient(context),
+        borderWidth: 3,
+        pointRadius: 5,
+        pointHoverRadius: 8,
+        pointBackgroundColor: COLORS.blue,
+        pointBorderColor: COLORS.white,
+        pointBorderWidth: 2,
+        fill: true,
+      },
+    ] : [
+      // For calculated data (SIP/Lumpsum), show all series
       {
         label: 'Invested',
         data: invested,

@@ -131,3 +131,88 @@
     background-color: var(--color-border);
   }
 }
+
+/* === Contact & Newsletter Form Box Styling === */
+@layer components {
+  .form-box {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    padding: var(--spacing-lg);
+    max-width: 500px;
+    margin: var(--spacing-lg) auto;
+    text-align: left;
+    transition: box-shadow var(--transition-normal), border-color var(--transition-fast), transform var(--transition-fast);
+  }
+
+  .form-box h3 {
+    color: var(--color-text);
+    margin-bottom: var(--spacing-md);
+    text-align: center;
+  }
+
+  /* Consistent vertical spacing between form controls */
+  .form-box form {
+    display: grid;
+    gap: var(--spacing-md);
+  }
+
+  .form-box .input {
+    width: 100%;
+    border: 2px solid var(--color-border);
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--color-text);
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-md);
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Light mode specific styling */
+  :root .form-box .input {
+    background-color: rgba(0, 0, 0, 0.02);
+    border-color: #d1d5db;
+  }
+
+  /* Dark mode specific styling */
+  .dark .form-box .input {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: #4b5563;
+  }
+
+  .form-box .input:focus {
+    border-color: var(--color-primary);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2), inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.15);
+  }
+
+  .dark .form-box .input:focus {
+    background-color: rgba(255, 255, 255, 0.15);
+  }
+
+  :root .form-box .input:focus {
+    background-color: rgba(99, 102, 241, 0.05);
+  }
+
+  .form-box .button-primary {
+    width: 100%;
+    margin-top: var(--spacing-sm);
+  }
+
+  /* Make the entire card pop when focusing inside */
+  .form-box:focus-within {
+    border-color: var(--color-primary-light);
+    outline: 2px solid var(--color-primary-light);
+    outline-offset: 2px;
+    box-shadow: var(--shadow-lg);
+  }
+
+  /* Strong, accessible outlines on focus */
+  .form-box .input:focus-visible,
+  .form-box .button-primary:focus-visible {
+    outline: 2px solid var(--color-primary-light);
+    outline-offset: 2px;
+  }
+}

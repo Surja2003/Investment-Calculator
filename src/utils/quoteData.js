@@ -1,36 +1,13 @@
-const CACHE_MS = 60 * 1000; // 1 minute
-
-const getKey = (symbols) => `yq:${symbols.sort().join(',')}`;
-
+// Mock function for quotes - replace with your preferred data source
 export async function fetchYahooQuotes(symbols = []) {
-  if (!symbols.length) return [];
-  const key = getKey(symbols);
-  try {
-    const cached = localStorage.getItem(key);
-    if (cached) {
-      const { ts, data } = JSON.parse(cached);
-      if (Date.now() - ts < CACHE_MS) return data;
-    }
-  } catch {}
-
-  const isLocal = typeof window !== 'undefined' && window.location?.hostname === 'localhost';
-  const base = isLocal
-    ? '/api/yahoo'
-    : (import.meta.env.VITE_API_BASE_URL ? `${import.meta.env.VITE_API_BASE_URL.replace(/\/$/, '')}/api/yahoo` : '/api/yahoo');
-  const url = `${base}/v7/finance/quote?symbols=${encodeURIComponent(symbols.join(','))}`;
-  const res = await fetch(url);
-  if (!res.ok) throw new Error(`Quotes HTTP ${res.status}`);
-  const json = await res.json();
-  const data = (json?.quoteResponse?.result || []).map((q) => ({
-    symbol: q.symbol,
-    shortName: q.shortName || q.longName || q.symbol,
-    price: q.regularMarketPrice,
-    change: q.regularMarketChange,
-    changePercent: q.regularMarketChangePercent,
-    currency: q.currency,
-    exchange: q.fullExchangeName || q.exchange,
+  // Return mock data instead of calling external API
+  return symbols.map(symbol => ({
+    symbol,
+    shortName: symbol,
+    price: 100 + Math.random() * 50, // Random price
+    change: (Math.random() - 0.5) * 10, // Random change
+    changePercent: (Math.random() - 0.5) * 5, // Random percentage
+    currency: 'USD',
+    exchange: 'Mock Exchange',
   }));
-
-  try { localStorage.setItem(key, JSON.stringify({ ts: Date.now(), data })); } catch {}
-  return data;
 }

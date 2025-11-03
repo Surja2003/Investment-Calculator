@@ -12,37 +12,21 @@ import {
   Tabs,
   Tab,
   InputAdornment,
-  useTheme,
-  LinearProgress
+  FormControlLabel,
+  Checkbox
 } from '@mui/material';
-import { Tooltip, PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
-import ProjectionChartLW from './ProjectionChartLW';
+import { useTheme } from '@mui/material/styles';
+import FadeIn from './animations/FadeIn';
+import AnimatedText from './animations/AnimatedText';
+import SlideIn from './animations/SlideIn';
+import CountUp from './animations/CountUp';
 import SWPBreakdown from './SWPBreakdown';
+import AnimatedCounter from './animations/AnimatedCounter';
+import ProjectionChartLW from './ProjectionChartLW';
+import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip } from 'recharts';
 
-import { 
-  FadeIn, 
-  SlideIn, 
-  AnimatedCounter, 
-  AnimatedText,
-  CountUp,
-  AnimatedProgressBar,
-  AnimatedChart
-} from './animations';
-
-const SWPCalculator = () => {
+function SWPCalculator() {
   const theme = useTheme();
-  // State for all form inputs combined in one object to prevent circular dependencies
-  const [formInputs, setFormInputs] = useState({
-    initialInvestment: 1000000,
-    withdrawalRate: 4,
-    withdrawalAmount: 40000,
-    expectedReturn: 8,
-    withdrawalPeriod: 20,
-    withdrawalFrequency: 'monthly',
-    inflationRate: 3,
-    adjustForInflation: false,
-    _timestamp: Date.now() // Add timestamp to force re-renders
-  });
   
   // Use React.useRef to keep track of which field was last updated
   const lastUpdatedField = React.useRef(null);
@@ -53,13 +37,27 @@ const SWPCalculator = () => {
     totalWithdrawals: 0,
     scheduledTotalWithdrawals: 0,
     depletedAtYears: null,
-    chartData: []
+    chartData: [],
+    finalWithdrawalAmount: 0
   });
   
   // UI state
   const [showDetails, setShowDetails] = useState(false);
   const [showBreakdown, setShowBreakdown] = useState(false);
   const [showComparison, setShowComparison] = useState(false);
+  
+  // Form inputs state
+  const [formInputs, setFormInputs] = useState({
+    initialInvestment: 1000000,
+    withdrawalRate: 6,
+    withdrawalAmount: 60000,
+    expectedReturn: 10,
+    withdrawalPeriod: 20,
+    inflationRate: 5,
+    withdrawalFrequency: 'monthly',
+    adjustForInflation: false,
+    _timestamp: Date.now()
+  });
   
   // Destructure values from state for easier access in component
   const { 
@@ -68,78 +66,103 @@ const SWPCalculator = () => {
     withdrawalAmount, 
     expectedReturn, 
     withdrawalPeriod, 
-    withdrawalFrequency, 
-    inflationRate,
-    adjustForInflation
+    inflationRate
   } = formInputs;
   
-  const { finalCorpus, totalWithdrawals, scheduledTotalWithdrawals, depletedAtYears, chartData } = calculationResults;
+  const { finalCorpus, totalWithdrawals, scheduledTotalWithdrawals, depletedAtYears, chartData, finalWithdrawalAmount } = calculationResults;
   
   // Handle initial investment change
   const handleInitialInvestmentChange = (value) => {
-    const newValue = Math.max(0, Number(value));
-    lastUpdatedField.current = 'initialInvestment';
-    
-    setFormInputs(prev => {
-      // Calculate new withdrawal amount based on rate
-      const newWithdrawalAmount = (newValue * prev.withdrawalRate) / 100;
+    try {
+      const newValue = Math.max(0, Number(value) || 0);
+      lastUpdatedField.current = 'initialInvestment';
       
-      return {
-        ...prev,
-        initialInvestment: newValue,
-        withdrawalAmount: newWithdrawalAmount,
-        _timestamp: Date.now() // Add timestamp to force re-render
-      };
-    });
+      setFormInputs(prev => {
+        // Calculate new withdrawal amount based on rate
+        const withdrawalRate = prev.withdrawalRate || 0;
+        const newWithdrawalAmount = (newValue * withdrawalRate) / 100;
+        
+        return {
+          ...prev,
+          initialInvestment: newValue,
+          withdrawalAmount: newWithdrawalAmount,
+          _timestamp: Date.now() // Add timestamp to force re-render
+        };
+      });
+    } catch (error) {
+      console.error('Error in handleInitialInvestmentChange:', error);
+    }
   };
   
   // Handle withdrawal rate change
   const handleWithdrawalRateChange = (value) => {
-    const newRate = Number(value);
-    lastUpdatedField.current = 'withdrawalRate';
-    
-    setFormInputs(prev => {
-      // Calculate new withdrawal amount based on new rate
-      const newWithdrawalAmount = (prev.initialInvestment * newRate) / 100;
+    try {
+      const newRate = Number(value) || 0;
+      lastUpdatedField.current = 'withdrawalRate';
       
-      return {
-        ...prev,
-        withdrawalRate: newRate,
-        withdrawalAmount: newWithdrawalAmount,
-        _timestamp: Date.now() // Add timestamp to force re-render
-      };
-    });
+      setFormInputs(prev => {
+        // Calculate new withdrawal amount based on new rate
+        const initialInvestment = prev.initialInvestment || 0;
+        const newWithdrawalAmount = (initialInvestment * newRate) / 100;
+        
+        return {
+          ...prev,
+          withdrawalRate: newRate,
+          withdrawalAmount: newWithdrawalAmount,
+          _timestamp: Date.now() // Add timestamp to force re-render
+        };
+      });
+    } catch (error) {
+      console.error('Error in handleWithdrawalRateChange:', error);
+    }
   };
   
   // Handle withdrawal amount change
   const handleWithdrawalAmountChange = (value) => {
-    const newAmount = Math.max(0, Number(value));
-    lastUpdatedField.current = 'withdrawalAmount';
-    
-    setFormInputs(prev => {
-      // Calculate new rate based on amount
-      let newRate = 0;
-      if (prev.initialInvestment > 0) {
-        newRate = (newAmount / prev.initialInvestment) * 100;
-      }
+    try {
+      const newAmount = Math.max(0, Number(value) || 0);
+      lastUpdatedField.current = 'withdrawalAmount';
       
-      return {
-        ...prev,
-        withdrawalAmount: newAmount,
-        withdrawalRate: newRate,
-        _timestamp: Date.now() // Add timestamp to force re-render
-      };
-    });
+      setFormInputs(prev => {
+        // Calculate new rate based on amount
+        let newRate = 0;
+        const initialInvestment = prev.initialInvestment || 0;
+        if (initialInvestment > 0) {
+          newRate = (newAmount / initialInvestment) * 100;
+        }
+        
+        return {
+          ...prev,
+          withdrawalAmount: newAmount,
+          withdrawalRate: newRate,
+          _timestamp: Date.now() // Add timestamp to force re-render
+        };
+      });
+    } catch (error) {
+      console.error('Error in handleWithdrawalAmountChange:', error);
+    }
   };
   
   // Handle other form input changes
   const handleInputChange = (field, value) => {
-    lastUpdatedField.current = field;
-    setFormInputs(prev => ({ 
-      ...prev, 
-      [field]: value,
-      _timestamp: Date.now() // Add timestamp to force re-render
-    }));
+    try {
+      lastUpdatedField.current = field;
+      let sanitizedValue;
+      if (typeof value === 'boolean') {
+        sanitizedValue = value;
+      } else if (typeof value === 'number') {
+        sanitizedValue = value;
+      } else {
+        sanitizedValue = Number(value) || 0;
+      }
+      setFormInputs(prev => ({ 
+        ...prev, 
+        [field]: sanitizedValue,
+        _timestamp: Date.now() // Add timestamp to force re-render
+      }));
+    } catch (error) {
+      console.error('Error in handleInputChange:', error);
+    }
   };
   
   // Calculate SWP results when the component mounts and whenever form inputs change
@@ -161,41 +184,63 @@ const SWPCalculator = () => {
   
   const calculateSWP = (inputs) => {
     console.log('Calculating SWP with inputs:', inputs);
+    console.log('Inflation adjustment enabled:', inputs.adjustForInflation);
 
-    // Validate inputs
-    if (inputs.initialInvestment <= 0 || inputs.withdrawalAmount <= 0) {
-      setCalculationResults({ chartData: [], finalCorpus: 0, totalWithdrawals: 0, scheduledTotalWithdrawals: 0, depletedAtYears: null });
-      return;
-    }
-
-    let corpus = Number(inputs.initialInvestment);
-    let totalWithdrawn = 0;
-    const data = [];
-
-    // Period configuration
-    const withdrawalsPerYear =
-      inputs.withdrawalFrequency === 'monthly' ? 12 :
-      inputs.withdrawalFrequency === 'quarterly' ? 4 :
-      inputs.withdrawalFrequency === 'half-yearly' ? 2 : 1;
-  const totalPeriods = inputs.withdrawalPeriod * withdrawalsPerYear;
-
-  // Per-period rates (monthly/periodic using nominal division for consistency across app)
-  const returnPerPeriod = (inputs.expectedReturn / 100) / withdrawalsPerYear;
-  const inflationPerPeriod = (inputs.inflationRate / 100) / withdrawalsPerYear;
-
-    // Start with provided withdrawal amount (fixed unless inflation-adjusted)
-    let currentWithdrawalAmount = Number(inputs.withdrawalAmount);
-    // Compute scheduled total withdrawals (ignoring corpus depletion)
-    let scheduledTotalWithdrawals = 0;
-    if (inputs.adjustForInflation) {
-      if (inflationPerPeriod === 0) {
-        scheduledTotalWithdrawals = currentWithdrawalAmount * totalPeriods;
-      } else {
-        scheduledTotalWithdrawals = currentWithdrawalAmount * ((Math.pow(1 + inflationPerPeriod, totalPeriods) - 1) / inflationPerPeriod);
+    try {
+      // Validate inputs
+      if (!inputs || typeof inputs !== 'object') {
+        console.error('Invalid inputs object');
+        setCalculationResults({ chartData: [], finalCorpus: 0, totalWithdrawals: 0, scheduledTotalWithdrawals: 0, depletedAtYears: null, finalWithdrawalAmount: 0 });
+        return;
       }
-    } else {
-      scheduledTotalWithdrawals = currentWithdrawalAmount * totalPeriods;
-    }
+
+      const {
+        initialInvestment = 0,
+        withdrawalAmount = 0,
+        expectedReturn = 10,
+        withdrawalPeriod = 20,
+        inflationRate = 5,
+        withdrawalFrequency = 'monthly',
+        adjustForInflation = false
+      } = inputs;
+
+      if (initialInvestment <= 0 || withdrawalAmount <= 0) {
+        setCalculationResults({ chartData: [], finalCorpus: 0, totalWithdrawals: 0, scheduledTotalWithdrawals: 0, depletedAtYears: null, finalWithdrawalAmount: 0 });
+        return;
+      }
+
+      let corpus = Number(initialInvestment);
+      let totalWithdrawn = 0;
+      const data = [];
+
+      // Period configuration
+      const withdrawalsPerYear =
+        withdrawalFrequency === 'monthly' ? 12 :
+        withdrawalFrequency === 'quarterly' ? 4 :
+        withdrawalFrequency === 'half-yearly' ? 2 : 1;
+      const totalPeriods = withdrawalPeriod * withdrawalsPerYear;
+
+      // Per-period rates (monthly/periodic using nominal division for consistency across app)
+      const returnPerPeriod = (expectedReturn / 100) / withdrawalsPerYear;
+      const inflationPerPeriod = (inflationRate / 100) / withdrawalsPerYear;
+
+      // Start with provided withdrawal amount (convert to per-period amount)
+      let currentWithdrawalAmount = Number(withdrawalAmount) / withdrawalsPerYear;
+      console.log('Annual withdrawal amount:', withdrawalAmount, 'Per-period amount:', currentWithdrawalAmount, 'Inflation rate per period:', inflationPerPeriod);
+      
+      // Compute scheduled total withdrawals (ignoring corpus depletion)
+      let scheduledTotalWithdrawals = 0;
+      if (adjustForInflation) {
+        if (inflationPerPeriod === 0) {
+          scheduledTotalWithdrawals = currentWithdrawalAmount * totalPeriods;
+        } else {
+          scheduledTotalWithdrawals = currentWithdrawalAmount * ((Math.pow(1 + inflationPerPeriod, totalPeriods) - 1) / inflationPerPeriod);
+        }
+        console.log('With inflation - Scheduled total withdrawals:', scheduledTotalWithdrawals);
+      } else {
+        scheduledTotalWithdrawals = Number(withdrawalAmount) * withdrawalPeriod; // Use annual amount * years
+        console.log('Without inflation - Scheduled total withdrawals:', scheduledTotalWithdrawals);
+      }
 
     let depletionPeriod = null;
 
@@ -227,10 +272,14 @@ const SWPCalculator = () => {
       // Apply growth for the period on remaining corpus
       corpus *= 1 + returnPerPeriod;
 
-      // Prepare next period's withdrawal if inflation adjustment is enabled
-      if (inputs.adjustForInflation) {
-        currentWithdrawalAmount *= 1 + inflationPerPeriod;
-      }
+        // Prepare next period's withdrawal if inflation adjustment is enabled
+        if (adjustForInflation) {
+          const oldAmount = currentWithdrawalAmount;
+          currentWithdrawalAmount *= 1 + inflationPerPeriod;
+          if (p <= 12) { // Log first year only
+            console.log(`Period ${p}: Withdrawal adjusted from ${oldAmount.toFixed(0)} to ${currentWithdrawalAmount.toFixed(0)}`);
+          }
+        }
 
       // Log yearly points (or the final period)
       if (p % withdrawalsPerYear === 0 || p === totalPeriods) {
@@ -246,15 +295,29 @@ const SWPCalculator = () => {
       // continue until loop ends or corpus depleted above
     }
 
-    const results = { 
-      chartData: data, 
-      finalCorpus: Math.max(0, corpus), 
-      totalWithdrawals: Math.round(totalWithdrawn),
-      scheduledTotalWithdrawals: Math.round(scheduledTotalWithdrawals),
-      depletedAtYears: depletionPeriod ? (depletionPeriod / withdrawalsPerYear) : null
-    };
-    console.log('SWP calculation results:', results);
-    setCalculationResults(results);
+      const results = { 
+        chartData: data, 
+        finalCorpus: Math.max(0, corpus), 
+        totalWithdrawals: Math.round(totalWithdrawn),
+        scheduledTotalWithdrawals: Math.round(scheduledTotalWithdrawals),
+        depletedAtYears: depletionPeriod ? (depletionPeriod / withdrawalsPerYear) : null,
+        finalWithdrawalAmount: Math.round(currentWithdrawalAmount)
+      };
+      console.log('SWP calculation results:', results);
+      console.log('Final chart data point:', data[data.length - 1]);
+      console.log('Chart shows final corpus:', data[data.length - 1]?.corpus, 'vs calculated final corpus:', Math.max(0, corpus));
+      setCalculationResults(results);
+    } catch (error) {
+      console.error('Error in SWP calculation:', error);
+      setCalculationResults({ 
+        chartData: [], 
+        finalCorpus: 0, 
+        totalWithdrawals: 0, 
+        scheduledTotalWithdrawals: 0, 
+        depletedAtYears: null,
+        finalWithdrawalAmount: 0 
+      });
+    }
   };
 
   const formatCurrency = (value) => {
@@ -291,20 +354,21 @@ const SWPCalculator = () => {
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
         {/* Summary Cards */}
         <Box sx={{ order: { xs: 2, md: 1 } }}>
-          <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', md: 'repeat(4, 1fr)' }, gap: 2 }}>
+          <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', md: formInputs.adjustForInflation ? 'repeat(5, 1fr)' : 'repeat(4, 1fr)' }, gap: 2 }}>
             <Box>
               <SlideIn direction="top" delay={0.1}>
                 <Card 
                   elevation={3} 
                   sx={{ 
-                    bgcolor: 'rgba(20, 30, 50, 0.95)', 
+                    bgcolor: theme.palette.mode === 'dark' ? 'rgba(20, 30, 50, 0.95)' : '#fff',
                     borderRadius: 2,
-                    boxShadow: '0 8px 24px rgba(0,0,0,0.15)',
-                    height: '100%'
+                    boxShadow: theme.palette.mode === 'dark' ? '0 8px 24px rgba(0,0,0,0.15)' : '0 2px 10px rgba(0,0,0,0.08)',
+                    height: '100%',
+                    color: theme.palette.mode === 'dark' ? '#fff' : '#222',
                   }}
                 >
                   <CardContent>
-                    <Typography variant="subtitle2" sx={{ color: 'rgba(255, 255, 255, 0.7)' }}>
+                    <Typography variant="subtitle2" sx={{ color: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(30, 41, 59, 0.7)' }}>
                       Final Corpus
                     </Typography>
                     <Typography variant="h5" color="#3B82F6" sx={{ fontWeight: 'bold', my: 1 }}>
@@ -314,26 +378,22 @@ const SWPCalculator = () => {
                         key={`finalCorpus-${formInputs._timestamp}`}
                       />
                     </Typography>
-                    <Typography variant="caption" sx={{ color: 'rgba(255, 255, 255, 0.5)' }}>
+                    <Typography variant="caption" sx={{ color: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.5)' : 'rgba(30, 41, 59, 0.5)' }}>
                       After {withdrawalPeriod} years
                     </Typography>
                   </CardContent>
                 </Card>
-              </SlideIn>
-            </Box>
-            <Box>
-              <SlideIn direction="top" delay={0.2}>
                 <Card 
-                  elevation={3} 
+                  elevation={3}
                   sx={{ 
-                    bgcolor: 'rgba(20, 30, 50, 0.95)', 
+                    bgcolor: theme.palette.mode === 'dark' ? 'rgba(20, 30, 50, 0.95)' : '#fff',
                     borderRadius: 2,
-                    boxShadow: '0 8px 24px rgba(0,0,0,0.15)',
+                    boxShadow: theme.palette.mode === 'dark' ? '0 8px 32px rgba(0, 0, 0, 0.25)' : '0 2px 10px rgba(0,0,0,0.08)',
                     height: '100%'
                   }}
                 >
                   <CardContent>
-                    <Typography variant="subtitle2" sx={{ color: 'rgba(255, 255, 255, 0.7)' }}>
+                    <Typography variant="subtitle2" sx={{ color: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(30, 41, 59, 0.7)' }}>
                       Initial Investment
                     </Typography>
                     <Typography variant="h5" color="#E5E7EB" sx={{ fontWeight: 'bold', my: 1 }}>
@@ -343,7 +403,7 @@ const SWPCalculator = () => {
                         key={`initialInvestment-${formInputs._timestamp}`}
                       />
                     </Typography>
-                    <Typography variant="caption" sx={{ color: 'rgba(255, 255, 255, 0.5)' }}>
+                    <Typography variant="caption" sx={{ color: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.5)' : 'rgba(30, 41, 59, 0.5)' }}>
                       One-time investment
                     </Typography>
                   </CardContent>
@@ -355,9 +415,9 @@ const SWPCalculator = () => {
                 <Card 
                   elevation={3} 
                   sx={{ 
-                    bgcolor: 'rgba(20, 30, 50, 0.95)', 
+                    bgcolor: theme.palette.mode === 'dark' ? 'rgba(20, 30, 50, 0.95)' : '#fff',
                     borderRadius: 2,
-                    boxShadow: '0 8px 24px rgba(0,0,0,0.15)',
+                    boxShadow: theme.palette.mode === 'dark' ? '0 8px 24px rgba(0,0,0,0.15)' : '0 2px 10px rgba(0,0,0,0.08)',
                     height: '100%'
                   }}
                 >
@@ -386,15 +446,16 @@ const SWPCalculator = () => {
                 <Card 
                   elevation={3} 
                   sx={{ 
-                    bgcolor: 'rgba(20, 30, 50, 0.95)', 
+                    bgcolor: theme.palette.mode === 'dark' ? 'rgba(20, 30, 50, 0.95)' : '#fff',
                     borderRadius: 2,
-                    boxShadow: '0 8px 24px rgba(0,0,0,0.15)',
-                    height: '100%'
+                    boxShadow: theme.palette.mode === 'dark' ? '0 8px 24px rgba(0,0,0,0.15)' : '0 2px 10px rgba(0,0,0,0.08)',
+                    height: '100%',
+                    color: theme.palette.mode === 'dark' ? '#fff' : '#222',
                   }}
                 >
                   <CardContent>
-                    <Typography variant="subtitle2" sx={{ color: 'rgba(255, 255, 255, 0.7)' }}>
-                      Monthly Withdrawal
+                    <Typography variant="subtitle2" sx={{ color: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(30, 41, 59, 0.7)' }}>
+                      Annual Withdrawal
                     </Typography>
                     <Typography variant="h5" color="#F59E0B" sx={{ fontWeight: 'bold', my: 1 }}>
                       ₹<CountUp 
@@ -403,22 +464,55 @@ const SWPCalculator = () => {
                         key={`withdrawalAmount-${formInputs._timestamp}`}
                       />
                     </Typography>
-                    <Typography variant="caption" sx={{ color: 'rgba(255, 255, 255, 0.5)' }}>
-                      Withdrawal rate: {withdrawalRate.toFixed(2)}%
+                    <Typography variant="caption" sx={{ color: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.5)' : 'rgba(30, 41, 59, 0.5)' }}>
+                      {formInputs.adjustForInflation ? `Initial annual amount (${inflationRate}% inflation)` : `Withdrawal rate: ${withdrawalRate.toFixed(2)}%`}
                     </Typography>
                   </CardContent>
                 </Card>
               </SlideIn>
             </Box>
+            {formInputs.adjustForInflation && (
+              <Box>
+                <SlideIn direction="top" delay={0.4}>
+                  <Card 
+                    elevation={3}
+                    sx={{ 
+                      bgcolor: theme.palette.mode === 'dark' ? 'rgba(20, 30, 50, 0.95)' : '#fff',
+                      borderRadius: 2,
+                      boxShadow: theme.palette.mode === 'dark' ? '0 8px 24px rgba(0,0,0,0.15)' : '0 2px 10px rgba(0,0,0,0.08)',
+                      height: '100%',
+                      color: theme.palette.mode === 'dark' ? '#fff' : '#222',
+                    }}
+                  >
+                    <CardContent>
+                      <Typography variant="subtitle2" sx={{ color: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(30, 41, 59, 0.7)' }}>
+                        Total Withdrawals
+                      </Typography>
+                      <Typography variant="h5" color="#10B981" sx={{ fontWeight: 'bold', my: 1 }}>
+                        ₹<CountUp 
+                          to={totalWithdrawals} 
+                          formatter={(value) => new Intl.NumberFormat('en-IN').format(Math.round(value))}
+                          key={`totalWithdrawals-${formInputs._timestamp}`}
+                        />
+                      </Typography>
+                      <Typography variant="caption" sx={{ color: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.5)' : 'rgba(30, 41, 59, 0.5)' }}>
+                        Inflation-adjusted total
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </SlideIn>
+              </Box>
+            )}
           </Box>
         </Box>
       
         {/* Main Calculator Card */}
         <Card elevation={3} sx={{ 
           order: { xs: 1, md: 2 },
-          bgcolor: 'rgba(20, 30, 50, 0.95)', 
+          bgcolor: theme.palette.mode === 'dark' ? 'rgba(20, 30, 50, 0.95)' : '#fff',
           borderRadius: 2,
-          boxShadow: '0 8px 24px rgba(0,0,0,0.15)'
+          boxShadow: theme.palette.mode === 'dark' ? '0 8px 24px rgba(0,0,0,0.15)' : '0 2px 10px rgba(0,0,0,0.08)',
+          color: theme.palette.mode === 'dark' ? '#fff' : '#222',
         }}>
         <CardContent>
           <Typography variant="h5" gutterBottom sx={{ color: 'primary.main', fontWeight: 'bold' }}>
@@ -484,7 +578,7 @@ const SWPCalculator = () => {
                   <TextField
                     id="swp-withdrawal-amount"
                     name="withdrawalAmount"
-                    label="Withdrawal Amount"
+                    label="Annual Withdrawal Amount"
                     type="number"
                     value={withdrawalAmount}
                     onChange={(e) => handleWithdrawalAmountChange(e.target.value)}
@@ -587,6 +681,19 @@ const SWPCalculator = () => {
                 </Grid>
                 
                 <Grid sx={{ gridColumn: 'span 12' }}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={formInputs.adjustForInflation || false}
+                        onChange={(e) => handleInputChange('adjustForInflation', e.target.checked)}
+                        name="adjustForInflation"
+                      />
+                    }
+                    label="Adjust withdrawals for inflation"
+                  />
+                </Grid>
+                
+                <Grid sx={{ gridColumn: 'span 12' }}>
                   <Button 
                     variant="contained" 
                     color="primary" 
@@ -655,7 +762,7 @@ const SWPCalculator = () => {
                       <Typography variant="subtitle1" gutterBottom>
                         Corpus Projection
                       </Typography>
-                      <ProjectionChartLW data={chartData} title="Corpus Projection" currency="INR" precision={0} />
+                      <ProjectionChartLW data={chartData} title="Corpus Projection" currency="INR" precision={0} mode="swp" theme={theme.palette.mode === 'dark' ? 'dark' : 'light'} />
                     </Box>
                     
                     <Box mt={3}>
@@ -778,6 +885,6 @@ const SWPCalculator = () => {
       </Box>
     </Box>
   );
-};
+}
 
 export default SWPCalculator;

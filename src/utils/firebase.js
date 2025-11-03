@@ -12,9 +12,8 @@ const firebaseConfig = {
   appId: env.VITE_FIREBASE_APP_ID,
 };
 
-let app;
 if (!getApps().length && firebaseConfig.projectId) {
-  app = initializeApp(firebaseConfig);
+  initializeApp(firebaseConfig);
 }
 
 export const db = firebaseConfig.projectId ? getFirestore() : null;

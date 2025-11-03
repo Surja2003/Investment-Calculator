@@ -22,6 +22,7 @@ import {
   ResponsiveContainer
 } from 'recharts';
 import { CHART_COLORS } from '../constants/theme';
+import formatINCompact from '../utils/numberFormat';
 import FlagIcon from '@mui/icons-material/Flag';
 import CalculateIcon from '@mui/icons-material/Calculate';
 import InfoIcon from '@mui/icons-material/Info';
@@ -227,7 +228,7 @@ const GoalCalculator = () => {
           });
         }
       }
-    } catch (error) {
+    } catch {
       // Fallback chart data if any errors
       for (let year = 0; year <= years; year++) {
         chartData.push({
@@ -243,14 +244,7 @@ const GoalCalculator = () => {
   
   // Removed unused formatCurrency helper to satisfy ESLint
 
-  // Compact Indian number formatter for Y-axis labels
-  const formatINCompact = (num) => {
-    const n = Math.abs(Number(num)) || 0;
-    if (n >= 1e7) return `${(n / 1e7).toFixed(n >= 1e9 ? 0 : 2)} Cr`;
-    if (n >= 1e5) return `${(n / 1e5).toFixed(n >= 1e7 ? 0 : 2)} L`;
-    if (n >= 1e3) return `${(n / 1e3).toFixed(0)}K`;
-    return String(Math.round(n));
-  };
+  // Use shared compact formatter for Y-axis labels
 
   return (
     <Box sx={{ maxWidth: '100%', margin: '0 auto' }}>

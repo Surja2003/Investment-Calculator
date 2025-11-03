@@ -10,12 +10,6 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      '/yahoo': {
-        target: 'https://query1.finance.yahoo.com',
-        changeOrigin: true,
-        secure: true,
-        rewrite: (path) => path.replace(/^\/yahoo/, ''),
-      },
       '/api': {
         target: 'http://localhost:5175',
         changeOrigin: true,

@@ -38,19 +38,11 @@ export async function fetchMarketSeries({
           time: new Date(kline[0]).toISOString().slice(0, 10),
           value: parseFloat(kline[4]),
         }));
-        // Convert to INR if symbol ends with INR using USDINR rate proxy from Yahoo as a quick heuristic
+        // INR conversion removed - using static rate for demo
         if (/INR$/.test(symbol)) {
-          try {
-            const isLocal = typeof window !== 'undefined' && window.location?.hostname === 'localhost';
-            const base = isLocal
-              ? '/yahoo'
-              : (import.meta.env.VITE_API_BASE_URL ? `${import.meta.env.VITE_API_BASE_URL.replace(/\/$/, '')}/yahoo` : '/api/yahoo');
-            const fx = await fetch(`${base}/v8/finance/chart/USDINR=X?interval=1d&range=1mo`);
-            const fxJson = await fx.json();
-            const fxClose = fxJson?.chart?.result?.[0]?.indicators?.quote?.[0]?.close || [];
-            const lastFx = fxClose.filter(Boolean).pop();
-            if (lastFx) series = series.map((p) => ({ ...p, value: p.value * lastFx }));
-          } catch {}
+          // Use static conversion rate (in production, use your preferred FX API)
+          const staticUSDINR = 83.0; // Approximate rate
+          series = series.map((p) => ({ ...p, value: p.value * staticUSDINR }));
         }
       } else if (source === 'alphavantage') {
         const fn = interval === '1d' ? 'TIME_SERIES_DAILY' : 'TIME_SERIES_DAILY';
@@ -65,23 +57,16 @@ export async function fetchMarketSeries({
           .sort((a, b) => (a.time > b.time ? 1 : -1))
           .slice(-limit);
       } else if (source === 'yahoo') {
-        // Yahoo Finance JSON for NSE/BSE tickers (e.g., TCS.NS, RELIANCE.NS, SENSEX.BO)
-        const range = interval === '1d' ? '6mo' : '1mo';
-        const isLocal = typeof window !== 'undefined' && window.location?.hostname === 'localhost';
-        const base = isLocal
-          ? '/yahoo'
-          : (import.meta.env.VITE_API_BASE_URL ? `${import.meta.env.VITE_API_BASE_URL.replace(/\/$/, '')}/yahoo` : '/api/yahoo');
-        const url = `${base}/v8/finance/chart/${symbol}?interval=${interval}&range=${range}`;
-        const res = await fetch(url);
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const json = await res.json();
-        const result = json?.chart?.result?.[0];
-        const timestamps = result?.timestamp || [];
-        const closes = result?.indicators?.quote?.[0]?.close || [];
-        series = timestamps
-          .map((t, i) => ({ time: new Date(t * 1000).toISOString().slice(0, 10), value: Number(closes[i]) }))
-          .filter((p) => Number.isFinite(p.value))
-          .slice(-limit);
+        // Yahoo source removed - return mock data
+        const baseValue = 1000 + Math.random() * 500;
+        series = Array.from({ length: limit }, (_, i) => {
+          const date = new Date();
+          date.setDate(date.getDate() - (limit - i));
+          return {
+            time: date.toISOString().slice(0, 10),
+            value: baseValue + (Math.random() - 0.5) * 100
+          };
+        });
       } else {
         throw new Error('Unsupported source');
       }

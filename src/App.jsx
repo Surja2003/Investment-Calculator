@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTheme } from './hooks/useTheme';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import { 
   ThemeProvider, 
@@ -138,7 +139,8 @@ function MobileDrawer({ open, onClose }) {
 // Header auth UI removed per request
 
 function App() {
-  const [isDarkMode, setIsDarkMode] = useState(true);
+  // Use ThemeContext for dark mode
+  const { isDarkMode, toggleDarkMode } = useTheme();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const isMobile = useMediaQuery('(max-width:768px)');
 
@@ -224,7 +226,7 @@ function App() {
               
               <IconButton 
                 sx={{ ml: 2 }} 
-                onClick={() => setIsDarkMode(!isDarkMode)}
+                onClick={toggleDarkMode}
                 color="inherit"
               >
                 {isDarkMode ? <LightModeIcon /> : <DarkModeIcon />}

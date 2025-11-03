@@ -41,23 +41,23 @@ button {
   font-family: inherit;
 }
 
-/* Ensure inputs/textareas use dark backgrounds and visible text */
+/* Inputs & textareas respect theme variables (light/dark) */
 input, textarea {
-  background-color: #0b1220; /* match dark bg */
-  color: #e5e7eb; /* gray-200 */
+  background-color: var(--input-bg, var(--color-background));
+  color: var(--input-text, var(--color-text));
 }
 input::placeholder, textarea::placeholder {
-  color: #9ca3af; /* gray-400 */
+  color: var(--input-placeholder, var(--color-text-secondary));
 }
 
-/* Chrome autofill fix for dark mode */
+/* Chrome autofill fix: keep colors in sync with theme */
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 textarea:-webkit-autofill,
 textarea:-webkit-autofill:hover,
 textarea:-webkit-autofill:focus {
-  -webkit-text-fill-color: #e5e7eb;
+  -webkit-text-fill-color: var(--color-text);
   transition: background-color 5000s ease-in-out 0s;
-  box-shadow: 0 0 0px 1000px #0b1220 inset;
+  box-shadow: 0 0 0px 1000px var(--color-background) inset;
 }
