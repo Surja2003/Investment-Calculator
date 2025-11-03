@@ -463,43 +463,29 @@ const SIPCalculator = () => {
                             onChange={handleRangeChange('years')}
                           />
                           <Button size="small" variant="outlined" onClick={() => handleRangeChange('years')(Math.min(60, formData.years + 1))}>+1y</Button>
-                          <TextField
-                            size="small"
-                            type="number"
-                            value={formData.years}
-                            onChange={(e) => handleRangeChange('years')(Math.max(1, Number(e.target.value)))}
-                            InputProps={{
-                              endAdornment: (
-                                <InputAdornment 
-                                  position="end" 
-                                  sx={{ 
-                                    mr: '6px !important',
-                                    ml: '4px !important',
-                                    fontSize: '0.75rem',
-                                    fontWeight: 500,
-                                    color: 'text.secondary',
-                                    minWidth: 'auto',
-                                    '& .MuiTypography-root': {
-                                      fontSize: '0.75rem !important'
-                                    }
-                                  }}
-                                >
-                                  yrs
-                                </InputAdornment>
-                              ),
-                              inputProps: { min: 1, step: 1 }
-                            }}
-                            sx={{
-                              width: { xs: 88, sm: 100 },
-                              '& .MuiInputBase-input': { 
-                                pr: '32px !important',
+                          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                            <TextField
+                              size="small"
+                              type="number"
+                              value={formData.years}
+                              onChange={(e) => handleRangeChange('years')(Math.max(1, Number(e.target.value)))}
+                              inputProps={{ min: 1, step: 1 }}
+                              sx={{ width: { xs: 70, sm: 80 } }}
+                            />
+                            <Box 
+                              sx={{ 
+                                bgcolor: 'background.paper', 
+                                py: 1, 
+                                px: 2, 
+                                borderRadius: 1,
+                                border: '1px solid rgba(255,255,255,0.1)',
+                                minWidth: '32px',
                                 textAlign: 'center'
-                              },
-                              '& .MuiOutlinedInput-root': {
-                                paddingRight: '6px !important'
-                              }
-                            }}
-                          />
+                              }}
+                            >
+                              yrs
+                            </Box>
+                          </Box>
                         </Box>
                         <AnimatedProgressBar 
                           value={formData.years} 
@@ -533,43 +519,29 @@ const SIPCalculator = () => {
                             onChange={handleRangeChange('annualRate')}
                           />
                           <Button size="small" variant="outlined" onClick={() => handleRangeChange('annualRate')(Math.min(100, +(formData.annualRate + 1).toFixed(2)))}>+1%</Button>
-                          <TextField
-                            size="small"
-                            type="number"
-                            value={formData.annualRate}
-                            onChange={(e) => handleRangeChange('annualRate')(Number(e.target.value))}
-                            InputProps={{
-                              endAdornment: (
-                                <InputAdornment 
-                                  position="end" 
-                                  sx={{ 
-                                    mr: '6px !important',
-                                    ml: '4px !important',
-                                    fontSize: '0.75rem',
-                                    fontWeight: 500,
-                                    color: 'text.secondary',
-                                    minWidth: 'auto',
-                                    '& .MuiTypography-root': {
-                                      fontSize: '0.75rem !important'
-                                    }
-                                  }}
-                                >
-                                  %
-                                </InputAdornment>
-                              ),
-                              inputProps: { step: 0.1 }
-                            }}
-                            sx={{
-                              width: { xs: 88, sm: 100 },
-                              '& .MuiInputBase-input': { 
-                                pr: '24px !important',
+                          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                            <TextField
+                              size="small"
+                              type="number"
+                              value={formData.annualRate}
+                              onChange={(e) => handleRangeChange('annualRate')(Number(e.target.value))}
+                              inputProps={{ step: 0.1 }}
+                              sx={{ width: { xs: 70, sm: 80 } }}
+                            />
+                            <Box 
+                              sx={{ 
+                                bgcolor: 'background.paper', 
+                                py: 1, 
+                                px: 2, 
+                                borderRadius: 1,
+                                border: '1px solid rgba(255,255,255,0.1)',
+                                minWidth: '24px',
                                 textAlign: 'center'
-                              },
-                              '& .MuiOutlinedInput-root': {
-                                paddingRight: '6px !important'
-                              }
-                            }}
-                          />
+                              }}
+                            >
+                              %
+                            </Box>
+                          </Box>
                         </Box>
                         <AnimatedProgressBar 
                           value={formData.annualRate} 

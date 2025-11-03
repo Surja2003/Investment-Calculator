@@ -566,43 +566,29 @@ function SWPCalculator() {
                       sx={{ flexGrow: 1 }}
                     />
                     <Button size="small" variant="outlined" onClick={() => handleWithdrawalRateChange(Math.min(100, +(withdrawalRate + 1).toFixed(2)))}>+1%</Button>
-                    <TextField
-                      size="small"
-                      type="number"
-                      value={withdrawalRate}
-                      onChange={(e) => handleWithdrawalRateChange(Number(e.target.value))}
-                      InputProps={{ 
-                        endAdornment: (
-                          <InputAdornment 
-                            position="end" 
-                            sx={{ 
-                              mr: '6px !important',
-                              ml: '4px !important',
-                              fontSize: '0.75rem',
-                              fontWeight: 500,
-                              color: 'text.secondary',
-                              minWidth: 'auto',
-                              '& .MuiTypography-root': {
-                                fontSize: '0.75rem !important'
-                              }
-                            }}
-                          >
-                            %
-                          </InputAdornment>
-                        ), 
-                        inputProps: { step: 0.1 } 
-                      }}
-                      sx={{ 
-                        width: { xs: 88, sm: 100 },
-                        '& .MuiInputBase-input': { 
-                          pr: '24px !important',
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      <TextField
+                        size="small"
+                        type="number"
+                        value={withdrawalRate}
+                        onChange={(e) => handleWithdrawalRateChange(Number(e.target.value))}
+                        inputProps={{ step: 0.1 }}
+                        sx={{ width: { xs: 70, sm: 80 } }}
+                      />
+                      <Box 
+                        sx={{ 
+                          bgcolor: 'background.paper', 
+                          py: 1, 
+                          px: 2, 
+                          borderRadius: 1,
+                          border: '1px solid rgba(255,255,255,0.1)',
+                          minWidth: '24px',
                           textAlign: 'center'
-                        },
-                        '& .MuiOutlinedInput-root': {
-                          paddingRight: '6px !important'
-                        }
-                      }}
-                    />
+                        }}
+                      >
+                        %
+                      </Box>
+                    </Box>
                   </Box>
                 </Grid>
                 
@@ -642,43 +628,29 @@ function SWPCalculator() {
                       sx={{ flexGrow: 1 }}
                     />
                     <Button size="small" variant="outlined" onClick={() => handleInputChange('expectedReturn', Math.min(100, +(expectedReturn + 1).toFixed(2)))}>+1%</Button>
-                    <TextField
-                      size="small"
-                      type="number"
-                      value={expectedReturn}
-                      onChange={(e) => handleInputChange('expectedReturn', Number(e.target.value))}
-                      InputProps={{ 
-                        endAdornment: (
-                          <InputAdornment 
-                            position="end" 
-                            sx={{ 
-                              mr: '6px !important',
-                              ml: '4px !important',
-                              fontSize: '0.75rem',
-                              fontWeight: 500,
-                              color: 'text.secondary',
-                              minWidth: 'auto',
-                              '& .MuiTypography-root': {
-                                fontSize: '0.75rem !important'
-                              }
-                            }}
-                          >
-                            %
-                          </InputAdornment>
-                        ), 
-                        inputProps: { step: 0.1 } 
-                      }}
-                      sx={{ 
-                        width: { xs: 88, sm: 100 },
-                        '& .MuiInputBase-input': { 
-                          pr: '24px !important',
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      <TextField
+                        size="small"
+                        type="number"
+                        value={expectedReturn}
+                        onChange={(e) => handleInputChange('expectedReturn', Number(e.target.value))}
+                        inputProps={{ step: 0.1 }}
+                        sx={{ width: { xs: 70, sm: 80 } }}
+                      />
+                      <Box 
+                        sx={{ 
+                          bgcolor: 'background.paper', 
+                          py: 1, 
+                          px: 2, 
+                          borderRadius: 1,
+                          border: '1px solid rgba(255,255,255,0.1)',
+                          minWidth: '24px',
                           textAlign: 'center'
-                        },
-                        '& .MuiOutlinedInput-root': {
-                          paddingRight: '6px !important'
-                        }
-                      }}
-                    />
+                        }}
+                      >
+                        %
+                      </Box>
+                    </Box>
                   </Box>
                 </Grid>
                 
@@ -700,43 +672,29 @@ function SWPCalculator() {
                       sx={{ flexGrow: 1 }}
                     />
                     <Button size="small" variant="outlined" onClick={() => handleInputChange('withdrawalPeriod', Math.min(60, withdrawalPeriod + 1))}>+1y</Button>
-                    <TextField
-                      size="small"
-                      type="number"
-                      value={withdrawalPeriod}
-                      onChange={(e) => handleInputChange('withdrawalPeriod', Math.max(1, Number(e.target.value)))}
-                      InputProps={{ 
-                        endAdornment: (
-                          <InputAdornment 
-                            position="end" 
-                            sx={{ 
-                              mr: '6px !important',
-                              ml: '4px !important',
-                              fontSize: '0.75rem',
-                              fontWeight: 500,
-                              color: 'text.secondary',
-                              minWidth: 'auto',
-                              '& .MuiTypography-root': {
-                                fontSize: '0.75rem !important'
-                              }
-                            }}
-                          >
-                            yrs
-                          </InputAdornment>
-                        ), 
-                        inputProps: { step: 1, min: 1 } 
-                      }}
-                      sx={{ 
-                        width: { xs: 88, sm: 100 },
-                        '& .MuiInputBase-input': { 
-                          pr: '32px !important',
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      <TextField
+                        size="small"
+                        type="number"
+                        value={withdrawalPeriod}
+                        onChange={(e) => handleInputChange('withdrawalPeriod', Math.max(1, Number(e.target.value)))}
+                        inputProps={{ step: 1, min: 1 }}
+                        sx={{ width: { xs: 70, sm: 80 } }}
+                      />
+                      <Box 
+                        sx={{ 
+                          bgcolor: 'background.paper', 
+                          py: 1, 
+                          px: 2, 
+                          borderRadius: 1,
+                          border: '1px solid rgba(255,255,255,0.1)',
+                          minWidth: '32px',
                           textAlign: 'center'
-                        },
-                        '& .MuiOutlinedInput-root': {
-                          paddingRight: '6px !important'
-                        }
-                      }}
-                    />
+                        }}
+                      >
+                        yrs
+                      </Box>
+                    </Box>
                   </Box>
                 </Grid>
                 
@@ -759,43 +717,29 @@ function SWPCalculator() {
                       sx={{ flexGrow: 1 }}
                     />
                     <Button size="small" variant="outlined" onClick={() => handleInputChange('inflationRate', Math.min(100, +(inflationRate + 1).toFixed(2)))}>+1%</Button>
-                    <TextField
-                      size="small"
-                      type="number"
-                      value={inflationRate}
-                      onChange={(e) => handleInputChange('inflationRate', Number(e.target.value))}
-                      InputProps={{ 
-                        endAdornment: (
-                          <InputAdornment 
-                            position="end" 
-                            sx={{ 
-                              mr: '6px !important',
-                              ml: '4px !important',
-                              fontSize: '0.75rem',
-                              fontWeight: 500,
-                              color: 'text.secondary',
-                              minWidth: 'auto',
-                              '& .MuiTypography-root': {
-                                fontSize: '0.75rem !important'
-                              }
-                            }}
-                          >
-                            %
-                          </InputAdornment>
-                        ), 
-                        inputProps: { step: 0.1, min: 0 } 
-                      }}
-                      sx={{ 
-                        width: { xs: 88, sm: 100 },
-                        '& .MuiInputBase-input': { 
-                          pr: '24px !important',
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      <TextField
+                        size="small"
+                        type="number"
+                        value={inflationRate}
+                        onChange={(e) => handleInputChange('inflationRate', Number(e.target.value))}
+                        inputProps={{ step: 0.1, min: 0 }}
+                        sx={{ width: { xs: 70, sm: 80 } }}
+                      />
+                      <Box 
+                        sx={{ 
+                          bgcolor: 'background.paper', 
+                          py: 1, 
+                          px: 2, 
+                          borderRadius: 1,
+                          border: '1px solid rgba(255,255,255,0.1)',
+                          minWidth: '24px',
                           textAlign: 'center'
-                        },
-                        '& .MuiOutlinedInput-root': {
-                          paddingRight: '6px !important'
-                        }
-                      }}
-                    />
+                        }}
+                      >
+                        %
+                      </Box>
+                    </Box>
                   </Box>
                 </Grid>
                 
