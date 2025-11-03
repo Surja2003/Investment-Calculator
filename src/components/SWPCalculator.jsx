@@ -362,8 +362,10 @@ function SWPCalculator() {
         display: 'flex', 
         flexDirection: 'column', 
         gap: 3, 
-        maxWidth: { xs: '100%', sm: 600, md: 1200 }, 
-        width: '100%'
+        maxWidth: { xs: 480, sm: 640, md: 1200 }, 
+        width: '100%',
+        mx: 'auto',
+        alignSelf: 'center'
       }}>
         {/* Summary Cards - Hidden until Calculate clicked */}
         {showDetails && (
@@ -522,13 +524,15 @@ function SWPCalculator() {
         )}
       
         {/* Main Calculator Card - Always Visible */}
-        <Box sx={{ order: { xs: 1, md: 1 } }}>
+        <Box sx={{ order: { xs: 1, md: 1 }, display: 'flex', justifyContent: 'center' }}>
         <Card elevation={3} sx={{ 
           bgcolor: theme.palette.mode === 'dark' ? 'rgba(20, 30, 50, 0.95)' : '#fff',
           borderRadius: { xs: 1, md: 2 },
           boxShadow: theme.palette.mode === 'dark' ? '0 8px 24px rgba(0,0,0,0.15)' : '0 2px 10px rgba(0,0,0,0.08)',
           color: theme.palette.mode === 'dark' ? '#fff' : '#222',
-          mx: { xs: 0, md: 0 }
+          mx: { xs: 'auto', md: 0 },
+          width: { xs: '100%', sm: 'auto' },
+          maxWidth: { xs: 480, md: 'none' }
         }}>
         <CardContent>
           <Typography variant="h5" gutterBottom sx={{ color: 'primary.main', fontWeight: 'bold' }}>

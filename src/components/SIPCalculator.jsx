@@ -264,8 +264,10 @@ const SIPCalculator = () => {
         display: 'flex', 
         flexDirection: 'column', 
         gap: 3, 
-        maxWidth: { xs: '100%', sm: 600, md: 1200 }, 
-        width: '100%'
+        maxWidth: { xs: 480, sm: 640, md: 1200 }, 
+        width: '100%',
+        mx: 'auto',
+        alignSelf: 'center'
       }}>
   {/* Summary Cards */}
   {showResults && (
@@ -405,7 +407,7 @@ const SIPCalculator = () => {
 
   {/* Calculator and Chart */}
   <Box sx={{ order: { xs: 1, md: 1 } }}>
-          <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '5fr 7fr', lg: '4fr 8fr' }, gap: { xs: 2, md: 3 } }}>
+    <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '5fr 7fr', lg: '4fr 8fr' }, gap: { xs: 2, md: 3 }, maxWidth: { xs: 480, md: '100%' }, mx: 'auto' }}>
             {/* Calculator Inputs */}
             <Box>
               <FadeIn delay={0.2}>
@@ -415,7 +417,9 @@ const SIPCalculator = () => {
                     bgcolor: theme.palette.mode === 'dark' ? 'rgba(20, 30, 50, 0.95)' : '#fff',
                     borderRadius: { xs: 1, md: 2 },
                     boxShadow: theme.palette.mode === 'dark' ? '0 8px 32px rgba(0, 0, 0, 0.25)' : '0 2px 10px rgba(0,0,0,0.08)',
-                    mx: { xs: 0, md: 0 }
+                    mx: { xs: 'auto', md: 0 },
+                    width: { xs: '100%', sm: 'auto' },
+                    maxWidth: { xs: 480, md: 'none' }
                   }}
                 >
                   <CardContent>
