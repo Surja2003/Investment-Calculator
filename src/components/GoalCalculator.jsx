@@ -247,15 +247,16 @@ const GoalCalculator = () => {
   // Use shared compact formatter for Y-axis labels
 
   return (
-    <Box sx={{ maxWidth: '100%', margin: '0 auto' }}>
-      <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+    <Box sx={{ width: '100%', px: { xs: 1, sm: 3, md: 4 }, py: 2 }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', mb: 3, maxWidth: 1200, mx: 'auto', px: { xs: 1, sm: 0 } }}>
         <FlagIcon sx={{ mr: 1 }} />
         <Typography variant="h5" component="h2" fontWeight="500">
           Investment Goal Calculator
         </Typography>
       </Box>
       
-      <Card sx={{ borderRadius: 2, overflow: 'hidden', mb: 3 }}>
+      <Box sx={{ maxWidth: 1200, mx: 'auto' }}>
+      <Card sx={{ borderRadius: { xs: 1, md: 2 }, overflow: 'hidden', mb: 3, mx: { xs: 0, md: 0 } }}>
   <Grid container>
           {/* Input Section */}
           <Grid xs={12} md={5} sx={{ p: 3, borderRight: { md: '1px solid rgba(255,255,255,0.1)' }, order: { xs: 1, md: 1 } }}>
@@ -655,6 +656,7 @@ const GoalCalculator = () => {
           </Card>
         </FadeIn>
       )}
+      </Box>
     </Box>
   );
 };

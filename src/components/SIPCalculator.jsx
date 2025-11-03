@@ -245,10 +245,10 @@ const SIPCalculator = () => {
   };
 
   return (
-  <Box sx={{ width: '100%', px: { xs: 2, sm: 3, md: 4 }, py: 2 }}>
+  <Box sx={{ width: '100%', px: { xs: 1, sm: 3, md: 4 }, py: 2 }}>
       <FadeIn>
         <Typography variant="h4" component="h1" gutterBottom align="center" 
-          sx={{ fontWeight: 'bold', mb: 4, color: 'primary.main' }}>
+          sx={{ fontWeight: 'bold', mb: 4, color: 'primary.main', px: { xs: 1, sm: 0 } }}>
           <AnimatedText text="SIP Calculator" />
         </Typography>
       </FadeIn>
@@ -392,7 +392,7 @@ const SIPCalculator = () => {
 
   {/* Calculator and Chart */}
   <Box sx={{ order: { xs: 1, md: 1 } }}>
-          <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '5fr 7fr', lg: '4fr 8fr' }, gap: 3 }}>
+          <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '5fr 7fr', lg: '4fr 8fr' }, gap: { xs: 2, md: 3 } }}>
             {/* Calculator Inputs */}
             <Box>
               <FadeIn delay={0.2}>
@@ -400,8 +400,9 @@ const SIPCalculator = () => {
                   elevation={3}
                   sx={{ 
                     bgcolor: theme.palette.mode === 'dark' ? 'rgba(20, 30, 50, 0.95)' : '#fff',
-                    borderRadius: 2,
-                    boxShadow: theme.palette.mode === 'dark' ? '0 8px 32px rgba(0, 0, 0, 0.25)' : '0 2px 10px rgba(0,0,0,0.08)'
+                    borderRadius: { xs: 1, md: 2 },
+                    boxShadow: theme.palette.mode === 'dark' ? '0 8px 32px rgba(0, 0, 0, 0.25)' : '0 2px 10px rgba(0,0,0,0.08)',
+                    mx: { xs: 0, md: 0 }
                   }}
                 >
                   <CardContent>
