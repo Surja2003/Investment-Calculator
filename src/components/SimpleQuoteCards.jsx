@@ -55,9 +55,9 @@ const SimpleQuoteCards = () => {
     <div>
       {loading && <div className={isDarkMode ? "py-6 text-sm text-gray-400" : "py-6 text-sm text-gray-600"}>Loading…</div>}
       {!loading && (
-        <div className="flex justify-center gap-6 overflow-x-auto pb-2">
+        <div className="flex justify-center gap-4 md:gap-6 overflow-x-auto pb-2 snap-x snap-mandatory">
           {items.map((it) => (
-            <div key={it.key} className={`flex-shrink-0 ${isDarkMode ? "rounded-lg border border-gray-600 bg-gray-800/60 shadow-lg p-4" : "rounded-lg border border-gray-300 bg-white shadow-lg p-4"}`}>
+            <div key={it.key} className={`flex-shrink-0 snap-center ${isDarkMode ? "rounded-lg border border-gray-600 bg-gray-800/60 shadow-lg p-4" : "rounded-lg border border-gray-300 bg-white shadow-lg p-4"}`}>
               <CryptoCard name={it.name} price={it.price} changePercent={it.changePercent} currency={it.currency} isDarkMode={isDarkMode} />
             </div>
           ))}

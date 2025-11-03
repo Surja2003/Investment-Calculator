@@ -216,3 +216,33 @@
     outline-offset: 2px;
   }
 }
+
+/* Mobile tweaks */
+@media (max-width: 640px) {
+  html, body {
+    overflow-x: hidden;
+  }
+
+  .form-box {
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+    margin: var(--spacing-md) auto;
+  }
+
+  .form-box h3 {
+    font-size: 1.1rem;
+  }
+
+  .form-box .input {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    font-size: 1rem;
+  }
+
+  .button-primary,
+  .button-secondary {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    font-size: 1rem;
+  }
+}

@@ -802,7 +802,7 @@ const SIPCalculator = () => {
                       </Box>
                     </Box>
                     <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', p: 0 }}>
-                      <Box sx={{ height: 450, width: '100%', flexGrow: 1, pt: 2 }}>
+                      <Box sx={{ width: '100%', flexGrow: 1, pt: 2 }}>
                         <ProjectionChartLW
                           data={chartData}
                           title="Investment Growth Projection"
@@ -813,13 +813,15 @@ const SIPCalculator = () => {
                           annualRate={Number(formData.annualRate) || 0}
                           years={Number(formData.years) || 0}
                           startYear={new Date().getFullYear()}
+                          height={'clamp(260px, 45vh, 420px)'}
                           theme={theme.palette.mode === 'dark' ? 'dark' : 'light'}
                         />
                       </Box>
                       <Box sx={{ 
-                        display: 'flex', 
-                        justifyContent: 'space-between', 
-                        p: 3,
+                        display: 'grid',
+                        gridTemplateColumns: { xs: '1fr 1fr', sm: '1fr 1fr', md: 'repeat(4, 1fr)' },
+                        gap: 2,
+                        p: { xs: 2, md: 3 },
                         borderTop: '1px solid rgba(255,255,255,0.1)',
                         bgcolor: 'background.paper'
                       }}>
