@@ -37,6 +37,7 @@ import SWPCalculator from './components/SWPCalculator';
 import GoalCalculator from './components/GoalCalculator';
 import Home from './pages/Home';
 import Disclaimer from './components/Disclaimer';
+import DevSimulatorToggle from './components/DevSimulatorToggle';
 import { THEME_CONSTANTS } from './constants/theme';
 import './App.css';
 
@@ -186,7 +187,8 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Router>
+      <DevSimulatorToggle>
+        <Router>
         <Box sx={{ minHeight: '100vh', bgcolor: 'background.default', pb: 5 }}>
           <AppBar 
             position="sticky" 
@@ -257,6 +259,7 @@ function App() {
         </Box>
         <Disclaimer />
       </Router>
+      </DevSimulatorToggle>
     </ThemeProvider>
   );
 }
