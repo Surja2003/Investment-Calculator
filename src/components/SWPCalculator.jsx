@@ -352,10 +352,26 @@ function SWPCalculator() {
       alignItems: 'center'
     }}>
       <FadeIn>
-        <Typography variant="h4" component="h1" gutterBottom align="center" 
-          sx={{ fontWeight: 'bold', mb: 4, color: 'primary.main' }}>
-          <AnimatedText text="Systematic Withdrawal Plan (SWP) Calculator" />
-        </Typography>
+        <Box sx={{ textAlign: 'center', mb: 4 }}>
+          {/* Desktop / Tablet: single line */}
+          <Typography
+            variant="h4"
+            component="h1"
+            align="center"
+            sx={{ display: { xs: 'none', sm: 'block' }, fontWeight: 'bold', color: 'primary.main' }}
+          >
+            <AnimatedText text="Systematic Withdrawal Plan (SWP) Calculator" />
+          </Typography>
+          {/* Mobile: controlled two-line title to avoid awkward word breaks */}
+          <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
+            <Typography variant="h4" component="h1" align="center" sx={{ fontWeight: 'bold', color: 'primary.main', lineHeight: 1.2 }}>
+              <AnimatedText text="Systematic Withdrawal" />
+            </Typography>
+            <Typography variant="h4" component="h1" align="center" sx={{ fontWeight: 'bold', color: 'primary.main', lineHeight: 1.2 }}>
+              <AnimatedText text="Plan (SWP) Calculator" />
+            </Typography>
+          </Box>
+        </Box>
       </FadeIn>
       
       <Box sx={{ 
@@ -529,12 +545,28 @@ function SWPCalculator() {
           borderRadius: { xs: 1, md: 2 },
           boxShadow: theme.palette.mode === 'dark' ? '0 8px 24px rgba(0,0,0,0.15)' : '0 2px 10px rgba(0,0,0,0.08)',
           color: theme.palette.mode === 'dark' ? '#fff' : '#222',
-          mx: { xs: 0, md: 0 }
+          mx: { xs: 0, md: 0 },
+          width: '100%'
         }}>
         <CardContent>
-          <Typography variant="h5" gutterBottom sx={{ color: 'primary.main', fontWeight: 'bold' }}>
-            Systematic Withdrawal Plan Calculator
-          </Typography>
+          {/* Desktop/Tablet single-line heading; mobile two-line */}
+          <Box sx={{ textAlign: 'center', mb: 1 }}>
+            <Typography
+              variant="h5"
+              gutterBottom
+              sx={{ color: 'primary.main', fontWeight: 'bold', display: { xs: 'none', sm: 'block' } }}
+            >
+              Systematic Withdrawal Plan Calculator
+            </Typography>
+            <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
+              <Typography variant="h6" sx={{ color: 'primary.main', fontWeight: 'bold', lineHeight: 1.2 }}>
+                Systematic Withdrawal
+              </Typography>
+              <Typography variant="h6" sx={{ color: 'primary.main', fontWeight: 'bold', lineHeight: 1.2 }}>
+                Plan Calculator
+              </Typography>
+            </Box>
+          </Box>
           
           <Grid container spacing={3} sx={{ maxWidth: { xs: 480, sm: 720, md: '100%' }, mx: 'auto' }}>
             {/* Input Section */}
