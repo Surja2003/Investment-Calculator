@@ -512,10 +512,10 @@ import CountUp from './animations/CountUp';
                 </Grid>
                 
                 <Grid sx={{ gridColumn: 'span 12' }}>
-                  <Typography component="label" htmlFor="swp-withdrawal-rate" gutterBottom>
-                    Withdrawal Rate: {formatPercentage(withdrawalRate)}
-                  </Typography>
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, flexWrap: { xs: 'wrap', sm: 'nowrap' } }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, flexWrap: 'nowrap' }}>
+                    <Typography component="label" htmlFor="swp-withdrawal-rate" sx={{ minWidth: 120 }}>
+                      Withdrawal Rate:
+                    </Typography>
                     <Button size="small" variant="outlined" onClick={() => handleWithdrawalRateChange(Math.max(0, +(withdrawalRate - 1).toFixed(2)))}>-1%</Button>
                     <Slider
                       id="swp-withdrawal-rate"
@@ -527,33 +527,18 @@ import CountUp from './animations/CountUp';
                       step={0.1}
                       valueLabelDisplay="auto"
                       valueLabelFormat={formatPercentage}
-                      sx={{ flexGrow: 1 }}
+                      sx={{ flexGrow: 1, minWidth: 60 }}
                     />
                     <Button size="small" variant="outlined" onClick={() => handleWithdrawalRateChange(Math.min(100, +(withdrawalRate + 1).toFixed(2)))}>+1%</Button>
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, width: { xs: '100%', sm: 'auto' }, justifyContent: { xs: 'flex-end', sm: 'flex-start' }, mt: { xs: 1, sm: 0 } }}>
-                      <TextField
-                        size="small"
-                        type="number"
-                        value={withdrawalRate}
-                        onChange={(e) => handleWithdrawalRateChange(Number(e.target.value))}
-                        inputProps={{ step: 0.1 }}
-                        sx={{ width: { xs: 100, sm: 120 } }}
-                      />
-                      <Box 
-                        sx={{ 
-                          bgcolor: 'background.paper', 
-                          py: 1, 
-                          px: 1.5, 
-                          borderRadius: 1,
-                          border: '1px solid rgba(255,255,255,0.1)',
-                          minWidth: '28px',
-                          textAlign: 'center',
-                          fontSize: '0.875rem'
-                        }}
-                      >
-                        %
-                      </Box>
-                    </Box>
+                    <TextField
+                      size="small"
+                      type="number"
+                      value={withdrawalRate}
+                      onChange={(e) => handleWithdrawalRateChange(Number(e.target.value))}
+                      inputProps={{ step: 0.1 }}
+                      sx={{ width: 60, mx: 1 }}
+                    />
+                    <Box sx={{ bgcolor: 'background.paper', py: 1, px: 1.5, borderRadius: 1, border: '1px solid rgba(255,255,255,0.1)', minWidth: '28px', textAlign: 'center', fontSize: '0.875rem' }}>%</Box>
                   </Box>
                 </Grid>
                 
@@ -575,10 +560,10 @@ import CountUp from './animations/CountUp';
                 </Grid>
                 
                 <Grid sx={{ gridColumn: 'span 12' }}>
-                  <Typography component="label" htmlFor="swp-expected-return" gutterBottom>
-                    Expected Return: {formatPercentage(expectedReturn)}
-                  </Typography>
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, flexWrap: { xs: 'wrap', sm: 'nowrap' } }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, flexWrap: 'nowrap' }}>
+                    <Typography component="label" htmlFor="swp-expected-return" sx={{ minWidth: 120 }}>
+                      Expected Return:
+                    </Typography>
                     <Button size="small" variant="outlined" onClick={() => handleInputChange('expectedReturn', Math.max(0, +(expectedReturn - 1).toFixed(2)))}>-1%</Button>
                     <Slider
                       id="swp-expected-return"
@@ -590,41 +575,26 @@ import CountUp from './animations/CountUp';
                       step={0.1}
                       valueLabelDisplay="auto"
                       valueLabelFormat={formatPercentage}
-                      sx={{ flexGrow: 1 }}
+                      sx={{ flexGrow: 1, minWidth: 60 }}
                     />
                     <Button size="small" variant="outlined" onClick={() => handleInputChange('expectedReturn', Math.min(100, +(expectedReturn + 1).toFixed(2)))}>+1%</Button>
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, width: { xs: '100%', sm: 'auto' }, justifyContent: { xs: 'flex-end', sm: 'flex-start' }, mt: { xs: 1, sm: 0 } }}>
-                      <TextField
-                        size="small"
-                        type="number"
-                        value={expectedReturn}
-                        onChange={(e) => handleInputChange('expectedReturn', Number(e.target.value))}
-                        inputProps={{ step: 0.1 }}
-                        sx={{ width: { xs: 100, sm: 120 } }}
-                      />
-                      <Box 
-                        sx={{ 
-                          bgcolor: 'background.paper', 
-                          py: 1, 
-                          px: 1.5, 
-                          borderRadius: 1,
-                          border: '1px solid rgba(255,255,255,0.1)',
-                          minWidth: '28px',
-                          textAlign: 'center',
-                          fontSize: '0.875rem'
-                        }}
-                      >
-                        %
-                      </Box>
-                    </Box>
+                    <TextField
+                      size="small"
+                      type="number"
+                      value={expectedReturn}
+                      onChange={(e) => handleInputChange('expectedReturn', Number(e.target.value))}
+                      inputProps={{ step: 0.1 }}
+                      sx={{ width: 60, mx: 1 }}
+                    />
+                    <Box sx={{ bgcolor: 'background.paper', py: 1, px: 1.5, borderRadius: 1, border: '1px solid rgba(255,255,255,0.1)', minWidth: '28px', textAlign: 'center', fontSize: '0.875rem' }}>%</Box>
                   </Box>
                 </Grid>
                 
                 <Grid sx={{ gridColumn: 'span 12' }}>
-                  <Typography component="label" htmlFor="swp-withdrawal-period" gutterBottom>
-                    Withdrawal Period: {withdrawalPeriod} years
-                  </Typography>
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, flexWrap: { xs: 'wrap', sm: 'nowrap' } }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, flexWrap: 'nowrap' }}>
+                    <Typography component="label" htmlFor="swp-withdrawal-period" sx={{ minWidth: 120 }}>
+                      Withdrawal Period:
+                    </Typography>
                     <Button size="small" variant="outlined" onClick={() => handleInputChange('withdrawalPeriod', Math.max(1, withdrawalPeriod - 1))}>-1y</Button>
                     <Slider
                       id="swp-withdrawal-period"
@@ -635,41 +605,26 @@ import CountUp from './animations/CountUp';
                       max={50}
                       step={1}
                       valueLabelDisplay="auto"
-                      sx={{ flexGrow: 1 }}
+                      sx={{ flexGrow: 1, minWidth: 60 }}
                     />
                     <Button size="small" variant="outlined" onClick={() => handleInputChange('withdrawalPeriod', Math.min(60, withdrawalPeriod + 1))}>+1y</Button>
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, width: { xs: '100%', sm: 'auto' }, justifyContent: { xs: 'flex-end', sm: 'flex-start' }, mt: { xs: 1, sm: 0 } }}>
-                      <TextField
-                        size="small"
-                        type="number"
-                        value={withdrawalPeriod}
-                        onChange={(e) => handleInputChange('withdrawalPeriod', Math.max(1, Number(e.target.value)))}
-                        inputProps={{ step: 1, min: 1 }}
-                        sx={{ width: { xs: 100, sm: 120 } }}
-                      />
-                      <Box 
-                        sx={{ 
-                          bgcolor: 'background.paper', 
-                          py: 1, 
-                          px: 1.5, 
-                          borderRadius: 1,
-                          border: '1px solid rgba(255,255,255,0.1)',
-                          minWidth: '36px',
-                          textAlign: 'center',
-                          fontSize: '0.875rem'
-                        }}
-                      >
-                        yrs
-                      </Box>
-                    </Box>
+                    <TextField
+                      size="small"
+                      type="number"
+                      value={withdrawalPeriod}
+                      onChange={(e) => handleInputChange('withdrawalPeriod', Math.max(1, Number(e.target.value)))}
+                      inputProps={{ step: 1, min: 1 }}
+                      sx={{ width: 60, mx: 1 }}
+                    />
+                    <Box sx={{ bgcolor: 'background.paper', py: 1, px: 1.5, borderRadius: 1, border: '1px solid rgba(255,255,255,0.1)', minWidth: '36px', textAlign: 'center', fontSize: '0.875rem' }}>yrs</Box>
                   </Box>
                 </Grid>
                 
                 <Grid sx={{ gridColumn: 'span 12' }}>
-                  <Typography component="label" htmlFor="swp-inflation-rate" gutterBottom>
-                    Inflation Rate: {formatPercentage(inflationRate)}
-                  </Typography>
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, flexWrap: { xs: 'wrap', sm: 'nowrap' } }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, flexWrap: 'nowrap' }}>
+                    <Typography component="label" htmlFor="swp-inflation-rate" sx={{ minWidth: 120 }}>
+                      Inflation Rate:
+                    </Typography>
                     <Button size="small" variant="outlined" onClick={() => handleInputChange('inflationRate', Math.max(0, +(inflationRate - 1).toFixed(2)))}>-1%</Button>
                     <Slider
                       id="swp-inflation-rate"
@@ -681,33 +636,18 @@ import CountUp from './animations/CountUp';
                       step={0.1}
                       valueLabelDisplay="auto"
                       valueLabelFormat={formatPercentage}
-                      sx={{ flexGrow: 1 }}
+                      sx={{ flexGrow: 1, minWidth: 60 }}
                     />
                     <Button size="small" variant="outlined" onClick={() => handleInputChange('inflationRate', Math.min(100, +(inflationRate + 1).toFixed(2)))}>+1%</Button>
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, width: { xs: '100%', sm: 'auto' }, justifyContent: { xs: 'flex-end', sm: 'flex-start' }, mt: { xs: 1, sm: 0 } }}>
-                      <TextField
-                        size="small"
-                        type="number"
-                        value={inflationRate}
-                        onChange={(e) => handleInputChange('inflationRate', Number(e.target.value))}
-                        inputProps={{ step: 0.1, min: 0 }}
-                        sx={{ width: { xs: 100, sm: 120 } }}
-                      />
-                      <Box 
-                        sx={{ 
-                          bgcolor: 'background.paper', 
-                          py: 1, 
-                          px: 1.5, 
-                          borderRadius: 1,
-                          border: '1px solid rgba(255,255,255,0.1)',
-                          minWidth: '28px',
-                          textAlign: 'center',
-                          fontSize: '0.875rem'
-                        }}
-                      >
-                        %
-                      </Box>
-                    </Box>
+                    <TextField
+                      size="small"
+                      type="number"
+                      value={inflationRate}
+                      onChange={(e) => handleInputChange('inflationRate', Number(e.target.value))}
+                      inputProps={{ step: 0.1, min: 0 }}
+                      sx={{ width: 60, mx: 1 }}
+                    />
+                    <Box sx={{ bgcolor: 'background.paper', py: 1, px: 1.5, borderRadius: 1, border: '1px solid rgba(255,255,255,0.1)', minWidth: '28px', textAlign: 'center', fontSize: '0.875rem' }}>%</Box>
                   </Box>
                 </Grid>
                 
