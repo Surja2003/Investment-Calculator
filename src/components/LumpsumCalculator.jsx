@@ -407,13 +407,35 @@ const LumpsumCalculator = () => {
                             value={formData.years}
                             onChange={(e) => handleRangeChange('years')(Math.max(1, Number(e.target.value)))}
                             InputProps={{
-                              endAdornment: <InputAdornment position="end" sx={{ mr: 0, fontSize: '0.75rem' }}>yrs</InputAdornment>,
+                              endAdornment: (
+                                <InputAdornment 
+                                  position="end" 
+                                  sx={{ 
+                                    mr: '6px !important',
+                                    ml: '4px !important',
+                                    fontSize: '0.75rem',
+                                    fontWeight: 500,
+                                    color: 'text.secondary',
+                                    minWidth: 'auto',
+                                    '& .MuiTypography-root': {
+                                      fontSize: '0.75rem !important'
+                                    }
+                                  }}
+                                >
+                                  yrs
+                                </InputAdornment>
+                              ),
                               inputProps: { min: 1, step: 1 }
                             }}
                             sx={{
-                              width: { xs: 96, sm: 110 },
-                              '& .MuiInputBase-input': { pr: 0 },
-                              '& .MuiInputAdornment-root': { mr: 0 }
+                              width: { xs: 88, sm: 100 },
+                              '& .MuiInputBase-input': { 
+                                pr: '32px !important',
+                                textAlign: 'center'
+                              },
+                              '& .MuiOutlinedInput-root': {
+                                paddingRight: '6px !important'
+                              }
                             }}
                           />
                         </Box>
@@ -456,13 +478,35 @@ const LumpsumCalculator = () => {
                             value={formData.annualRate}
                             onChange={(e) => handleRangeChange('annualRate')(Number(e.target.value))}
                             InputProps={{
-                              endAdornment: <InputAdornment position="end" sx={{ mr: 0, fontSize: '0.75rem' }}>%</InputAdornment>,
+                              endAdornment: (
+                                <InputAdornment 
+                                  position="end" 
+                                  sx={{ 
+                                    mr: '6px !important',
+                                    ml: '4px !important',
+                                    fontSize: '0.75rem',
+                                    fontWeight: 500,
+                                    color: 'text.secondary',
+                                    minWidth: 'auto',
+                                    '& .MuiTypography-root': {
+                                      fontSize: '0.75rem !important'
+                                    }
+                                  }}
+                                >
+                                  %
+                                </InputAdornment>
+                              ),
                               inputProps: { step: 0.1 }
                             }}
                             sx={{
-                              width: { xs: 96, sm: 110 },
-                              '& .MuiInputBase-input': { pr: 0 },
-                              '& .MuiInputAdornment-root': { mr: 0 }
+                              width: { xs: 88, sm: 100 },
+                              '& .MuiInputBase-input': { 
+                                pr: '24px !important',
+                                textAlign: 'center'
+                              },
+                              '& .MuiOutlinedInput-root': {
+                                paddingRight: '6px !important'
+                              }
                             }}
                           />
                         </Box>
@@ -528,13 +572,35 @@ const LumpsumCalculator = () => {
                                 value={formData.inflation}
                                 onChange={(e) => handleRangeChange('inflation')(Number(e.target.value))}
                                 InputProps={{
-                                  endAdornment: <InputAdornment position="end" sx={{ mr: 0, fontSize: '0.75rem' }}>%</InputAdornment>,
+                                  endAdornment: (
+                                    <InputAdornment 
+                                      position="end" 
+                                      sx={{ 
+                                        mr: '6px !important',
+                                        ml: '4px !important',
+                                        fontSize: '0.75rem',
+                                        fontWeight: 500,
+                                        color: 'text.secondary',
+                                        minWidth: 'auto',
+                                        '& .MuiTypography-root': {
+                                          fontSize: '0.75rem !important'
+                                        }
+                                      }}
+                                    >
+                                      %
+                                    </InputAdornment>
+                                  ),
                                   inputProps: { step: 0.1, min: 0 }
                                 }}
                                 sx={{
-                                  width: { xs: 96, sm: 110 },
-                                  '& .MuiInputBase-input': { pr: 0 },
-                                  '& .MuiInputAdornment-root': { mr: 0 }
+                                  width: { xs: 88, sm: 100 },
+                                  '& .MuiInputBase-input': { 
+                                    pr: '24px !important',
+                                    textAlign: 'center'
+                                  },
+                                  '& .MuiOutlinedInput-root': {
+                                    paddingRight: '6px !important'
+                                  }
                                 }}
                               />
                             </Box>

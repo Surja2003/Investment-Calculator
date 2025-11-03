@@ -571,8 +571,37 @@ function SWPCalculator() {
                       type="number"
                       value={withdrawalRate}
                       onChange={(e) => handleWithdrawalRateChange(Number(e.target.value))}
-                      InputProps={{ endAdornment: <InputAdornment position="end">%</InputAdornment>, inputProps: { step: 0.1 } }}
-                      sx={{ width: 110 }}
+                      InputProps={{ 
+                        endAdornment: (
+                          <InputAdornment 
+                            position="end" 
+                            sx={{ 
+                              mr: '6px !important',
+                              ml: '4px !important',
+                              fontSize: '0.75rem',
+                              fontWeight: 500,
+                              color: 'text.secondary',
+                              minWidth: 'auto',
+                              '& .MuiTypography-root': {
+                                fontSize: '0.75rem !important'
+                              }
+                            }}
+                          >
+                            %
+                          </InputAdornment>
+                        ), 
+                        inputProps: { step: 0.1 } 
+                      }}
+                      sx={{ 
+                        width: { xs: 88, sm: 100 },
+                        '& .MuiInputBase-input': { 
+                          pr: '24px !important',
+                          textAlign: 'center'
+                        },
+                        '& .MuiOutlinedInput-root': {
+                          paddingRight: '6px !important'
+                        }
+                      }}
                     />
                   </Box>
                 </Grid>
@@ -618,8 +647,37 @@ function SWPCalculator() {
                       type="number"
                       value={expectedReturn}
                       onChange={(e) => handleInputChange('expectedReturn', Number(e.target.value))}
-                      InputProps={{ endAdornment: <InputAdornment position="end">%</InputAdornment>, inputProps: { step: 0.1 } }}
-                      sx={{ width: 110 }}
+                      InputProps={{ 
+                        endAdornment: (
+                          <InputAdornment 
+                            position="end" 
+                            sx={{ 
+                              mr: '6px !important',
+                              ml: '4px !important',
+                              fontSize: '0.75rem',
+                              fontWeight: 500,
+                              color: 'text.secondary',
+                              minWidth: 'auto',
+                              '& .MuiTypography-root': {
+                                fontSize: '0.75rem !important'
+                              }
+                            }}
+                          >
+                            %
+                          </InputAdornment>
+                        ), 
+                        inputProps: { step: 0.1 } 
+                      }}
+                      sx={{ 
+                        width: { xs: 88, sm: 100 },
+                        '& .MuiInputBase-input': { 
+                          pr: '24px !important',
+                          textAlign: 'center'
+                        },
+                        '& .MuiOutlinedInput-root': {
+                          paddingRight: '6px !important'
+                        }
+                      }}
                     />
                   </Box>
                 </Grid>
@@ -647,8 +705,37 @@ function SWPCalculator() {
                       type="number"
                       value={withdrawalPeriod}
                       onChange={(e) => handleInputChange('withdrawalPeriod', Math.max(1, Number(e.target.value)))}
-                      InputProps={{ endAdornment: <InputAdornment position="end">yrs</InputAdornment>, inputProps: { step: 1, min: 1 } }}
-                      sx={{ width: 110 }}
+                      InputProps={{ 
+                        endAdornment: (
+                          <InputAdornment 
+                            position="end" 
+                            sx={{ 
+                              mr: '6px !important',
+                              ml: '4px !important',
+                              fontSize: '0.75rem',
+                              fontWeight: 500,
+                              color: 'text.secondary',
+                              minWidth: 'auto',
+                              '& .MuiTypography-root': {
+                                fontSize: '0.75rem !important'
+                              }
+                            }}
+                          >
+                            yrs
+                          </InputAdornment>
+                        ), 
+                        inputProps: { step: 1, min: 1 } 
+                      }}
+                      sx={{ 
+                        width: { xs: 88, sm: 100 },
+                        '& .MuiInputBase-input': { 
+                          pr: '32px !important',
+                          textAlign: 'center'
+                        },
+                        '& .MuiOutlinedInput-root': {
+                          paddingRight: '6px !important'
+                        }
+                      }}
                     />
                   </Box>
                 </Grid>
@@ -677,8 +764,37 @@ function SWPCalculator() {
                       type="number"
                       value={inflationRate}
                       onChange={(e) => handleInputChange('inflationRate', Number(e.target.value))}
-                      InputProps={{ endAdornment: <InputAdornment position="end">%</InputAdornment>, inputProps: { step: 0.1, min: 0 } }}
-                      sx={{ width: 110 }}
+                      InputProps={{ 
+                        endAdornment: (
+                          <InputAdornment 
+                            position="end" 
+                            sx={{ 
+                              mr: '6px !important',
+                              ml: '4px !important',
+                              fontSize: '0.75rem',
+                              fontWeight: 500,
+                              color: 'text.secondary',
+                              minWidth: 'auto',
+                              '& .MuiTypography-root': {
+                                fontSize: '0.75rem !important'
+                              }
+                            }}
+                          >
+                            %
+                          </InputAdornment>
+                        ), 
+                        inputProps: { step: 0.1, min: 0 } 
+                      }}
+                      sx={{ 
+                        width: { xs: 88, sm: 100 },
+                        '& .MuiInputBase-input': { 
+                          pr: '24px !important',
+                          textAlign: 'center'
+                        },
+                        '& .MuiOutlinedInput-root': {
+                          paddingRight: '6px !important'
+                        }
+                      }}
                     />
                   </Box>
                 </Grid>
