@@ -210,8 +210,9 @@ const LumpsumCalculator = () => {
         display: 'flex', 
         flexDirection: 'column', 
         gap: 3, 
-        maxWidth: { xs: '100%', sm: 600, md: 1200 }, 
-        width: '100%'
+        maxWidth: { xs: 480, sm: 720, md: 1200 }, 
+        width: '100%',
+        mx: 'auto'
       }}>
   {/* Summary Cards */}
   {showResults && (
@@ -342,7 +343,7 @@ const LumpsumCalculator = () => {
 
   {/* Calculator and Chart */}
   <Box sx={{ order: { xs: 1, md: 1 } }}>
-          <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '5fr 7fr', lg: '4fr 8fr' }, gap: { xs: 2, md: 3 } }}>
+          <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '5fr 7fr', lg: '4fr 8fr' }, gap: { xs: 2, md: 3 }, justifyContent: 'center', alignItems: 'stretch' }}>
             {/* Calculator Inputs */}
             <Box>
               <FadeIn delay={0.1}>
