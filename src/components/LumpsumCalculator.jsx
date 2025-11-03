@@ -106,9 +106,8 @@ const LumpsumCalculator = () => {
     const years = Number(formData.years) || 5;
     const annualRate = Number(formData.annualRate) || 12;
   const rate = annualRate / 100;
-  // Monthly compounding for initial calculation to align app-wide convention
-  const monthlyRate = rate / 12;
-  const futureValue = amount * Math.pow(1 + monthlyRate, years * 12);
+  // Annual compounding for lumpsum calculation
+  const futureValue = amount * Math.pow(1 + rate, years);
     
     console.log('Initial calculation results:', {
       futureValue: Math.round(futureValue),
@@ -137,7 +136,6 @@ const LumpsumCalculator = () => {
     const rate = (Number(formData.annualRate) || 0) / 100;
     const inflation = formData.includeInflation ? (Number(formData.inflation) || 0) / 100 : 0;
     const annualEffective = formData.includeInflation ? ((1 + rate) / (1 + inflation) - 1) : rate;
-    const monthlyRate = annualEffective / 12;
 
     let investedAmount = amount;
     let currentValue = amount;
@@ -152,8 +150,8 @@ const LumpsumCalculator = () => {
         continue;
       }
 
-      // Apply monthly compounding for the year
-      currentValue = currentValue * Math.pow(1 + monthlyRate, 12);
+      // Apply annual compounding for the year
+      currentValue = currentValue * (1 + annualEffective);
 
       data.push({
         year: `Year ${year}`,
@@ -173,8 +171,9 @@ const LumpsumCalculator = () => {
   const rate = annualRate / 100;
   
   // Monthly compounding for summary and fallback
-  const monthlyRate = (formData.includeInflation ? ((1 + rate) / (1 + (formData.inflation || 0) / 100) - 1) : rate) / 12;
-  const directFutureValue = amount * Math.pow(1 + monthlyRate, years * 12);
+  // Annual compounding for summary and fallback
+  const annualEffective = formData.includeInflation ? ((1 + rate) / (1 + (formData.inflation || 0) / 100) - 1) : rate;
+  const directFutureValue = amount * Math.pow(1 + annualEffective, years);
   
   // Use chart data if available, otherwise use direct calculation
   const expectedAmount = !isNaN(chartData[chartData.length - 1]?.['Current Value']) ? 
