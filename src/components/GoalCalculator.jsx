@@ -13,23 +13,13 @@ import {
   FormGroup,
   Divider
 } from '@mui/material';
-import {
-  AreaChart,
-  Area,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer
-} from 'recharts';
-import { CHART_COLORS } from '../constants/theme';
-// import formatINCompact from '../utils/numberFormat';
+import ProjectionChartLW from './ProjectionChartLW';
 import FlagIcon from '@mui/icons-material/Flag';
 import CalculateIcon from '@mui/icons-material/Calculate';
 import InfoIcon from '@mui/icons-material/Info';
 import {
   FadeIn,
   SlideIn,
-  AnimatedChart,
   AnimatedProgressBar,
   CountUp
 } from './animations';
