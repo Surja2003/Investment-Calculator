@@ -191,15 +191,28 @@ const LumpsumCalculator = () => {
   };
 
   return (
-    <Box sx={{ width: '100%', px: { xs: 1, sm: 3, md: 4 }, py: 2 }}>
+    <Box sx={{ 
+      width: '100%', 
+      px: { xs: 2, sm: 3, md: 4 }, 
+      py: 2,
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center'
+    }}>
       <FadeIn>
         <Typography variant="h4" component="h1" gutterBottom align="center" 
-          sx={{ fontWeight: 'bold', mb: 4, color: 'primary.main', px: { xs: 1, sm: 0 } }}>
+          sx={{ fontWeight: 'bold', mb: 4, color: 'primary.main' }}>
           <AnimatedText text="Lumpsum Calculator" />
         </Typography>
       </FadeIn>
       
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, maxWidth: 1200, mx: 'auto' }}>
+      <Box sx={{ 
+        display: 'flex', 
+        flexDirection: 'column', 
+        gap: 3, 
+        maxWidth: { xs: '100%', sm: 600, md: 1200 }, 
+        width: '100%'
+      }}>
   {/* Summary Cards */}
   {showResults && (
   <Box sx={{ order: { xs: 2, md: 2 } }}>
