@@ -1,4 +1,4 @@
-# SIP-Calculator-PRO
+# Investment-Calculator
 
 Smart personal finance calculators with SIP, Lumpsum, SWP, and Goal planning, plus inflation-adjusted analysis and modern charts. Built with React + Vite.
 
