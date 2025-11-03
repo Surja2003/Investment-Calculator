@@ -587,7 +587,7 @@ function SWPCalculator() {
                         value={withdrawalRate}
                         onChange={(e) => handleWithdrawalRateChange(Number(e.target.value))}
                         inputProps={{ step: 0.1 }}
-                        sx={{ width: { xs: 100, sm: 160 } }}
+                        sx={{ width: { xs: 80, sm: 120 } }}
                       />
                       <Box 
                         sx={{ 
@@ -650,7 +650,7 @@ function SWPCalculator() {
                         value={expectedReturn}
                         onChange={(e) => handleInputChange('expectedReturn', Number(e.target.value))}
                         inputProps={{ step: 0.1 }}
-                        sx={{ width: { xs: 100, sm: 160 } }}
+                        sx={{ width: { xs: 80, sm: 120 } }}
                       />
                       <Box 
                         sx={{ 
@@ -695,7 +695,7 @@ function SWPCalculator() {
                         value={withdrawalPeriod}
                         onChange={(e) => handleInputChange('withdrawalPeriod', Math.max(1, Number(e.target.value)))}
                         inputProps={{ step: 1, min: 1 }}
-                        sx={{ width: { xs: 100, sm: 160 } }}
+                        sx={{ width: { xs: 80, sm: 120 } }}
                       />
                       <Box 
                         sx={{ 
@@ -741,7 +741,7 @@ function SWPCalculator() {
                         value={inflationRate}
                         onChange={(e) => handleInputChange('inflationRate', Number(e.target.value))}
                         inputProps={{ step: 0.1, min: 0 }}
-                        sx={{ width: { xs: 100, sm: 160 } }}
+                        sx={{ width: { xs: 80, sm: 120 } }}
                       />
                       <Box 
                         sx={{ 
