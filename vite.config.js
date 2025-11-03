@@ -3,7 +3,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
 export default defineConfig({
-  base: './',
+  base: '/Investment-Calculator/',
   plugins: [react()],
   css: {
     postcss: './postcss.config.js',
