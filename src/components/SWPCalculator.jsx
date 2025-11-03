@@ -20,154 +20,72 @@ import FadeIn from './animations/FadeIn';
 import AnimatedText from './animations/AnimatedText';
 import SlideIn from './animations/SlideIn';
 import CountUp from './animations/CountUp';
-import SWPBreakdown from './SWPBreakdown';
-import AnimatedCounter from './animations/AnimatedCounter';
-import ProjectionChartLW from './ProjectionChartLW';
-import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip } from 'recharts';
-
-function SWPCalculator() {
-  const theme = useTheme();
-  
-  // Use React.useRef to keep track of which field was last updated
-  const lastUpdatedField = React.useRef(null);
-  
-  // State for calculation results
-  const [calculationResults, setCalculationResults] = useState({
-    finalCorpus: 0,
-    totalWithdrawals: 0,
-    scheduledTotalWithdrawals: 0,
-    depletedAtYears: null,
-    chartData: [],
-    finalWithdrawalAmount: 0
-  });
-  
-  // UI state
-  const [showDetails, setShowDetails] = useState(false);
-  const [showBreakdown, setShowBreakdown] = useState(false);
-  const [showComparison, setShowComparison] = useState(false);
-  
-  // Form inputs state
-  const [formInputs, setFormInputs] = useState({
-    initialInvestment: 1000000,
-    withdrawalRate: 6,
-    withdrawalAmount: 60000,
-    expectedReturn: 10,
-    withdrawalPeriod: 20,
-    inflationRate: 5,
-    withdrawalFrequency: 'monthly',
-    adjustForInflation: false,
-    _timestamp: Date.now()
-  });
-  
-  // Destructure values from state for easier access in component
-  const { 
-    initialInvestment, 
-    withdrawalRate, 
-    withdrawalAmount, 
-    expectedReturn, 
-    withdrawalPeriod, 
-    inflationRate
-  } = formInputs;
-  
-  const { finalCorpus, totalWithdrawals, scheduledTotalWithdrawals, depletedAtYears, chartData } = calculationResults;
-  
-  // Handle initial investment change
-  const handleInitialInvestmentChange = (value) => {
-    try {
-      const newValue = Math.max(0, Number(value) || 0);
-      lastUpdatedField.current = 'initialInvestment';
-      
-      setFormInputs(prev => {
-        // Calculate new withdrawal amount based on rate
-        const withdrawalRate = prev.withdrawalRate || 0;
-        const newWithdrawalAmount = (newValue * withdrawalRate) / 100;
-        
-        return {
-          ...prev,
-          initialInvestment: newValue,
-          withdrawalAmount: newWithdrawalAmount,
-          _timestamp: Date.now() // Add timestamp to force re-render
-        };
-      });
-    } catch (error) {
-      console.error('Error in handleInitialInvestmentChange:', error);
-    }
-  };
-  
-  // Handle withdrawal rate change
-  const handleWithdrawalRateChange = (value) => {
-    try {
-      const newRate = Number(value) || 0;
-      lastUpdatedField.current = 'withdrawalRate';
-      
-      setFormInputs(prev => {
-        // Calculate new withdrawal amount based on new rate
-        const initialInvestment = prev.initialInvestment || 0;
-        const newWithdrawalAmount = (initialInvestment * newRate) / 100;
-        
-        return {
-          ...prev,
-          withdrawalRate: newRate,
-          withdrawalAmount: newWithdrawalAmount,
-          _timestamp: Date.now() // Add timestamp to force re-render
-        };
-      });
-    } catch (error) {
-      console.error('Error in handleWithdrawalRateChange:', error);
-    }
-  };
-  
-  // Handle withdrawal amount change
-  const handleWithdrawalAmountChange = (value) => {
-    try {
-      const newAmount = Math.max(0, Number(value) || 0);
-      lastUpdatedField.current = 'withdrawalAmount';
-      
-      setFormInputs(prev => {
-        // Calculate new rate based on amount
-        let newRate = 0;
-        const initialInvestment = prev.initialInvestment || 0;
-        if (initialInvestment > 0) {
-          newRate = (newAmount / initialInvestment) * 100;
-        }
-        
-        return {
-          ...prev,
-          withdrawalAmount: newAmount,
-          withdrawalRate: newRate,
-          _timestamp: Date.now() // Add timestamp to force re-render
-        };
-      });
-    } catch (error) {
-      console.error('Error in handleWithdrawalAmountChange:', error);
-    }
-  };
-  
-  // Handle other form input changes
-  const handleInputChange = (field, value) => {
-    try {
-      lastUpdatedField.current = field;
-      let sanitizedValue;
-      if (typeof value === 'boolean') {
-        sanitizedValue = value;
-      } else if (typeof value === 'number') {
-        sanitizedValue = value;
-      } else {
-        sanitizedValue = Number(value) || 0;
-      }
-      setFormInputs(prev => ({ 
-        ...prev, 
-        [field]: sanitizedValue,
-        _timestamp: Date.now() // Add timestamp to force re-render
-      }));
-    } catch (error) {
-      console.error('Error in handleInputChange:', error);
-    }
-  };
-  
-  // Calculate SWP results when the component mounts and whenever form inputs change
-  useEffect(() => {
-    console.log('SWP Calculator - useEffect triggered with inputs:', formInputs);
+// import SWPBreakdown from './SWPBreakdown';
+        {/* Main Calculator Card - Always Visible */}
+        <Box sx={{ order: { xs: 1, md: 1 } }}>
+          <Card elevation={3} sx={{
+            bgcolor: theme.palette.mode === 'dark' ? 'rgba(20, 30, 50, 0.95)' : '#fff',
+            borderRadius: { xs: 1, md: 2 },
+            boxShadow: theme.palette.mode === 'dark' ? '0 8px 24px rgba(0,0,0,0.15)' : '0 2px 10px rgba(0,0,0,0.08)',
+            color: theme.palette.mode === 'dark' ? '#fff' : '#222',
+            mx: { xs: 0, md: 0 },
+            width: '100%',
+            maxWidth: { xs: 480, sm: 720, md: 1200 }
+          }}>
+            <CardContent sx={{ px: { xs: 1, sm: 2, md: 3 }, py: { xs: 2, sm: 3 } }}>
+              <Box sx={{ textAlign: 'center', mb: 1 }}>
+                <Typography
+                  variant="h5"
+                  gutterBottom
+                  sx={{ color: 'primary.main', fontWeight: 'bold', display: { xs: 'none', sm: 'block' } }}
+                >
+                  Systematic Withdrawal Plan Calculator
+                </Typography>
+                <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
+                  <Typography variant="h6" sx={{ color: 'primary.main', fontWeight: 'bold', lineHeight: 1.2 }}>
+                    Systematic Withdrawal
+                  </Typography>
+                  <Typography variant="h6" sx={{ color: 'primary.main', fontWeight: 'bold', lineHeight: 1.2 }}>
+                    Plan Calculator
+                  </Typography>
+                </Box>
+              </Box>
+              <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '5fr 7fr', lg: '4fr 8fr' }, gap: { xs: 2, md: 3 }, justifyContent: 'center', alignItems: 'stretch' }}>
+                {/* Input Section */}
+                <Box>
+                  <Typography variant="h6" gutterBottom>
+                    Input Parameters
+                  </Typography>
+                  <Grid container spacing={2}>
+                    <Grid sx={{ gridColumn: 'span 12' }}>
+                      <TextField
+                        id="swp-initial-investment"
+                        name="initialInvestment"
+                        label="Initial Investment"
+                        type="number"
+                        value={initialInvestment}
+                        onChange={(e) => handleInitialInvestmentChange(e.target.value)}
+                        fullWidth
+                        variant="outlined"
+                        InputProps={{
+                          inputProps: { min: 0 },
+                          sx: { borderColor: 'rgba(255, 255, 255, 0.23)' }
+                        }}
+                      />
+                    </Grid>
+                    ...existing code...
+                  </Grid>
+                </Box>
+                {/* Chart Section Only */}
+                <Box>
+                  <Box mt={3}>
+                    <ProjectionChartLW data={chartData} title="Corpus Projection" currency="INR" precision={0} mode="swp" theme={theme.palette.mode === 'dark' ? 'dark' : 'light'} height={'clamp(260px, 45vh, 420px)'} />
+                  </Box>
+                </Box>
+              </Box>
+            </CardContent>
+          </Card>
+        </Box>
     
     // Initial render relies on calculateSWP for consistency with monthly/periodic compounding
     

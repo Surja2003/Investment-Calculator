@@ -22,7 +22,7 @@ import {
   ResponsiveContainer
 } from 'recharts';
 import { CHART_COLORS } from '../constants/theme';
-import formatINCompact from '../utils/numberFormat';
+// import formatINCompact from '../utils/numberFormat';
 import FlagIcon from '@mui/icons-material/Flag';
 import CalculateIcon from '@mui/icons-material/Calculate';
 import InfoIcon from '@mui/icons-material/Info';
@@ -627,33 +627,18 @@ const GoalCalculator = () => {
               <Typography variant="h6" mb={2} fontWeight="500">
                 Investment Growth Projection
               </Typography>
-              <AnimatedChart>
-                <Box sx={{ height: 400 }}>
-                  <ResponsiveContainer width="100%" height="100%">
-                    <AreaChart data={results.chartData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
-                      <XAxis dataKey="year" />
-                      <YAxis tickFormatter={formatINCompact} />
-                      <Tooltip formatter={(value) => `₹${value.toLocaleString()}`} />
-                      <Area
-                        type="monotone"
-                        dataKey="Required Investment"
-                        stroke={CHART_COLORS.invested}
-                        fill={CHART_COLORS.invested}
-                        fillOpacity={0.3}
-                        stackId="1"
-                      />
-                      <Area
-                        type="monotone"
-                        dataKey="Expected Value"
-                        stroke={CHART_COLORS.returns}
-                        fill={CHART_COLORS.returns}
-                        fillOpacity={0.3}
-                        stackId="1"
-                      />
-                    </AreaChart>
-                  </ResponsiveContainer>
-                </Box>
-              </AnimatedChart>
+              <Box sx={{ width: '100%', pt: 2 }}>
+                <ProjectionChartLW
+                  data={results.chartData}
+                  title="Investment Growth Projection"
+                  currency="INR"
+                  precision={0}
+                  mode="goal"
+                  years={formData.years}
+                  theme="dark"
+                  height={'clamp(260px, 45vh, 420px)'}
+                />
+              </Box>
               
               {formData.includeInflation && (
                 <Box sx={{ mt: 3, p: 2, bgcolor: 'rgba(33, 150, 243, 0.1)', borderRadius: 2 }}>
