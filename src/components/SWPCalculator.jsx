@@ -356,7 +356,8 @@ function SWPCalculator() {
         gap: { xs: 3, sm: 3, md: 3 }, 
         maxWidth: { xs: '100%', sm: 720, md: 1200 }, 
         width: '100%',
-        mx: 'auto'
+        mx: 'auto',
+        alignItems: 'center'
       }}>
 
       
