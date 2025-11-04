@@ -338,24 +338,14 @@ function SWPCalculator() {
     }}>
       <FadeIn>
         <Box sx={{ textAlign: 'center', mb: 4 }}>
-          {/* Desktop / Tablet: single line */}
           <Typography
             variant="h4"
             component="h1"
             align="center"
-            sx={{ display: { xs: 'none', sm: 'block' }, fontWeight: 'bold', color: 'primary.main' }}
+            sx={{ fontWeight: 'bold', color: 'primary.main' }}
           >
             <AnimatedText text="Systematic Withdrawal Plan (SWP) Calculator" />
           </Typography>
-          {/* Mobile: controlled two-line title to avoid awkward word breaks */}
-          <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
-            <Typography variant="h4" component="h1" align="center" sx={{ fontWeight: 'bold', color: 'primary.main', lineHeight: 1.2 }}>
-              <AnimatedText text="Systematic Withdrawal" />
-            </Typography>
-            <Typography variant="h4" component="h1" align="center" sx={{ fontWeight: 'bold', color: 'primary.main', lineHeight: 1.2 }}>
-              <AnimatedText text="Plan (SWP) Calculator" />
-            </Typography>
-          </Box>
         </Box>
       </FadeIn>
       
@@ -374,29 +364,16 @@ function SWPCalculator() {
         <Card elevation={3} sx={{ 
           bgcolor: theme.palette.mode === 'dark' ? 'rgba(20, 30, 50, 0.95)' : '#fff',
           borderRadius: { xs: 1, md: 2 },
-          boxShadow: theme.palette.mode === 'dark' ? '0 8px 24px rgba(0,0,0,0.15)' : '0 2px 10px rgba(0,0,0,0.08)',
+          boxShadow: theme.palette.mode === 'dark' ? '0 8px 32px rgba(0, 0, 0, 0.25)' : '0 2px 10px rgba(0,0,0,0.08)',
           color: theme.palette.mode === 'dark' ? '#fff' : '#222',
           mx: { xs: 0, md: 0 },
           width: '100%'
         }}>
   <CardContent sx={{ px: { xs: 2, sm: 3, md: 3 }, py: { xs: 2, sm: 3 } }}>
-          {/* Desktop/Tablet single-line heading; mobile two-line */}
-          <Box sx={{ textAlign: 'center', mb: 1 }}>
-            <Typography
-              variant="h5"
-              gutterBottom
-              sx={{ color: 'primary.main', fontWeight: 'bold', display: { xs: 'none', sm: 'block' } }}
-            >
+          <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+            <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
               Systematic Withdrawal Plan Calculator
             </Typography>
-            <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
-              <Typography variant="h6" sx={{ color: 'primary.main', fontWeight: 'bold', lineHeight: 1.3, mb: 0.5 }}>
-                Systematic Withdrawal Plan
-              </Typography>
-              <Typography variant="h6" sx={{ color: 'primary.main', fontWeight: 'bold', lineHeight: 1.3 }}>
-                Calculator
-              </Typography>
-            </Box>
           </Box>
           
           <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '5fr 7fr', lg: '4fr 8fr' }, gap: { xs: 3, md: 4 }, justifyContent: 'center', alignItems: 'stretch' }}>
