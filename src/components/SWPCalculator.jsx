@@ -362,7 +362,7 @@ function SWPCalculator() {
       <Box sx={{ 
         display: 'flex', 
         flexDirection: 'column', 
-        gap: 3, 
+        gap: { xs: 4, sm: 3, md: 3 }, 
         maxWidth: { xs: 480, sm: 720, md: 1200 }, 
         width: '100%',
         mx: 'auto'
@@ -379,7 +379,7 @@ function SWPCalculator() {
           mx: { xs: 0, md: 0 },
           width: '100%'
         }}>
-  <CardContent sx={{ px: { xs: 1, sm: 2, md: 3 }, py: { xs: 2, sm: 3 } }}>
+  <CardContent sx={{ px: { xs: 2, sm: 3, md: 4 }, py: { xs: 3, sm: 4 } }}>
           {/* Desktop/Tablet single-line heading; mobile two-line */}
           <Box sx={{ textAlign: 'center', mb: 1 }}>
             <Typography
@@ -390,23 +390,23 @@ function SWPCalculator() {
               Systematic Withdrawal Plan Calculator
             </Typography>
             <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
-              <Typography variant="h6" sx={{ color: 'primary.main', fontWeight: 'bold', lineHeight: 1.2 }}>
-                Systematic Withdrawal
+              <Typography variant="h6" sx={{ color: 'primary.main', fontWeight: 'bold', lineHeight: 1.3, mb: 0.5 }}>
+                Systematic Withdrawal Plan
               </Typography>
-              <Typography variant="h6" sx={{ color: 'primary.main', fontWeight: 'bold', lineHeight: 1.2 }}>
-                Plan Calculator
+              <Typography variant="h6" sx={{ color: 'primary.main', fontWeight: 'bold', lineHeight: 1.3 }}>
+                Calculator
               </Typography>
             </Box>
           </Box>
           
-          <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '5fr 7fr', lg: '4fr 8fr' }, gap: { xs: 2, md: 3 }, justifyContent: 'center', alignItems: 'stretch' }}>
+          <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '5fr 7fr', lg: '4fr 8fr' }, gap: { xs: 3, md: 4 }, justifyContent: 'center', alignItems: 'stretch' }}>
             {/* Input Section */}
             <Box>
               <Typography variant="h6" gutterBottom>
                 Input Parameters
               </Typography>
               
-              <Grid container spacing={2}>
+              <Grid container spacing={{ xs: 3, sm: 3, md: 2 }}>
                 <Grid sx={{ gridColumn: 'span 12' }}>
                   <TextField
                     id="swp-initial-investment"
@@ -665,7 +665,7 @@ function SWPCalculator() {
         {/* Summary Cards - Hidden until Calculate clicked */}
         {showDetails && (
         <Box sx={{ order: { xs: 2, md: 2 } }}>
-          <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', md: formInputs.adjustForInflation ? 'repeat(5, 1fr)' : 'repeat(4, 1fr)' }, gap: 2 }}>
+          <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', md: formInputs.adjustForInflation ? 'repeat(5, 1fr)' : 'repeat(4, 1fr)' }, gap: { xs: 3, sm: 3, md: 2 } }}>
             <Box>
               <SlideIn direction="top" delay={0.1}>
                 <Card 
@@ -678,7 +678,7 @@ function SWPCalculator() {
                     color: theme.palette.mode === 'dark' ? '#fff' : '#222',
                   }}
                 >
-                  <CardContent>
+                  <CardContent sx={{ p: { xs: 2.5, sm: 2, md: 2 } }}>
                     <Typography variant="subtitle2" sx={{ color: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(30, 41, 59, 0.7)' }}>
                       Final Corpus
                     </Typography>
@@ -707,7 +707,7 @@ function SWPCalculator() {
                     height: '100%'
                   }}
                 >
-                  <CardContent>
+                  <CardContent sx={{ p: { xs: 2.5, sm: 2, md: 2 } }}>
                     <Typography variant="subtitle2" sx={{ color: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(30, 41, 59, 0.7)' }}>
                       Initial Investment
                     </Typography>
@@ -736,7 +736,7 @@ function SWPCalculator() {
                     height: '100%'
                   }}
                 >
-                  <CardContent>
+                  <CardContent sx={{ p: { xs: 2.5, sm: 2, md: 2 } }}>
                     <Typography variant="subtitle2" sx={{ color: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(30, 41, 59, 0.7)' }}>
                       Total Withdrawals
                     </Typography>
@@ -768,7 +768,7 @@ function SWPCalculator() {
                     color: theme.palette.mode === 'dark' ? '#fff' : '#222',
                   }}
                 >
-                  <CardContent>
+                  <CardContent sx={{ p: { xs: 2.5, sm: 2, md: 2 } }}>
                     <Typography variant="subtitle2" sx={{ color: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(30, 41, 59, 0.7)' }}>
                       Annual Withdrawal
                     </Typography>
@@ -799,7 +799,7 @@ function SWPCalculator() {
                       color: theme.palette.mode === 'dark' ? '#fff' : '#222',
                     }}
                   >
-                    <CardContent>
+                    <CardContent sx={{ p: { xs: 2.5, sm: 2, md: 2 } }}>
                       <Typography variant="subtitle2" sx={{ color: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(30, 41, 59, 0.7)' }}>
                         Inflation-Adjusted Total
                       </Typography>
