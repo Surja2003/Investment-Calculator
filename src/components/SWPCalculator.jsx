@@ -688,7 +688,7 @@ function SWPCalculator() {
                       <Typography variant="subtitle1" gutterBottom>
                         Corpus Projection
                       </Typography>
-                      <ProjectionChartLW data={chartData} title="Corpus Projection" currency="INR" precision={0} mode="swp" theme={theme.palette.mode === 'dark' ? 'dark' : 'light'} height={'clamp(260px, 45vh, 420px)'} />
+                      <ProjectionChartLW data={chartData} title="Corpus Projection" currency="INR" precision={0} mode="swp" theme={theme.palette.mode === 'dark' ? 'dark' : 'light'} height={'clamp(300px, 55vh, 480px)'} />
                     </Box>
                     
 
@@ -708,8 +708,10 @@ function SWPCalculator() {
         {showDetails && (
         <Box sx={{ order: { xs: 2, md: 2 } }}>
           <Box sx={{
-            display: 'grid',
-            gridTemplateColumns: { xs: '1fr', sm: '1fr', md: formInputs.adjustForInflation ? 'repeat(5, 1fr)' : 'repeat(4, 1fr)' },
+            display: { xs: 'flex', md: 'grid' },
+            flexDirection: { xs: 'column' },
+            alignItems: { xs: 'stretch', md: 'initial' },
+            gridTemplateColumns: { md: formInputs.adjustForInflation ? 'repeat(5, 1fr)' : 'repeat(4, 1fr)' },
             gap: { xs: 3, sm: 3, md: 2 },
             width: '100%',
             maxWidth: { xs: '90%', sm: 420, md: '100%' },
