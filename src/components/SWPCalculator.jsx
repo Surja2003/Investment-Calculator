@@ -20,6 +20,7 @@ import FadeIn from './animations/FadeIn';
 import AnimatedText from './animations/AnimatedText';
 import SlideIn from './animations/SlideIn';
 import CountUp from './animations/CountUp';
+import AnimatedProgressBar from './animations/AnimatedProgressBar';
 import AnimatedCounter from './animations/AnimatedCounter';
 import ProjectionChartLW from './ProjectionChartLW';
 import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip } from 'recharts';
@@ -330,7 +331,7 @@ function SWPCalculator() {
   return (
     <Box sx={{ 
       width: '100%', 
-      px: { xs: 2, sm: 3, md: 4 }, 
+      px: { xs: 1, sm: 3, md: 4 }, 
       py: 2,
       display: 'flex',
       flexDirection: 'column',
@@ -352,8 +353,8 @@ function SWPCalculator() {
       <Box sx={{ 
         display: 'flex', 
         flexDirection: 'column', 
-        gap: { xs: 4, sm: 3, md: 3 }, 
-        maxWidth: { xs: 480, sm: 720, md: 1200 }, 
+        gap: { xs: 3, sm: 3, md: 3 }, 
+        maxWidth: { xs: '100%', sm: 720, md: 1200 }, 
         width: '100%',
         mx: 'auto'
       }}>
@@ -395,8 +396,21 @@ function SWPCalculator() {
                     fullWidth
                     variant="outlined"
                     InputProps={{ 
-                      inputProps: { min: 0 },
-                      sx: { borderColor: 'rgba(255, 255, 255, 0.23)' }
+                      startAdornment: <InputAdornment position="start">₹</InputAdornment>,
+                      inputProps: { min: 0 }
+                    }}
+                    sx={{
+                      '& .MuiOutlinedInput-root': {
+                        bgcolor: theme.palette.mode === 'dark' ? 'rgba(30, 41, 59, 0.8)' : '#fff',
+                        color: theme.palette.mode === 'dark' ? '#fff' : '#222',
+                        borderRadius: 1.5,
+                        '&:hover .MuiOutlinedInput-notchedOutline': {
+                          borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.3)' : '#3B82F6',
+                        },
+                      },
+                      '& .MuiInputLabel-root': {
+                        color: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : '#222',
+                      },
                     }}
                   />
                 </Grid>
@@ -411,7 +425,7 @@ function SWPCalculator() {
                         {formatPercentage(withdrawalRate)}
                       </Typography>
                     </Box>
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
                       <Button size="small" variant="outlined" onClick={() => handleWithdrawalRateChange(Math.max(0, +(withdrawalRate - 1).toFixed(2)))}>-1%</Button>
                       <Slider
                         id="swp-withdrawal-rate"
@@ -438,6 +452,13 @@ function SWPCalculator() {
                         <Box sx={{ bgcolor: 'background.paper', py: 1, px: 1.5, borderRadius: 1, border: '1px solid rgba(255,255,255,0.1)', minWidth: '28px', textAlign: 'center', fontSize: '0.875rem' }}>%</Box>
                       </Box>
                     </Box>
+                    <AnimatedProgressBar 
+                      value={withdrawalRate} 
+                      max={20} 
+                      duration={0.5}
+                      height={4}
+                      foregroundColor={theme.palette.primary.main}
+                    />
                   </Box>
                 </Grid>
                 
@@ -452,8 +473,21 @@ function SWPCalculator() {
                     fullWidth
                     variant="outlined"
                     InputProps={{ 
-                      inputProps: { min: 0 },
-                      sx: { borderColor: 'rgba(255, 255, 255, 0.23)' }
+                      startAdornment: <InputAdornment position="start">₹</InputAdornment>,
+                      inputProps: { min: 0 }
+                    }}
+                    sx={{
+                      '& .MuiOutlinedInput-root': {
+                        bgcolor: theme.palette.mode === 'dark' ? 'rgba(30, 41, 59, 0.8)' : '#fff',
+                        color: theme.palette.mode === 'dark' ? '#fff' : '#222',
+                        borderRadius: 1.5,
+                        '&:hover .MuiOutlinedInput-notchedOutline': {
+                          borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.3)' : '#3B82F6',
+                        },
+                      },
+                      '& .MuiInputLabel-root': {
+                        color: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : '#222',
+                      },
                     }}
                   />
                 </Grid>
@@ -468,7 +502,7 @@ function SWPCalculator() {
                         {formatPercentage(expectedReturn)}
                       </Typography>
                     </Box>
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
                       <Button size="small" variant="outlined" onClick={() => handleInputChange('expectedReturn', Math.max(0, +(expectedReturn - 1).toFixed(2)))}>-1%</Button>
                       <Slider
                         id="swp-expected-return"
@@ -495,6 +529,13 @@ function SWPCalculator() {
                         <Box sx={{ bgcolor: 'background.paper', py: 1, px: 1.5, borderRadius: 1, border: '1px solid rgba(255,255,255,0.1)', minWidth: '28px', textAlign: 'center', fontSize: '0.875rem' }}>%</Box>
                       </Box>
                     </Box>
+                    <AnimatedProgressBar 
+                      value={expectedReturn} 
+                      max={30} 
+                      duration={0.5}
+                      height={4}
+                      foregroundColor={theme.palette.success.main}
+                    />
                   </Box>
                 </Grid>
                 
@@ -508,7 +549,7 @@ function SWPCalculator() {
                         {withdrawalPeriod} Years
                       </Typography>
                     </Box>
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
                       <Button size="small" variant="outlined" onClick={() => handleInputChange('withdrawalPeriod', Math.max(1, withdrawalPeriod - 1))}>-1y</Button>
                       <Slider
                         id="swp-withdrawal-period"
@@ -534,6 +575,13 @@ function SWPCalculator() {
                         <Box sx={{ bgcolor: 'background.paper', py: 1, px: 1.5, borderRadius: 1, border: '1px solid rgba(255,255,255,0.1)', minWidth: '36px', textAlign: 'center', fontSize: '0.875rem' }}>yrs</Box>
                       </Box>
                     </Box>
+                    <AnimatedProgressBar 
+                      value={withdrawalPeriod} 
+                      max={50} 
+                      duration={0.5}
+                      height={4}
+                      foregroundColor={theme.palette.primary.main}
+                    />
                   </Box>
                 </Grid>
                 
@@ -547,7 +595,7 @@ function SWPCalculator() {
                         {formatPercentage(inflationRate)}
                       </Typography>
                     </Box>
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
                       <Button size="small" variant="outlined" onClick={() => handleInputChange('inflationRate', Math.max(0, +(inflationRate - 1).toFixed(2)))}>-1%</Button>
                       <Slider
                         id="swp-inflation-rate"
@@ -574,6 +622,13 @@ function SWPCalculator() {
                         <Box sx={{ bgcolor: 'background.paper', py: 1, px: 1.5, borderRadius: 1, border: '1px solid rgba(255,255,255,0.1)', minWidth: '28px', textAlign: 'center', fontSize: '0.875rem' }}>%</Box>
                       </Box>
                     </Box>
+                    <AnimatedProgressBar 
+                      value={inflationRate} 
+                      max={15} 
+                      duration={0.5}
+                      height={4}
+                      foregroundColor={theme.palette.warning.main}
+                    />
                   </Box>
                 </Grid>
                 
