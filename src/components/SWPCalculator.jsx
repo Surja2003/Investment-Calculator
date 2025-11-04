@@ -706,7 +706,14 @@ function SWPCalculator() {
         {/* Summary Cards - Hidden until Calculate clicked */}
         {showDetails && (
         <Box sx={{ order: { xs: 2, md: 2 } }}>
-          <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', md: formInputs.adjustForInflation ? 'repeat(5, 1fr)' : 'repeat(4, 1fr)' }, gap: { xs: 3, sm: 3, md: 2 } }}>
+          <Box sx={{
+            display: 'grid',
+            gridTemplateColumns: { xs: '1fr', sm: '1fr', md: formInputs.adjustForInflation ? 'repeat(5, 1fr)' : 'repeat(4, 1fr)' },
+            gap: { xs: 3, sm: 3, md: 2 },
+            width: '100%',
+            maxWidth: { xs: '90%', sm: 420, md: '100%' },
+            mx: 'auto'
+          }}>
             <Box>
               <SlideIn direction="top" delay={0.1}>
                 <Card 
