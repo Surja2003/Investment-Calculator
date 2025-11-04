@@ -68,7 +68,7 @@ function SWPCalculator() {
     inflationRate
   } = formInputs;
   
-  const { finalCorpus, totalWithdrawals, scheduledTotalWithdrawals, depletedAtYears, chartData } = calculationResults;
+  const { finalCorpus, totalWithdrawals, chartData } = calculationResults;
   
   // Handle initial investment change
   const handleInitialInvestmentChange = (value) => {
@@ -319,13 +319,7 @@ function SWPCalculator() {
     }
   };
 
-  const formatCurrency = (value) => {
-    return new Intl.NumberFormat('en-IN', {
-      style: 'currency',
-      currency: 'INR',
-      maximumFractionDigits: 0
-    }).format(value);
-  };
+
 
   const formatPercentage = (value) => {
     return value.toFixed(2) + '%';
@@ -381,161 +375,7 @@ function SWPCalculator() {
         width: '100%',
         mx: 'auto'
       }}>
-        {/* Summary Cards - Hidden until Calculate clicked */}
-        {showDetails && (
-        <Box sx={{ order: { xs: 2, md: 2 } }}>
-          <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', md: formInputs.adjustForInflation ? 'repeat(5, 1fr)' : 'repeat(4, 1fr)' }, gap: 2 }}>
-            <Box>
-              <SlideIn direction="top" delay={0.1}>
-                <Card 
-                  elevation={3} 
-                  sx={{ 
-                    bgcolor: theme.palette.mode === 'dark' ? 'rgba(20, 30, 50, 0.95)' : '#fff',
-                    borderRadius: 2,
-                    boxShadow: theme.palette.mode === 'dark' ? '0 8px 24px rgba(0,0,0,0.15)' : '0 2px 10px rgba(0,0,0,0.08)',
-                    height: '100%',
-                    color: theme.palette.mode === 'dark' ? '#fff' : '#222',
-                  }}
-                >
-                  <CardContent>
-                    <Typography variant="subtitle2" sx={{ color: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(30, 41, 59, 0.7)' }}>
-                      Final Corpus
-                    </Typography>
-                    <Typography variant="h5" color="#3B82F6" sx={{ fontWeight: 'bold', my: 1 }}>
-                      ₹<CountUp 
-                        to={finalCorpus} 
-                        formatter={(value) => new Intl.NumberFormat('en-IN').format(Math.round(value))}
-                        key={`finalCorpus-${formInputs._timestamp}`}
-                      />
-                    </Typography>
-                    <Typography variant="caption" sx={{ color: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.5)' : 'rgba(30, 41, 59, 0.5)' }}>
-                      After {withdrawalPeriod} years
-                    </Typography>
-                  </CardContent>
-                </Card>
-                <Card 
-                  elevation={3}
-                  sx={{ 
-                    bgcolor: theme.palette.mode === 'dark' ? 'rgba(20, 30, 50, 0.95)' : '#fff',
-                    borderRadius: 2,
-                    boxShadow: theme.palette.mode === 'dark' ? '0 8px 32px rgba(0, 0, 0, 0.25)' : '0 2px 10px rgba(0,0,0,0.08)',
-                    height: '100%'
-                  }}
-                >
-                  <CardContent>
-                    <Typography variant="subtitle2" sx={{ color: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(30, 41, 59, 0.7)' }}>
-                      Initial Investment
-                    </Typography>
-                    <Typography variant="h5" color="#E5E7EB" sx={{ fontWeight: 'bold', my: 1 }}>
-                      ₹<CountUp 
-                        to={initialInvestment} 
-                        formatter={(value) => new Intl.NumberFormat('en-IN').format(Math.round(value))}
-                        key={`initialInvestment-${formInputs._timestamp}`}
-                      />
-                    </Typography>
-                    <Typography variant="caption" sx={{ color: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.5)' : 'rgba(30, 41, 59, 0.5)' }}>
-                      One-time investment
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </SlideIn>
-            </Box>
-            <Box>
-              <SlideIn direction="top" delay={0.3}>
-                <Card 
-                  elevation={3} 
-                  sx={{ 
-                    bgcolor: theme.palette.mode === 'dark' ? 'rgba(20, 30, 50, 0.95)' : '#fff',
-                    borderRadius: 2,
-                    boxShadow: theme.palette.mode === 'dark' ? '0 8px 24px rgba(0,0,0,0.15)' : '0 2px 10px rgba(0,0,0,0.08)',
-                    height: '100%'
-                  }}
-                >
-                  <CardContent>
-                    <Typography variant="subtitle2" sx={{ color: 'rgba(255, 255, 255, 0.7)' }}>
-                      Total Withdrawals
-                    </Typography>
-                    <Typography variant="h5" color="#10B981" sx={{ fontWeight: 'bold', my: 1 }}>
-                      ₹<CountUp 
-                        to={scheduledTotalWithdrawals} 
-                        formatter={(value) => new Intl.NumberFormat('en-IN').format(Math.round(value))}
-                        key={`scheduledTotalWithdrawals-${formInputs._timestamp}`}
-                      />
-                    </Typography>
-                    <Typography variant="caption" color="#10B981">
-                      {depletedAtYears && scheduledTotalWithdrawals !== totalWithdrawals
-                        ? `Actual withdrawn ₹${new Intl.NumberFormat('en-IN').format(totalWithdrawals)} (depleted at year ${depletedAtYears.toFixed(1)})`
-                        : `Over ${withdrawalPeriod} years`}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </SlideIn>
-            </Box>
-            <Box>
-              <SlideIn direction="top" delay={0.4}>
-                <Card 
-                  elevation={3} 
-                  sx={{ 
-                    bgcolor: theme.palette.mode === 'dark' ? 'rgba(20, 30, 50, 0.95)' : '#fff',
-                    borderRadius: 2,
-                    boxShadow: theme.palette.mode === 'dark' ? '0 8px 24px rgba(0,0,0,0.15)' : '0 2px 10px rgba(0,0,0,0.08)',
-                    height: '100%',
-                    color: theme.palette.mode === 'dark' ? '#fff' : '#222',
-                  }}
-                >
-                  <CardContent>
-                    <Typography variant="subtitle2" sx={{ color: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(30, 41, 59, 0.7)' }}>
-                      Annual Withdrawal
-                    </Typography>
-                    <Typography variant="h5" color="#F59E0B" sx={{ fontWeight: 'bold', my: 1 }}>
-                      ₹<CountUp 
-                        to={withdrawalAmount} 
-                        formatter={(value) => new Intl.NumberFormat('en-IN').format(Math.round(value))}
-                        key={`withdrawalAmount-${formInputs._timestamp}`}
-                      />
-                    </Typography>
-                    <Typography variant="caption" sx={{ color: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.5)' : 'rgba(30, 41, 59, 0.5)' }}>
-                      {formInputs.adjustForInflation ? `Initial annual amount (${inflationRate}% inflation)` : `Withdrawal rate: ${withdrawalRate.toFixed(2)}%`}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </SlideIn>
-            </Box>
-            {formInputs.adjustForInflation && (
-              <Box>
-                <SlideIn direction="top" delay={0.4}>
-                  <Card 
-                    elevation={3}
-                    sx={{ 
-                      bgcolor: theme.palette.mode === 'dark' ? 'rgba(20, 30, 50, 0.95)' : '#fff',
-                      borderRadius: 2,
-                      boxShadow: theme.palette.mode === 'dark' ? '0 8px 24px rgba(0,0,0,0.15)' : '0 2px 10px rgba(0,0,0,0.08)',
-                      height: '100%',
-                      color: theme.palette.mode === 'dark' ? '#fff' : '#222',
-                    }}
-                  >
-                    <CardContent>
-                      <Typography variant="subtitle2" sx={{ color: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(30, 41, 59, 0.7)' }}>
-                        Total Withdrawals
-                      </Typography>
-                      <Typography variant="h5" color="#10B981" sx={{ fontWeight: 'bold', my: 1 }}>
-                        ₹<CountUp 
-                          to={totalWithdrawals} 
-                          formatter={(value) => new Intl.NumberFormat('en-IN').format(Math.round(value))}
-                          key={`totalWithdrawals-${formInputs._timestamp}`}
-                        />
-                      </Typography>
-                      <Typography variant="caption" sx={{ color: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.5)' : 'rgba(30, 41, 59, 0.5)' }}>
-                        Inflation-adjusted total
-                      </Typography>
-                    </CardContent>
-                  </Card>
-                </SlideIn>
-              </Box>
-            )}
-          </Box>
-        </Box>
-        )}
+
       
         {/* Main Calculator Card - Always Visible */}
         <Box sx={{ order: { xs: 1, md: 1 } }}>
@@ -853,33 +693,7 @@ function SWPCalculator() {
                       <ProjectionChartLW data={chartData} title="Corpus Projection" currency="INR" precision={0} mode="swp" theme={theme.palette.mode === 'dark' ? 'dark' : 'light'} height={'clamp(260px, 45vh, 420px)'} />
                     </Box>
                     
-                    <Box mt={3}>
-                      <Typography variant="subtitle1" gutterBottom>
-                        SWP Summary
-                      </Typography>
-                      <ResponsiveContainer width="100%" height={200}>
-                        <PieChart key={`pie-${formInputs._timestamp}`}>
-                          <Pie
-                            data={[
-                              { name: 'Total Withdrawals', value: totalWithdrawals },
-                              { name: 'Final Corpus', value: finalCorpus }
-                            ]}
-                            cx="50%"
-                            cy="50%"
-                            innerRadius={60}
-                            outerRadius={80}
-                            fill="#8884d8"
-                            paddingAngle={5}
-                            dataKey="value"
-                            label={({name, percent}) => `${name}: ${(percent * 100).toFixed(0)}%`}
-                          >
-                            <Cell key="cell-0" fill="#0088FE" />
-                            <Cell key="cell-1" fill="#00C49F" />
-                          </Pie>
-                          <Tooltip formatter={(value) => formatCurrency(value)} />
-                        </PieChart>
-                      </ResponsiveContainer>
-                    </Box>
+
                     
                     <Box mt={3}>
                       <Typography variant="subtitle1" gutterBottom>
