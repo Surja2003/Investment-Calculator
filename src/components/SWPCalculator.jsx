@@ -331,7 +331,7 @@ function SWPCalculator() {
   return (
     <Box sx={{ 
       width: '100%', 
-      px: { xs: 1, sm: 3, md: 4 }, 
+      px: { xs: 0, sm: 3, md: 4 }, 
       py: 2,
       display: 'flex',
       flexDirection: 'column',
