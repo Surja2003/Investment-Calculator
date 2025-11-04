@@ -42,8 +42,6 @@ function SWPCalculator() {
   
   // UI state
   const [showDetails, setShowDetails] = useState(false);
-  const [showBreakdown, setShowBreakdown] = useState(false);
-  const [showComparison, setShowComparison] = useState(false);
   
   // Form inputs state
   const [formInputs, setFormInputs] = useState({
@@ -327,13 +325,7 @@ function SWPCalculator() {
 
   // Removed handleCalculate in favor of inline calculation in Button click
 
-  const toggleBreakdown = () => {
-    setShowBreakdown(!showBreakdown);
-  };
 
-  const toggleComparison = () => {
-    setShowComparison(!showComparison);
-  };
 
   return (
     <Box sx={{ 
@@ -658,43 +650,7 @@ function SWPCalculator() {
                     </Box>
                     
 
-                    
-                    <Box mt={3}>
-                      <Typography variant="subtitle1" gutterBottom>
-                        {finalCorpus > 0 
-                          ? "Your investment will last the entire withdrawal period" 
-                          : "Your investment will be depleted before the end of your withdrawal period"}
-                      </Typography>
-                      
-                      <Box mt={2} display="flex" justifyContent="space-between">
-                        <Button 
-                          variant="outlined" 
-                          color="primary"
-                          onClick={() => setShowDetails(false)}
-                        >
-                          Hide Details
-                        </Button>
-                        
-                        <Box>
-                          <Button 
-                            variant="outlined" 
-                            color="secondary"
-                            onClick={toggleBreakdown}
-                            sx={{ mr: 1 }}
-                          >
-                            {showBreakdown ? 'Hide Breakdown' : 'Show Breakdown'}
-                          </Button>
-                          
-                          <Button 
-                            variant="outlined" 
-                            color="info"
-                            onClick={toggleComparison}
-                          >
-                            {showComparison ? 'Hide Comparison' : 'Compare Scenarios'}
-                          </Button>
-                        </Box>
-                      </Box>
-                    </Box>
+
                   </Box>
                 </SlideIn>
               ) : (
@@ -866,47 +822,7 @@ function SWPCalculator() {
         </Box>
         )}
 
-        {/* SWP Breakdown Section */}
-        {showBreakdown && (
-          <CardContent>
-            <Divider sx={{ mb: 2 }} />
-            <Typography variant="h6" gutterBottom>
-              SWP Breakdown Analysis
-            </Typography>
-            
-            <Box>
-              <SWPBreakdown 
-                customScenarios={{
-                  current: {
-                    name: 'Current Plan',
-                    return: formInputs.expectedReturn,
-                    years: formInputs.withdrawalPeriod,
-                    monthlyWithdrawal: formInputs.withdrawalAmount,
-                    principal: formInputs.initialInvestment
-                  },
-                  conservative: {
-                    name: 'Conservative',
-                    return: formInputs.expectedReturn * 0.8,
-                    years: formInputs.withdrawalPeriod,
-                    monthlyWithdrawal: formInputs.withdrawalAmount,
-                    principal: formInputs.initialInvestment
-                  },
-                  aggressive: {
-                    name: 'Aggressive',
-                    return: formInputs.expectedReturn * 1.2,
-                    years: formInputs.withdrawalPeriod,
-                    monthlyWithdrawal: formInputs.withdrawalAmount,
-                    principal: formInputs.initialInvestment
-                  }
-                }}
-                selectedScenario="current"
-              />
-            </Box>
-          </CardContent>
-        )}
-        
-        {/* Scenario Comparison Section */}
-        {/* ScenarioComparison removed as requested */}
+
       </Card>
       </Box>
       </Box>
