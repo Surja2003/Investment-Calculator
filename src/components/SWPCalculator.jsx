@@ -342,7 +342,7 @@ function SWPCalculator() {
             variant="h4"
             component="h1"
             align="center"
-            sx={{ fontWeight: 'bold', color: 'primary.main' }}
+            sx={{ fontWeight: 'bold', color: 'primary.main', display: { xs: 'none', sm: 'block' } }}
           >
             <AnimatedText text="Systematic Withdrawal Plan (SWP) Calculator" />
           </Typography>
