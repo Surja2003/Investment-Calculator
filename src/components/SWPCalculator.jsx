@@ -364,20 +364,29 @@ function SWPCalculator() {
         <Box sx={{ order: { xs: 1, md: 1 } }}>
         <Card elevation={3} sx={{ 
           bgcolor: theme.palette.mode === 'dark' ? 'rgba(20, 30, 50, 0.95)' : '#fff',
-          borderRadius: { xs: 1, md: 2 },
-          boxShadow: theme.palette.mode === 'dark' ? '0 8px 32px rgba(0, 0, 0, 0.25)' : '0 2px 10px rgba(0,0,0,0.08)',
+          borderRadius: 2,
+          boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
           color: theme.palette.mode === 'dark' ? '#fff' : '#222',
-          mx: { xs: 0, md: 0 },
-          width: '100%'
+          mx: 'auto',
+          width: { xs: '90%', sm: '400px' }
         }}>
-  <CardContent sx={{ px: { xs: 2, sm: 3, md: 3 }, py: { xs: 2, sm: 3 } }}>
+  <CardContent sx={{ px: 3, py: 3, display: 'flex', flexDirection: 'column', gap: 3 }}>
           <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
             <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
               Systematic Withdrawal Plan Calculator
             </Typography>
           </Box>
           
-          <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '5fr 7fr', lg: '4fr 8fr' }, gap: { xs: 3, md: 4 }, justifyContent: 'center', alignItems: 'stretch' }}>
+          <Box sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 3,
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: '100%',
+            maxWidth: { xs: '90%', sm: 420 },
+            mx: 'auto',
+          }}>
             {/* Input Section */}
             <Box>
               <Typography variant="h6" gutterBottom>
