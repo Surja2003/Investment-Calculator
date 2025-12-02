@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+import themePlugin from './src/styles/tailwind-theme.js';
+
 export default {
   content: [
     "./index.html",
@@ -41,7 +43,7 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [themePlugin],
   corePlugins: {
     preflight: false,
   }
