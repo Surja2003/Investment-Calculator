@@ -5,6 +5,9 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   base: '/Investment-Calculator/',
   plugins: [react()],
+  build: {
+    outDir: 'docs'
+  },
   css: {
     postcss: './postcss.config.js',
   },
