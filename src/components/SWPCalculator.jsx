@@ -331,11 +331,12 @@ function SWPCalculator() {
   return (
     <Box sx={{ 
       width: '100%', 
-      px: { xs: 0, sm: 3, md: 4 }, 
+      px: { xs: 2, sm: 3, md: 4 }, 
       py: 2,
       display: 'flex',
       flexDirection: 'column',
-      alignItems: 'center'
+      alignItems: 'center',
+      boxSizing: 'border-box',
     }}>
       <FadeIn>
         <Box sx={{ textAlign: 'center', mb: 4 }}>
@@ -353,8 +354,8 @@ function SWPCalculator() {
       <Box sx={{ 
         display: 'flex', 
         flexDirection: 'column', 
-        gap: { xs: 3, sm: 3, md: 3 }, 
-        maxWidth: { xs: '100%', sm: 720, md: 1200 }, 
+        gap: 3, 
+        maxWidth: { xs: 480, sm: 720, md: 1200 }, 
         width: '100%',
         mx: 'auto',
         alignItems: 'center'
@@ -369,7 +370,8 @@ function SWPCalculator() {
           boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
           color: theme.palette.mode === 'dark' ? '#fff' : '#222',
           mx: 'auto',
-          width: { xs: '90%', sm: '400px' }
+          width: { xs: '95%', sm: 480, md: 600 },
+          maxWidth: { xs: 360, sm: 480, md: 600 }
         }}>
   <CardContent sx={{ px: 3, py: 3, display: 'flex', flexDirection: 'column', gap: 3 }}>
           <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
@@ -385,7 +387,7 @@ function SWPCalculator() {
             justifyContent: 'center',
             alignItems: 'center',
             width: '100%',
-            maxWidth: { xs: '90%', sm: 420 },
+            maxWidth: { xs: '95%', sm: 420, md: 520 },
             mx: 'auto',
           }}>
             {/* Input Section */}
