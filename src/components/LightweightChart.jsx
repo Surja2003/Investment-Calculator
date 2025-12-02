@@ -85,10 +85,27 @@ const LightweightChart = ({
   const { labels, invested, total, returns } = useMemo(() => {
     // If external data is provided (e.g., for SWP), use it
     if (data && Array.isArray(data) && data.length > 0) {
+      // Shape A: simple series [{ time, value }]
+      if (data[0] && typeof data[0].value === 'number') {
+        const baseYear = startYear || 2025;
+        const labels = data.map((point, index) => String(baseYear + index));
+        const total = data.map((point) => point.value);
+        const invested = data.map(() => 0);
+        const returns = data.map(() => 0);
+        return { labels, invested, total, returns };
+      }
+      // Shape B: goal calculator [{ year: 'Year N' | number, 'Expected Value': number, 'Required Investment': number }]
+      if (data[0] && (data[0]['Expected Value'] !== undefined || data[0]['Required Investment'] !== undefined)) {
+        const labels = data.map((point, index) => String(point.year ?? (startYear + index)));
+        const total = data.map((point) => Number(point['Expected Value'] ?? 0));
+        const invested = data.map((point) => Number(point['Required Investment'] ?? 0));
+        const returns = data.map(() => 0);
+        return { labels, invested, total, returns };
+      }
+      // Fallback
       const baseYear = startYear || 2025;
-      const labels = data.map((point, index) => String(baseYear + index));
-      const total = data.map((point) => point.value);
-      // For SWP, we show corpus remaining (total) and no separate invested/returns breakdown
+      const labels = data.map((_, index) => String(baseYear + index));
+      const total = data.map(() => 0);
       const invested = data.map(() => 0);
       const returns = data.map(() => 0);
       return { labels, invested, total, returns };
@@ -189,22 +206,52 @@ const LightweightChart = ({
 
   const dataObj = {
     labels,
-    datasets: data && Array.isArray(data) && data.length > 0 ? [
-      // For external data (SWP), show only corpus
-      {
-        label: 'Corpus',
-        data: total,
-        borderColor: COLORS.blue,
-        backgroundColor: (context) => totalGradient(context),
-        borderWidth: 3,
-        pointRadius: 5,
-        pointHoverRadius: 8,
-        pointBackgroundColor: COLORS.blue,
-        pointBorderColor: COLORS.white,
-        pointBorderWidth: 2,
-        fill: true,
-      },
-    ] : [
+    datasets: data && Array.isArray(data) && data.length > 0 ? (
+      // External data present
+      // If invested is all zeros, render single 'Corpus' series (SWP)
+      (invested.every((v) => v === 0) ? [
+        {
+          label: 'Corpus',
+          data: total,
+          borderColor: COLORS.blue,
+          backgroundColor: (context) => totalGradient(context),
+          borderWidth: 3,
+          pointRadius: 5,
+          pointHoverRadius: 8,
+          pointBackgroundColor: COLORS.blue,
+          pointBorderColor: COLORS.white,
+          pointBorderWidth: 2,
+          fill: true,
+        },
+      ] : [
+        // Goal dual-series
+        {
+          label: 'Required Investment',
+          data: invested,
+          borderColor: COLORS.gray,
+          borderWidth: 2,
+          borderDash: [6, 6],
+          pointRadius: 3,
+          pointBackgroundColor: COLORS.gray,
+          pointBorderColor: COLORS.white,
+          pointBorderWidth: 1,
+          fill: false,
+        },
+        {
+          label: 'Expected Value',
+          data: total,
+          borderColor: COLORS.blue,
+          backgroundColor: (context) => totalGradient(context),
+          borderWidth: 3,
+          pointRadius: 5,
+          pointHoverRadius: 8,
+          pointBackgroundColor: COLORS.blue,
+          pointBorderColor: COLORS.white,
+          pointBorderWidth: 2,
+          fill: true,
+        },
+      ])
+    ) : [
       // For calculated data (SIP/Lumpsum), show all series
       {
         label: 'Invested',

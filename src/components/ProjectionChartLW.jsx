@@ -14,9 +14,9 @@ const ProjectionChartLW = ({ data, title = 'Projection', currency = 'INR', preci
     if (data.length && data[0].year !== undefined && data[0]['Current Value'] !== undefined) {
       return data.map((d) => ({ time: tsAt(d.year), value: d['Current Value'] }));
     }
-    // Goal calculator shape
-    if (data.length && data[0].year !== undefined && (data[0]['Expected Value'] !== undefined)) {
-      return data.map((d) => ({ time: tsAt(d.year), value: d['Expected Value'] }));
+    // Goal calculator shape: pass through raw data to allow multiple series
+    if (data.length && data[0].year !== undefined && (data[0]['Expected Value'] !== undefined || data[0]['Required Investment'] !== undefined)) {
+      return data;
     }
     if (data.length && data[0].year !== undefined && data[0].corpus !== undefined) {
       return data.map((d) => ({ time: tsAt(d.year), value: d.corpus }));
