@@ -374,7 +374,7 @@ function SWPCalculator() {
         }}>
   <CardContent sx={{ px: 3, py: 3, display: 'flex', flexDirection: 'column', gap: 3 }}>
           <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
-            <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
+            <Typography variant="h6" component="h2" sx={{ fontWeight: 'bold' }}>
               Systematic Withdrawal Plan Calculator
             </Typography>
           </Box>
@@ -388,7 +388,7 @@ function SWPCalculator() {
           }}>
             {/* Input Section (left on md+) */}
             <Box sx={{ order: { xs: 1, md: 1 } }}>
-              <Typography variant="h6" gutterBottom>
+              <Typography variant="h6" component="h3" gutterBottom>
                 Input Parameters
               </Typography>
               
@@ -426,7 +426,7 @@ function SWPCalculator() {
                 <Grid sx={{ gridColumn: 'span 12' }}>
                   <Box sx={{ mb: 2 }}>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
-                      <Typography variant="body2" component="label" htmlFor="swp-withdrawal-rate">
+                      <Typography id="label-swp-withdrawal-rate" variant="body2" component="label" htmlFor="swp-withdrawal-rate">
                         Withdrawal Rate
                       </Typography>
                       <Typography variant="body2" fontWeight="medium">
@@ -434,7 +434,7 @@ function SWPCalculator() {
                       </Typography>
                     </Box>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
-                      <Button size="small" variant="outlined" onClick={() => handleWithdrawalRateChange(Math.max(0, +(withdrawalRate - 1).toFixed(2)))}>-1%</Button>
+                      <Button aria-label="Decrease withdrawal rate by 1 percent" size="small" variant="outlined" onClick={() => handleWithdrawalRateChange(Math.max(0, +(withdrawalRate - 1).toFixed(2)))}>-1%</Button>
                       <Slider
                         id="swp-withdrawal-rate"
                         name="withdrawalRate"
@@ -445,9 +445,11 @@ function SWPCalculator() {
                         step={0.1}
                         valueLabelDisplay="auto"
                         valueLabelFormat={formatPercentage}
+                        aria-labelledby="label-swp-withdrawal-rate"
+                        aria-valuetext={`${withdrawalRate.toFixed(2)} percent`}
                         sx={{ flexGrow: 1 }}
                       />
-                      <Button size="small" variant="outlined" onClick={() => handleWithdrawalRateChange(Math.min(100, +(withdrawalRate + 1).toFixed(2)))}>+1%</Button>
+                      <Button aria-label="Increase withdrawal rate by 1 percent" size="small" variant="outlined" onClick={() => handleWithdrawalRateChange(Math.min(100, +(withdrawalRate + 1).toFixed(2)))}>+1%</Button>
                       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                         <TextField
                           size="small"
@@ -455,6 +457,7 @@ function SWPCalculator() {
                           value={withdrawalRate}
                           onChange={(e) => handleWithdrawalRateChange(Number(e.target.value))}
                           inputProps={{ step: 0.1 }}
+                          aria-label="Withdrawal rate input"
                           sx={{ width: { xs: 80, sm: 100 } }}
                         />
                         <Box sx={{ bgcolor: 'background.paper', py: 1, px: 1.5, borderRadius: 1, border: '1px solid rgba(255,255,255,0.1)', minWidth: '28px', textAlign: 'center', fontSize: '0.875rem' }}>%</Box>
@@ -503,7 +506,7 @@ function SWPCalculator() {
                 <Grid sx={{ gridColumn: 'span 12' }}>
                   <Box sx={{ mb: 2 }}>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
-                      <Typography variant="body2" component="label" htmlFor="swp-expected-return">
+                      <Typography id="label-swp-expected-return" variant="body2" component="label" htmlFor="swp-expected-return">
                         Expected Return
                       </Typography>
                       <Typography variant="body2" fontWeight="medium">
@@ -511,7 +514,7 @@ function SWPCalculator() {
                       </Typography>
                     </Box>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
-                      <Button size="small" variant="outlined" onClick={() => handleInputChange('expectedReturn', Math.max(0, +(expectedReturn - 1).toFixed(2)))}>-1%</Button>
+                      <Button aria-label="Decrease expected return by 1 percent" size="small" variant="outlined" onClick={() => handleInputChange('expectedReturn', Math.max(0, +(expectedReturn - 1).toFixed(2)))}>-1%</Button>
                       <Slider
                         id="swp-expected-return"
                         name="expectedReturn"
@@ -522,9 +525,11 @@ function SWPCalculator() {
                         step={0.1}
                         valueLabelDisplay="auto"
                         valueLabelFormat={formatPercentage}
+                        aria-labelledby="label-swp-expected-return"
+                        aria-valuetext={`${expectedReturn.toFixed(2)} percent`}
                         sx={{ flexGrow: 1 }}
                       />
-                      <Button size="small" variant="outlined" onClick={() => handleInputChange('expectedReturn', Math.min(100, +(expectedReturn + 1).toFixed(2)))}>+1%</Button>
+                      <Button aria-label="Increase expected return by 1 percent" size="small" variant="outlined" onClick={() => handleInputChange('expectedReturn', Math.min(100, +(expectedReturn + 1).toFixed(2)))}>+1%</Button>
                       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                         <TextField
                           size="small"
@@ -532,6 +537,7 @@ function SWPCalculator() {
                           value={expectedReturn}
                           onChange={(e) => handleInputChange('expectedReturn', Number(e.target.value))}
                           inputProps={{ step: 0.1 }}
+                          aria-label="Expected return input"
                           sx={{ width: { xs: 80, sm: 100 } }}
                         />
                         <Box sx={{ bgcolor: 'background.paper', py: 1, px: 1.5, borderRadius: 1, border: '1px solid rgba(255,255,255,0.1)', minWidth: '28px', textAlign: 'center', fontSize: '0.875rem' }}>%</Box>
@@ -550,7 +556,7 @@ function SWPCalculator() {
                 <Grid sx={{ gridColumn: 'span 12' }}>
                   <Box sx={{ mb: 2 }}>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
-                      <Typography variant="body2" component="label" htmlFor="swp-withdrawal-period">
+                      <Typography id="label-swp-withdrawal-period" variant="body2" component="label" htmlFor="swp-withdrawal-period">
                         Withdrawal Period
                       </Typography>
                       <Typography variant="body2" fontWeight="medium">
@@ -558,7 +564,7 @@ function SWPCalculator() {
                       </Typography>
                     </Box>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
-                      <Button size="small" variant="outlined" onClick={() => handleInputChange('withdrawalPeriod', Math.max(1, withdrawalPeriod - 1))}>-1y</Button>
+                      <Button aria-label="Decrease withdrawal period by 1 year" size="small" variant="outlined" onClick={() => handleInputChange('withdrawalPeriod', Math.max(1, withdrawalPeriod - 1))}>-1y</Button>
                       <Slider
                         id="swp-withdrawal-period"
                         name="withdrawalPeriod"
@@ -567,10 +573,12 @@ function SWPCalculator() {
                         min={1}
                         max={50}
                         step={1}
+                        aria-labelledby="label-swp-withdrawal-period"
+                        aria-valuetext={`${withdrawalPeriod} years`}
                         valueLabelDisplay="auto"
                         sx={{ flexGrow: 1 }}
                       />
-                      <Button size="small" variant="outlined" onClick={() => handleInputChange('withdrawalPeriod', Math.min(60, withdrawalPeriod + 1))}>+1y</Button>
+                      <Button aria-label="Increase withdrawal period by 1 year" size="small" variant="outlined" onClick={() => handleInputChange('withdrawalPeriod', Math.min(60, withdrawalPeriod + 1))}>+1y</Button>
                       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                         <TextField
                           size="small"
@@ -578,6 +586,7 @@ function SWPCalculator() {
                           value={withdrawalPeriod}
                           onChange={(e) => handleInputChange('withdrawalPeriod', Math.max(1, Number(e.target.value)))}
                           inputProps={{ step: 1, min: 1 }}
+                          aria-label="Withdrawal period input"
                           sx={{ width: { xs: 80, sm: 100 } }}
                         />
                         <Box sx={{ bgcolor: 'background.paper', py: 1, px: 1.5, borderRadius: 1, border: '1px solid rgba(255,255,255,0.1)', minWidth: '36px', textAlign: 'center', fontSize: '0.875rem' }}>yrs</Box>
@@ -596,7 +605,7 @@ function SWPCalculator() {
                 <Grid sx={{ gridColumn: 'span 12' }}>
                   <Box sx={{ mb: 2 }}>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
-                      <Typography variant="body2" component="label" htmlFor="swp-inflation-rate">
+                      <Typography id="label-swp-inflation-rate" variant="body2" component="label" htmlFor="swp-inflation-rate">
                         Inflation Rate
                       </Typography>
                       <Typography variant="body2" fontWeight="medium">
@@ -604,7 +613,7 @@ function SWPCalculator() {
                       </Typography>
                     </Box>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
-                      <Button size="small" variant="outlined" onClick={() => handleInputChange('inflationRate', Math.max(0, +(inflationRate - 1).toFixed(2)))}>-1%</Button>
+                      <Button aria-label="Decrease inflation rate by 1 percent" size="small" variant="outlined" onClick={() => handleInputChange('inflationRate', Math.max(0, +(inflationRate - 1).toFixed(2)))}>-1%</Button>
                       <Slider
                         id="swp-inflation-rate"
                         name="inflationRate"
@@ -615,9 +624,11 @@ function SWPCalculator() {
                         step={0.1}
                         valueLabelDisplay="auto"
                         valueLabelFormat={formatPercentage}
+                        aria-labelledby="label-swp-inflation-rate"
+                        aria-valuetext={`${inflationRate.toFixed(2)} percent`}
                         sx={{ flexGrow: 1 }}
                       />
-                      <Button size="small" variant="outlined" onClick={() => handleInputChange('inflationRate', Math.min(100, +(inflationRate + 1).toFixed(2)))}>+1%</Button>
+                      <Button aria-label="Increase inflation rate by 1 percent" size="small" variant="outlined" onClick={() => handleInputChange('inflationRate', Math.min(100, +(inflationRate + 1).toFixed(2)))}>+1%</Button>
                       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                         <TextField
                           size="small"
@@ -625,6 +636,7 @@ function SWPCalculator() {
                           value={inflationRate}
                           onChange={(e) => handleInputChange('inflationRate', Number(e.target.value))}
                           inputProps={{ step: 0.1, min: 0 }}
+                          aria-label="Inflation rate input"
                           sx={{ width: { xs: 80, sm: 100 } }}
                         />
                         <Box sx={{ bgcolor: 'background.paper', py: 1, px: 1.5, borderRadius: 1, border: '1px solid rgba(255,255,255,0.1)', minWidth: '28px', textAlign: 'center', fontSize: '0.875rem' }}>%</Box>
@@ -639,7 +651,6 @@ function SWPCalculator() {
                     />
                   </Box>
                 </Grid>
-                
                 <Grid sx={{ gridColumn: 'span 12' }}>
                   <FormControlLabel
                     control={
@@ -675,7 +686,7 @@ function SWPCalculator() {
             
             {/* Results Section (right on md+) */}
             <Box sx={{ order: { xs: 2, md: 2 } }}>
-              <Typography variant="h6" gutterBottom>
+              <Typography variant="h6" component="h2" gutterBottom>
                 SWP Results
               </Typography>
               
@@ -696,7 +707,7 @@ function SWPCalculator() {
                       justifyContent: 'space-between',
                       alignItems: 'center'
                     }}>
-                      <Typography variant="h6" fontWeight="500">
+                      <Typography variant="h6" component="h3" fontWeight="500">
                         Corpus Projection
                       </Typography>
                       <Box sx={{ 
