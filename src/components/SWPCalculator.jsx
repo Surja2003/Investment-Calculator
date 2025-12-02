@@ -369,9 +369,8 @@ function SWPCalculator() {
           borderRadius: 2,
           boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
           color: theme.palette.mode === 'dark' ? '#fff' : '#222',
-          mx: 'auto',
-          width: { xs: '95%', sm: 480, md: 600 },
-          maxWidth: { xs: 360, sm: 480, md: 600 }
+          mx: { xs: 0, md: 0 },
+          width: '100%'
         }}>
   <CardContent sx={{ px: 3, py: 3, display: 'flex', flexDirection: 'column', gap: 3 }}>
           <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
@@ -381,17 +380,14 @@ function SWPCalculator() {
           </Box>
           
           <Box sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 3,
-            justifyContent: 'center',
-            alignItems: 'center',
-            width: '100%',
-            maxWidth: { xs: '95%', sm: 420, md: 520 },
-            mx: 'auto',
+            display: 'grid',
+            gridTemplateColumns: { xs: '1fr', md: '5fr 7fr', lg: '4fr 8fr' },
+            gap: { xs: 2, md: 3 },
+            alignItems: 'stretch',
+            width: '100%'
           }}>
-            {/* Input Section */}
-            <Box>
+            {/* Input Section (left on md+) */}
+            <Box sx={{ order: { xs: 1, md: 1 } }}>
               <Typography variant="h6" gutterBottom>
                 Input Parameters
               </Typography>
@@ -677,25 +673,61 @@ function SWPCalculator() {
               </Grid>
             </Box>
             
-            {/* Results Section */}
-            <Box>
+            {/* Results Section (right on md+) */}
+            <Box sx={{ order: { xs: 2, md: 2 } }}>
               <Typography variant="h6" gutterBottom>
                 SWP Results
               </Typography>
               
               {showDetails ? (
                 <SlideIn direction="right">
-                  <Box>
-                    <Box mt={3}>
-                      <Typography variant="subtitle1" gutterBottom>
+                  <Card sx={{ 
+                    height: '100%', 
+                    display: 'flex', 
+                    flexDirection: 'column',
+                    borderRadius: 2,
+                    overflow: 'hidden',
+                    boxShadow: '0 8px 24px rgba(0,0,0,0.12)'
+                  }}>
+                    <Box sx={{ 
+                      p: 2, 
+                      borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center'
+                    }}>
+                      <Typography variant="h6" fontWeight="500">
                         Corpus Projection
                       </Typography>
-                      <ProjectionChartLW data={chartData} title="Corpus Projection" currency="INR" precision={0} mode="swp" theme={theme.palette.mode === 'dark' ? 'dark' : 'light'} height={'clamp(320px, 60vh, 520px)'} />
+                      <Box sx={{ 
+                        display: 'flex', 
+                        gap: 2,
+                        '& .legend-item': {
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 1
+                        }
+                      }}>
+                        <Box className="legend-item">
+                          <Box sx={{ width: 12, height: 12, borderRadius: '50%', bgcolor: theme.palette.primary.main }} />
+                          <Typography variant="caption">Corpus</Typography>
+                        </Box>
+                      </Box>
                     </Box>
-                    
-
-
-                  </Box>
+                    <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', p: 0 }}>
+                      <Box sx={{ width: '100%', flexGrow: 1, pt: 2 }}>
+                        <ProjectionChartLW 
+                          data={chartData} 
+                          title="Corpus Projection" 
+                          currency="INR" 
+                          precision={0} 
+                          mode="swp" 
+                          theme={theme.palette.mode === 'dark' ? 'dark' : 'light'} 
+                          height={'clamp(300px, 50vh, 520px)'}
+                        />
+                      </Box>
+                    </CardContent>
+                  </Card>
                 </SlideIn>
               ) : (
                 <Typography variant="body2" color="textSecondary">
