@@ -82,7 +82,7 @@ const LightweightChart = ({
   showFooter = false,
   data = null, // External data for SWP or custom projections
 }) => {
-  const { labels, invested, total, returns } = useMemo(() => {
+  const { labels, invested, total, returns, goalSeries } = useMemo(() => {
     // If external data is provided (e.g., for SWP), use it
     if (data && Array.isArray(data) && data.length > 0) {
       // Shape A: simple series [{ time, value }]
@@ -92,7 +92,7 @@ const LightweightChart = ({
         const total = data.map((point) => point.value);
         const invested = data.map(() => 0);
         const returns = data.map(() => 0);
-        return { labels, invested, total, returns };
+        return { labels, invested, total, returns, goalSeries: false };
       }
       // Shape B: goal calculator [{ year: 'Year N' | number, 'Expected Value': number, 'Required Investment': number }]
       if (data[0] && (data[0]['Expected Value'] !== undefined || data[0]['Required Investment'] !== undefined)) {
@@ -100,7 +100,7 @@ const LightweightChart = ({
         const total = data.map((point) => Number(point['Expected Value'] ?? 0));
         const invested = data.map((point) => Number(point['Required Investment'] ?? 0));
         const returns = data.map(() => 0);
-        return { labels, invested, total, returns };
+        return { labels, invested, total, returns, goalSeries: true };
       }
       // Fallback
       const baseYear = startYear || 2025;
@@ -108,7 +108,7 @@ const LightweightChart = ({
       const total = data.map(() => 0);
       const invested = data.map(() => 0);
       const returns = data.map(() => 0);
-      return { labels, invested, total, returns };
+      return { labels, invested, total, returns, goalSeries: false };
     }
     
     // Otherwise use calculated series
@@ -208,23 +208,8 @@ const LightweightChart = ({
     labels,
     datasets: data && Array.isArray(data) && data.length > 0 ? (
       // External data present
-      // If invested is all zeros, render single 'Corpus' series (SWP)
-      (invested.every((v) => v === 0) ? [
-        {
-          label: 'Corpus',
-          data: total,
-          borderColor: COLORS.blue,
-          backgroundColor: (context) => totalGradient(context),
-          borderWidth: 3,
-          pointRadius: 5,
-          pointHoverRadius: 8,
-          pointBackgroundColor: COLORS.blue,
-          pointBorderColor: COLORS.white,
-          pointBorderWidth: 2,
-          fill: true,
-        },
-      ] : [
-        // Goal dual-series
+      // If explicitly goalSeries, render dual-series regardless of zeros
+      (goalSeries ? [
         {
           label: 'Required Investment',
           data: invested,
@@ -250,7 +235,50 @@ const LightweightChart = ({
           pointBorderWidth: 2,
           fill: true,
         },
-      ])
+      ] :
+      // Otherwise, if invested is all zeros, render single 'Corpus' series (SWP)
+      (invested.every((v) => v === 0) ? [
+        {
+          label: 'Corpus',
+          data: total,
+          borderColor: COLORS.blue,
+          backgroundColor: (context) => totalGradient(context),
+          borderWidth: 3,
+          pointRadius: 5,
+          pointHoverRadius: 8,
+          pointBackgroundColor: COLORS.blue,
+          pointBorderColor: COLORS.white,
+          pointBorderWidth: 2,
+          fill: true,
+        },
+      ] : [
+        // Default dual-series when invested not all zeros
+        {
+          label: 'Invested',
+          data: invested,
+          borderColor: COLORS.gray,
+          borderWidth: 2,
+          borderDash: [6, 6],
+          pointRadius: 3,
+          pointBackgroundColor: COLORS.gray,
+          pointBorderColor: COLORS.white,
+          pointBorderWidth: 1,
+          fill: false,
+        },
+        {
+          label: 'Total',
+          data: total,
+          borderColor: COLORS.blue,
+          backgroundColor: (context) => totalGradient(context),
+          borderWidth: 3,
+          pointRadius: 5,
+          pointHoverRadius: 8,
+          pointBackgroundColor: COLORS.blue,
+          pointBorderColor: COLORS.white,
+          pointBorderWidth: 2,
+          fill: true,
+        },
+      ]))
     ) : [
       // For calculated data (SIP/Lumpsum), show all series
       {
