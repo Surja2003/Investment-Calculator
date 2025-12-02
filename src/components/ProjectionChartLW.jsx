@@ -14,11 +14,15 @@ const ProjectionChartLW = ({ data, title = 'Projection', currency = 'INR', preci
     if (data.length && data[0].year !== undefined && data[0]['Current Value'] !== undefined) {
       return data.map((d) => ({ time: tsAt(d.year), value: d['Current Value'] }));
     }
+    // Goal calculator shape
+    if (data.length && data[0].year !== undefined && (data[0]['Expected Value'] !== undefined)) {
+      return data.map((d) => ({ time: tsAt(d.year), value: d['Expected Value'] }));
+    }
     if (data.length && data[0].year !== undefined && data[0].corpus !== undefined) {
       return data.map((d) => ({ time: tsAt(d.year), value: d.corpus }));
     }
     if (data.length && data[0].year !== undefined) {
-      return data.map((d) => ({ time: tsAt(d.year), value: d.value ?? d.amount ?? 0 }));
+      return data.map((d) => ({ time: tsAt(d.year), value: d.value ?? d.amount ?? d.expected ?? 0 }));
     }
     return [];
   }, [data]);
