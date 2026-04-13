@@ -195,7 +195,9 @@ function App() {
             color={isDarkMode ? "transparent" : "default"}
             elevation={isDarkMode ? 0 : 1}
             sx={{ 
-              borderBottom: isDarkMode ? '1px solid rgba(255,255,255,0.1)' : 'none',
+              borderBottom: isDarkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(15,23,42,0.08)',
+              backdropFilter: 'blur(8px)',
+              backgroundColor: isDarkMode ? 'rgba(15, 23, 42, 0.75)' : 'rgba(255, 255, 255, 0.92)',
             }}
           >
             <Toolbar>
@@ -245,7 +247,7 @@ function App() {
 
           <MobileDrawer open={drawerOpen} onClose={toggleDrawer} />
 
-          <Container maxWidth="xl" sx={{ mt: 2 }}>
+          <Container maxWidth="xl" sx={{ mt: { xs: 2, md: 3 } }}>
             {/* Ticker removed per request: no TradingView details on Home */}
             <Routes>
               <Route path="/" element={<Home />} />
