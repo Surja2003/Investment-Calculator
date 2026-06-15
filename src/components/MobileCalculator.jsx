@@ -61,9 +61,42 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
 
   // Mobile navigation and view states
   const [mode, setMode] = useState(initialMode);
-  const [locale, setLocale] = useState('IN'); // 'IN' or 'US'
+  const [locale, setLocale] = useState(() => {
+    const params = new URLSearchParams(window.location.search);
+    const urlLocale = params.get('locale');
+    if (urlLocale === 'IN' || urlLocale === 'US') {
+      return urlLocale;
+    }
+    try {
+      const cachedLocale = localStorage.getItem('inv_calc_global_locale');
+      if (cachedLocale === 'IN' || cachedLocale === 'US') {
+        return cachedLocale;
+      }
+    } catch (e) {}
+    try {
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      if (tz && (tz.includes('Asia/Kolkata') || tz.includes('Asia/Calcutta'))) {
+        return 'IN';
+      }
+      const langs = navigator.languages || [navigator.language];
+      for (const lang of langs) {
+        if (lang.toLowerCase().includes('-in') || lang.toLowerCase() === 'en-in') {
+          return 'IN';
+        }
+      }
+      if (tz) return 'US';
+    } catch (e) {}
+    return 'IN';
+  });
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [shareCopied, setShareCopied] = useState(false);
+
+  const handleLocaleChange = (newLocale) => {
+    setLocale(newLocale);
+    try {
+      localStorage.setItem('inv_calc_global_locale', newLocale);
+    } catch (e) {}
+  };
   
   // Default values
   const [inputs, setInputs] = useState(() => {
@@ -105,6 +138,11 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
   // URL Param updates on mount/popstate
   useEffect(() => {
     if (location.search) {
+      const params = new URLSearchParams(location.search);
+      const urlLocale = params.get('locale');
+      if (urlLocale === 'IN' || urlLocale === 'US') {
+        setLocale(urlLocale);
+      }
       const urlParams = deserializeState(location.search);
       if (Object.keys(urlParams).length > 0) {
         setInputs(prev => ({
@@ -149,8 +187,10 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
   useEffect(() => {
     saveToCache(mode, activeInputs);
     const queryString = serializeState(activeInputs);
-    navigate(`?${queryString}`, { replace: true });
-  }, [mode, activeInputs, navigate]);
+    const queryParams = new URLSearchParams(queryString);
+    queryParams.set('locale', locale);
+    navigate(`?${queryParams.toString()}`, { replace: true });
+  }, [mode, activeInputs, locale, navigate]);
 
   const handleInputChange = (field, value) => {
     setInputs(prev => ({
@@ -241,7 +281,7 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
 
             {/* Locale Toggle */}
             <button
-              onClick={() => setLocale(l => l === 'IN' ? 'US' : 'IN')}
+              onClick={() => handleLocaleChange(locale === 'IN' ? 'US' : 'IN')}
               className={`px-2 py-1 border rounded-lg text-[10px] font-bold min-h-[48px] px-3 transition-colors duration-200 ${isDarkMode ? 'bg-slate-900 border-slate-800 text-slate-300' : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50'}`}
             >
               {locale === 'IN' ? '🇮🇳 ₹' : '🇺🇸 $'}

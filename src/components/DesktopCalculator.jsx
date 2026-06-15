@@ -60,9 +60,42 @@ const DesktopCalculator = ({ mode: initialMode = 'sip' }) => {
   
   // App states
   const [mode, setMode] = useState(initialMode);
-  const [locale, setLocale] = useState('IN'); // 'IN' (INR, Lakhs/Crores) or 'US' (USD, Millions/Billions)
+  const [locale, setLocale] = useState(() => {
+    const params = new URLSearchParams(window.location.search);
+    const urlLocale = params.get('locale');
+    if (urlLocale === 'IN' || urlLocale === 'US') {
+      return urlLocale;
+    }
+    try {
+      const cachedLocale = localStorage.getItem('inv_calc_global_locale');
+      if (cachedLocale === 'IN' || cachedLocale === 'US') {
+        return cachedLocale;
+      }
+    } catch (e) {}
+    try {
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      if (tz && (tz.includes('Asia/Kolkata') || tz.includes('Asia/Calcutta'))) {
+        return 'IN';
+      }
+      const langs = navigator.languages || [navigator.language];
+      for (const lang of langs) {
+        if (lang.toLowerCase().includes('-in') || lang.toLowerCase() === 'en-in') {
+          return 'IN';
+        }
+      }
+      if (tz) return 'US';
+    } catch (e) {}
+    return 'IN';
+  });
   const [showAmortization, setShowAmortization] = useState(true);
   const [shareCopied, setShareCopied] = useState(false);
+
+  const handleLocaleChange = (newLocale) => {
+    setLocale(newLocale);
+    try {
+      localStorage.setItem('inv_calc_global_locale', newLocale);
+    } catch (e) {}
+  };
 
   // Form states based on mode
   const [inputs, setInputs] = useState(() => {
@@ -109,6 +142,11 @@ const DesktopCalculator = ({ mode: initialMode = 'sip' }) => {
   // Read URL parameters on load & back navigation
   useEffect(() => {
     if (location.search) {
+      const params = new URLSearchParams(location.search);
+      const urlLocale = params.get('locale');
+      if (urlLocale === 'IN' || urlLocale === 'US') {
+        setLocale(urlLocale);
+      }
       const urlParams = deserializeState(location.search);
       if (Object.keys(urlParams).length > 0) {
         setInputs(prev => ({
@@ -153,8 +191,10 @@ const DesktopCalculator = ({ mode: initialMode = 'sip' }) => {
   useEffect(() => {
     saveToCache(mode, activeInputs);
     const queryString = serializeState(activeInputs);
-    navigate(`?${queryString}`, { replace: true });
-  }, [mode, activeInputs, navigate]);
+    const queryParams = new URLSearchParams(queryString);
+    queryParams.set('locale', locale);
+    navigate(`?${queryParams.toString()}`, { replace: true });
+  }, [mode, activeInputs, locale, navigate]);
 
   const handleInputChange = (field, value) => {
     setInputs(prev => ({
@@ -300,13 +340,13 @@ const DesktopCalculator = ({ mode: initialMode = 'sip' }) => {
           {/* Locale switcher */}
           <div className={`flex p-0.5 rounded-lg border transition-colors duration-200 ${isDarkMode ? 'bg-slate-800 border-slate-700' : 'bg-slate-100 border-slate-200'}`}>
             <button
-              onClick={() => setLocale('IN')}
+              onClick={() => handleLocaleChange('IN')}
               className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-all ${locale === 'IN' ? 'bg-emerald-600 text-white shadow' : isDarkMode ? 'text-slate-400 hover:text-slate-200' : 'text-slate-500 hover:text-slate-800'}`}
             >
               🇮🇳 India (Lakh/Cr)
             </button>
             <button
-              onClick={() => setLocale('US')}
+              onClick={() => handleLocaleChange('US')}
               className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-all ${locale === 'US' ? 'bg-cyan-600 text-white shadow' : isDarkMode ? 'text-slate-400 hover:text-slate-200' : 'text-slate-500 hover:text-slate-800'}`}
             >
               🇺🇸 Global (M/B)
