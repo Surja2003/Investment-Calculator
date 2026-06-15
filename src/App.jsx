@@ -50,6 +50,7 @@ const NAV_ITEMS = [
 function NavigationTabs() {
   const location = useLocation();
   const isMobile = useMediaQuery('(max-width:768px)');
+  const { isDarkMode } = useTheme();
   
   // Show all tabs; on mobile they are scrollable
   const visibleTabs = NAV_ITEMS;

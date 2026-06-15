@@ -2,6 +2,22 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <!-- Dark mode flash prevention: applied synchronously before paint -->
+    <script>
+      (function() {
+        try {
+          var dark = JSON.parse(localStorage.getItem('darkMode'));
+          if (dark) {
+            document.documentElement.classList.add('dark');
+            document.documentElement.style.backgroundColor = '#090d16';
+          } else {
+            document.documentElement.style.backgroundColor = '#f8fafc';
+          }
+        } catch(e) {
+          document.documentElement.style.backgroundColor = '#090d16';
+        }
+      })();
+    </script>
     <link rel="icon" type="image/svg+xml" href="./calculator-icon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Modern Investment Calculator with SIP, Lumpsum & SWP planning tools" />

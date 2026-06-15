@@ -1,68 +1,203 @@
-import { useEffect, useState } from 'react';
-import { fetchYahooQuotes } from '../utils/quoteData';
+import { useEffect, useState, useCallback } from 'react';
+import { fetchCryptoQuotes, fetchIndexQuotes } from '../utils/quoteData';
 import { useTheme } from '../hooks/useTheme';
 
-const inr = new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 });
-const usd = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 2 });
+// Formatters
+const fmtINR = new Intl.NumberFormat('en-IN', { maximumFractionDigits: 0 });
+const fmtUSD = new Intl.NumberFormat('en-US', { maximumFractionDigits: 2 });
+const fmtCrypto = new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 });
 
-const CryptoCard = ({ name, price, changePercent, currency, isDarkMode }) => {
+function formatPrice(price, currency) {
+  if (price == null) return '—';
+  if (currency === 'INR') return '₹' + fmtINR.format(price);
+  if (price >= 1000) return '$' + fmtCrypto.format(price);
+  return '$' + fmtUSD.format(price);
+}
+
+// ── Single ticker card ────────────────────────────────────────────────────────
+function QuoteCard({ name, price, changePercent, currency, isDarkMode, badge }) {
   const positive = (changePercent ?? 0) >= 0;
-  const fmt = currency === 'INR' ? inr : usd;
+  const arrow = positive ? '▲' : '▼';
+  const pct = changePercent != null ? `${arrow} ${Math.abs(changePercent).toFixed(2)}%` : '—';
+
   return (
-    <div className="text-center">
-      <div className={isDarkMode ? "text-xs text-gray-400 mb-1" : "text-xs text-gray-600 mb-1"}>{name}</div>
-      <div className={isDarkMode ? "text-sm font-semibold text-white mb-1" : "text-sm font-semibold text-gray-900 mb-1"}>
-        {price != null ? fmt.format(price) : '—'}
+    <div
+      className={`flex-shrink-0 min-w-[130px] rounded-2xl p-4 border transition-all duration-300 ${
+        isDarkMode
+          ? 'bg-[#0c1222]/80 border-slate-800 hover:border-emerald-500/30'
+          : 'bg-white border-slate-200 hover:border-emerald-400/50 shadow-sm'
+      }`}
+    >
+      {badge && (
+        <span
+          className={`inline-block text-[9px] font-bold tracking-widest uppercase px-1.5 py-0.5 rounded mb-2 ${
+            isDarkMode ? 'bg-slate-800 text-slate-400' : 'bg-slate-100 text-slate-500'
+          }`}
+        >
+          {badge}
+        </span>
+      )}
+      <div className={`text-[11px] font-semibold mb-1 truncate ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>
+        {name}
       </div>
-      <div className={`text-xs px-2 py-0.5 rounded ${positive ? (isDarkMode ? 'bg-green-900/40 text-green-300' : 'bg-green-100 text-green-700') : (isDarkMode ? 'bg-red-900/40 text-red-300' : 'bg-red-100 text-red-700')}`}>
-        {changePercent != null ? `${positive ? '+' : ''}${changePercent.toFixed(2)}%` : '—'}
+      <div className={`text-base font-black tracking-tight mb-1 ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
+        {formatPrice(price, currency)}
+      </div>
+      <div
+        className={`text-[11px] font-bold px-2 py-0.5 rounded-full inline-block ${
+          positive
+            ? isDarkMode ? 'bg-emerald-950/60 text-emerald-400' : 'bg-emerald-50 text-emerald-700'
+            : isDarkMode ? 'bg-red-950/60 text-red-400' : 'bg-red-50 text-red-600'
+        }`}
+      >
+        {pct}
       </div>
     </div>
   );
-};
+}
+
+// ── Loading skeleton ──────────────────────────────────────────────────────────
+function SkeletonCard({ isDarkMode }) {
+  return (
+    <div className={`flex-shrink-0 min-w-[130px] rounded-2xl p-4 border animate-pulse ${
+      isDarkMode ? 'bg-[#0c1222]/80 border-slate-800' : 'bg-white border-slate-200'
+    }`}>
+      <div className={`h-2 w-12 rounded mb-3 ${isDarkMode ? 'bg-slate-800' : 'bg-slate-200'}`} />
+      <div className={`h-3 w-20 rounded mb-2 ${isDarkMode ? 'bg-slate-800' : 'bg-slate-200'}`} />
+      <div className={`h-5 w-24 rounded mb-2 ${isDarkMode ? 'bg-slate-800' : 'bg-slate-200'}`} />
+      <div className={`h-3 w-16 rounded-full ${isDarkMode ? 'bg-slate-800' : 'bg-slate-200'}`} />
+    </div>
+  );
+}
+
+// ── Main component ────────────────────────────────────────────────────────────
+const CRYPTO_SYMBOLS = ['BTC-USD', 'ETH-USD', 'BNB-USD', 'SOL-USD'];
 
 const SimpleQuoteCards = () => {
-  const [items, setItems] = useState([]);
-  const [loading, setLoading] = useState(true);
   const { isDarkMode } = useTheme();
+  const [indices, setIndices] = useState([]);
+  const [crypto, setCrypto] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [lastUpdated, setLastUpdated] = useState(null);
+  const [error, setError] = useState(false);
+
+  const loadData = useCallback(async () => {
+    try {
+      const [idx, cry] = await Promise.all([
+        fetchIndexQuotes(),
+        fetchCryptoQuotes(CRYPTO_SYMBOLS),
+      ]);
+      setIndices(idx);
+      setCrypto(cry);
+      setLastUpdated(new Date());
+      setError(false);
+    } catch {
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
   useEffect(() => {
-    let mounted = true;
-    (async () => {
-      try {
-        const c = await fetchYahooQuotes(['BTC-USD', 'ETH-USD', 'DOGE-USD', 'USDT-USD']);
-        if (!mounted) return;
-        const cryptoItems = c.map((q) => ({
-          key: q.symbol,
-          name: q.shortName,
-          price: q.price,
-          changePercent: q.changePercent,
-          currency: 'USD',
-          group: 'Crypto',
-        }));
-        setItems(cryptoItems);
-      } catch {
-        if (!mounted) return;
-        setItems([]);
-      } finally {
-        if (mounted) setLoading(false);
-      }
-    })();
-    return () => { mounted = false; };
-  }, []);
+    loadData();
+    // Auto-refresh every 5 minutes
+    const id = setInterval(loadData, 5 * 60 * 1000);
+    return () => clearInterval(id);
+  }, [loadData]);
+
+  const timeStr = lastUpdated
+    ? lastUpdated.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })
+    : null;
 
   return (
     <div>
-      {loading && <div className={isDarkMode ? "py-6 text-sm text-gray-400" : "py-6 text-sm text-gray-600"}>Loading…</div>}
-      {!loading && (
-        <div className="flex justify-center gap-4 md:gap-6 overflow-x-auto pb-2 snap-x snap-mandatory">
-          {items.map((it) => (
-            <div key={it.key} className={`flex-shrink-0 snap-center ${isDarkMode ? "rounded-lg border border-gray-600 bg-gray-800/60 shadow-lg p-4" : "rounded-lg border border-gray-300 bg-white shadow-lg p-4"}`}>
-              <CryptoCard name={it.name} price={it.price} changePercent={it.changePercent} currency={it.currency} isDarkMode={isDarkMode} />
-            </div>
-          ))}
+      {/* Header row */}
+      <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center gap-2">
+          <span className="w-1.5 h-4 bg-emerald-500 rounded-full inline-block" />
+          <span className={`text-xs font-bold uppercase tracking-wider ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>
+            Live Market Data
+          </span>
+          {!loading && (
+            <span className="flex items-center gap-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse inline-block" />
+              <span className={`text-[10px] ${isDarkMode ? 'text-slate-500' : 'text-slate-400'}`}>LIVE</span>
+            </span>
+          )}
+        </div>
+        {timeStr && (
+          <button
+            onClick={loadData}
+            className={`text-[10px] px-2 py-1 rounded-lg border transition-colors ${
+              isDarkMode
+                ? 'border-slate-700 text-slate-500 hover:text-emerald-400 hover:border-emerald-600'
+                : 'border-slate-200 text-slate-400 hover:text-emerald-600 hover:border-emerald-400'
+            }`}
+          >
+            ↻ Updated {timeStr}
+          </button>
+        )}
+      </div>
+
+      {error && !loading && (
+        <p className={`text-xs text-center py-3 ${isDarkMode ? 'text-slate-500' : 'text-slate-400'}`}>
+          ⚠ Could not load live data. Check your connection.
+        </p>
+      )}
+
+      {/* Market Indices */}
+      {(loading || indices.length > 0) && (
+        <div className="mb-4">
+          <p className={`text-[10px] font-bold uppercase tracking-widest mb-2 ${isDarkMode ? 'text-slate-600' : 'text-slate-400'}`}>
+            Indices
+          </p>
+          <div className="flex gap-3 overflow-x-auto pb-1 snap-x snap-mandatory scrollbar-hide">
+            {loading
+              ? [1, 2, 3, 4].map((i) => <SkeletonCard key={i} isDarkMode={isDarkMode} />)
+              : indices.map((it) => (
+                  <div key={it.symbol} className="snap-start">
+                    <QuoteCard
+                      name={it.shortName}
+                      price={it.price}
+                      changePercent={it.changePercent}
+                      currency={it.currency}
+                      isDarkMode={isDarkMode}
+                      badge={it.currency === 'INR' ? 'NSE' : 'NYSE'}
+                    />
+                  </div>
+                ))}
+          </div>
         </div>
       )}
+
+      {/* Crypto */}
+      {(loading || crypto.length > 0) && (
+        <div>
+          <p className={`text-[10px] font-bold uppercase tracking-widest mb-2 ${isDarkMode ? 'text-slate-600' : 'text-slate-400'}`}>
+            Crypto
+          </p>
+          <div className="flex gap-3 overflow-x-auto pb-1 snap-x snap-mandatory scrollbar-hide">
+            {loading
+              ? [1, 2, 3, 4].map((i) => <SkeletonCard key={i} isDarkMode={isDarkMode} />)
+              : crypto.map((it) => (
+                  <div key={it.symbol} className="snap-start">
+                    <QuoteCard
+                      name={it.shortName}
+                      price={it.price}
+                      changePercent={it.changePercent}
+                      currency={it.currency}
+                      isDarkMode={isDarkMode}
+                      badge="Crypto"
+                    />
+                  </div>
+                ))}
+          </div>
+        </div>
+      )}
+
+      <p className={`text-[9px] mt-3 text-center ${isDarkMode ? 'text-slate-700' : 'text-slate-300'}`}>
+        Prices from CoinGecko &amp; Yahoo Finance · Indicative only · Not investment advice
+      </p>
     </div>
   );
 };
