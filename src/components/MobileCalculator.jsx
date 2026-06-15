@@ -48,7 +48,9 @@ import {
   saveToCache,
   loadFromCache,
   serializeState,
-  deserializeState
+  deserializeState,
+  todaysMoney,
+  generateWhatsAppShare
 } from '../utils/calcEngine';
 import { updatePageSEO } from '../utils/SEOConfig';
 import { CountUp } from './animations';
@@ -647,7 +649,7 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
       </div>
 
       {/* 5. STICKY BOTTOM BUTTONS DRAWER */}
-      <div className={`fixed bottom-0 left-0 right-0 z-40 border-t px-4 py-3 flex gap-3 shadow-lg transition-colors duration-200 ${isDarkMode ? 'bg-[#0c1222] border-slate-800/80' : 'bg-white border-slate-200 shadow-[0_-4px_10px_rgba(0,0,0,0.05)]'}`}>
+      <div className={`fixed bottom-0 left-0 right-0 z-40 border-t px-4 py-3 flex gap-2 shadow-lg transition-colors duration-200 ${isDarkMode ? 'bg-[#0c1222] border-slate-800/80' : 'bg-white border-slate-200 shadow-[0_-4px_10px_rgba(0,0,0,0.05)]'}`}>
         {/* Slide-Up Bottom Drawer Trigger */}
         <Button
           fullWidth
@@ -655,19 +657,41 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
           onClick={() => setDrawerOpen(true)}
           startIcon={<TableViewIcon />}
           sx={{
-            minHeight: 52, // touch friendly target size
+            minHeight: 48,
             borderRadius: 3,
             bgcolor: isDarkMode ? '#1e293b' : '#f1f5f9',
             color: isDarkMode ? '#fff' : '#1e293b',
             textTransform: 'none',
             fontWeight: 'bold',
-            fontSize: '0.9rem',
+            fontSize: '0.85rem',
             border: isDarkMode ? '1px solid rgba(255,255,255,0.05)' : '1px solid #cbd5e1',
             '&:hover': { bgcolor: isDarkMode ? '#334155' : '#e2e8f0' }
           }}
         >
-          View Growth Table
+          Growth Table
         </Button>
+        {/* WhatsApp Share */}
+        <a
+          href={generateWhatsAppShare(mode, {
+            ...calcResults?.summary,
+            monthlyInvestment: activeInputs?.monthlyInvestment,
+            years: activeInputs?.years,
+          }, locale)}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ minHeight: 48, borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', width: 48, flexShrink: 0, border: '1px solid #16a34a', backgroundColor: '#15803d', color: '#fff' }}
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z M11.999 2C6.476 2 2 6.476 2 12c0 1.874.496 3.63 1.363 5.148L2 22l4.977-1.307A9.946 9.946 0 0 0 12 22c5.524 0 10-4.476 10-10 0-5.523-4.476-10-10-10z"/>
+          </svg>
+        </a>
+        {/* Print */}
+        <button
+          onClick={() => window.print()}
+          style={{ minHeight: 48, borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', width: 48, flexShrink: 0, border: isDarkMode ? '1px solid #334155' : '1px solid #e2e8f0', backgroundColor: isDarkMode ? '#1e293b' : '#f8fafc', color: isDarkMode ? '#94a3b8' : '#64748b', fontSize: 18 }}
+        >
+          🖨️
+        </button>
       </div>
 
       {/* 6. NATIVE SLIDE-UP BOTTOM SHEET (Drawer) */}

@@ -61,3 +61,84 @@ textarea:-webkit-autofill:focus {
   transition: background-color 5000s ease-in-out 0s;
   box-shadow: 0 0 0px 1000px var(--color-background) inset;
 }
+
+/* === Professional PDF/Print Styles === */
+@media print {
+  /* Hide interactive elements, navigation headers, footers, sidebars, modal triggers */
+  header,
+  footer,
+  nav,
+  aside,
+  .no-print,
+  .MuiAppBar-root,
+  .MuiDrawer-root,
+  .MobileBottomNav-root,
+  .calculator-locale-switcher,
+  button,
+  a[href^="https://wa.me"],
+  a[href^="whatsapp:"],
+  a[href*="github.com"],
+  .gls-sidebar,
+  .gls-search-wrap,
+  .gls-top-btn,
+  input[type=range],
+  .MuiSlider-root,
+  .MuiTabs-root {
+    display: none !important;
+  }
+
+  /* Force white background, dark text and remove dark gradients/shadows for high legibility */
+  body, 
+  html, 
+  #root, 
+  main, 
+  .gls-root,
+  .gls-card,
+  .gls-group,
+  div[class*="min-h-screen"],
+  div[class*="bg-"] {
+    background: #ffffff !important;
+    color: #000000 !important;
+    background-image: none !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  /* Force simple black text for standard typography */
+  h1, h2, h3, h4, h5, h6, p, span, div, td, th {
+    color: #000000 !important;
+    background-color: transparent !important;
+    border-color: #e2e8f0 !important;
+  }
+
+  /* Prevent page breaks inside cards, tables, charts, lists */
+  .print-section,
+  .gls-card,
+  .card,
+  table,
+  tr,
+  .recharts-responsive-container,
+  div[style*="border"] {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  /* Reset layout constraints & expand scrollable items for complete page visibility */
+  .overflow-x-auto,
+  .overflow-y-auto {
+    overflow: visible !important;
+    max-height: none !important;
+  }
+
+  /* Layout tweaks for clean alignment on paper sizes like A4 */
+  .grid {
+    display: block !important;
+  }
+  .lg\:col-span-4,
+  .lg\:col-span-8 {
+    width: 100% !important;
+    display: block !important;
+    position: relative !important;
+    top: 0 !important;
+  }
+}

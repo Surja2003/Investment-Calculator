@@ -6,8 +6,6 @@ import SimpleQuoteCards from '../components/SimpleQuoteCards';
 import FAQSection from '../components/FAQSection';
 
 const Home = () => {
-  // minimal home
-
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [newsletterStatus, setNewsletterStatus] = useState(null);
   const [contactForm, setContactForm] = useState({ name: '', email: '', message: '' });
@@ -33,55 +31,105 @@ const Home = () => {
   };
 
   const { isDarkMode } = useTheme();
+
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
+      {/* ── Hero Section — Emerald/Dark theme (matches app brand) ── */}
       <div className={
         isDarkMode
-          ? "bg-gradient-to-r from-indigo-900 via-indigo-800 to-slate-900 min-h-[90dvh] md:min-h-[80vh] flex items-center"
-          : "bg-gradient-to-r from-indigo-600 via-indigo-700 to-blue-800 min-h-[90dvh] md:min-h-[80vh] flex items-center"
+          ? "relative overflow-hidden bg-[#090d16] min-h-[88dvh] md:min-h-[78vh] flex items-center"
+          : "relative overflow-hidden bg-gradient-to-br from-slate-900 via-emerald-950 to-slate-900 min-h-[88dvh] md:min-h-[78vh] flex items-center"
       }>
-        <div className="container mx-auto px-4 py-10 md:py-16">
+        {/* Background glows */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-[-10%] left-[10%] w-[500px] h-[500px] bg-emerald-500/10 rounded-full blur-[120px]" />
+          <div className="absolute bottom-[-5%] right-[5%] w-[400px] h-[400px] bg-cyan-500/8 rounded-full blur-[100px]" />
+          <div className="absolute top-[30%] right-[20%] w-[200px] h-[200px] bg-emerald-400/5 rounded-full blur-[60px]" />
+        </div>
+
+        <div className="relative z-10 container mx-auto px-4 py-10 md:py-16">
           <div className="max-w-5xl mx-auto text-center">
-            <span className="inline-flex items-center rounded-full border border-white/25 bg-white/10 px-3 py-1 text-xs sm:text-sm font-medium text-indigo-100 mb-4">
-              Smart planning for SIP, Lumpsum, SWP & Goals
+            {/* Badge */}
+            <span className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-4 py-1.5 text-xs sm:text-sm font-semibold text-emerald-300 mb-6 backdrop-blur-sm">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse inline-block" />
+              Free · No sign-up · SIP · Lumpsum · SWP · EMI · Goals
             </span>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 md:mb-6">Investment Calculator</h1>
-            <p className="text-base sm:text-lg md:text-xl text-indigo-100 mb-6 md:mb-8">Modern calculators with clear projections and easy comparisons for confident financial decisions.</p>
-            <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 mb-8">
-              <Link to="/sip" className={
-                isDarkMode
-                  ? "px-5 py-3 bg-white text-indigo-700 rounded-lg font-semibold hover:bg-indigo-100 transition-colors shadow-lg border border-indigo-300"
-                  : "px-5 py-3 bg-white text-indigo-600 rounded-lg font-semibold hover:bg-indigo-50 transition-colors shadow-lg border border-indigo-300"
-              }>Try SIP Calculator</Link>
-              <Link to="/lumpsum" className={
-                isDarkMode
-                  ? "px-5 py-3 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-500 transition-colors shadow-lg border border-indigo-300"
-                  : "px-5 py-3 bg-indigo-700 text-white rounded-lg font-semibold hover:bg-indigo-600 transition-colors shadow-lg border border-indigo-300"
-              }>Try Lumpsum Calculator</Link>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-4xl mx-auto">
+
+            {/* Heading */}
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-white mb-5 leading-tight tracking-tight">
+              Smart{' '}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">
+                Investment
+              </span>
+              {' '}Calculator
+            </h1>
+
+            <p className="text-base sm:text-lg md:text-xl text-slate-300 mb-8 max-w-2xl mx-auto leading-relaxed">
+              Plan SIP, Lumpsum, SWP, EMI & Goals with real-time projections, inflation adjustments and tax estimates. Built for India, works globally.
+            </p>
+
+            {/* CTA Buttons */}
+            <div className="flex flex-wrap justify-center gap-3 mb-10">
               {[
-                { title: 'SIP Planning', text: 'Estimate long-term wealth with recurring monthly investments.', path: '/sip' },
-                { title: 'Lumpsum Growth', text: 'Project one-time investments with inflation-aware returns.', path: '/lumpsum' },
-                { title: 'SWP Income', text: 'Plan sustainable monthly withdrawals from your corpus.', path: '/swp' },
-              ].map((item) => (
+                { to: '/sip', label: '📈 SIP Calculator', primary: true },
+                { to: '/lumpsum', label: '💰 Lumpsum', primary: false },
+                { to: '/emi', label: '🏠 EMI Calculator', primary: false },
+                { to: '/goals', label: '🎯 Goal Planner', primary: false },
+                { to: '/compare', label: '⚖️ Compare', primary: false },
+              ].map((btn) => (
                 <Link
-                  key={item.title}
-                  to={item.path}
-                  className="rounded-xl border border-white/20 bg-white/10 p-4 text-left backdrop-blur-sm transition hover:bg-white/15"
+                  key={btn.to}
+                  to={btn.to}
+                  className={
+                    btn.primary
+                      ? "px-5 py-2.5 bg-emerald-500 text-white rounded-xl font-bold hover:bg-emerald-400 transition-all duration-200 shadow-lg shadow-emerald-500/25 text-sm"
+                      : "px-5 py-2.5 bg-white/10 border border-white/20 text-white rounded-xl font-semibold hover:bg-white/20 transition-all duration-200 backdrop-blur-sm text-sm"
+                  }
                 >
-                  <h3 className="text-sm font-semibold text-white mb-1">{item.title}</h3>
-                  <p className="text-xs sm:text-sm text-indigo-100">{item.text}</p>
+                  {btn.label}
                 </Link>
+              ))}
+            </div>
+
+            {/* Feature grid */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-3xl mx-auto">
+              {[
+                { icon: '📊', label: 'Year-by-Year Charts', desc: 'Visual projections' },
+                { icon: '🧾', label: 'Tax Estimation', desc: 'LTCG & STCG' },
+                { icon: '🌍', label: 'India & Global', desc: '₹ & $ modes' },
+                { icon: '📤', label: 'Share Results', desc: 'WhatsApp & Link' },
+              ].map((f) => (
+                <div
+                  key={f.label}
+                  className="rounded-2xl border border-white/10 bg-white/5 p-3 text-center backdrop-blur-sm"
+                >
+                  <div className="text-xl mb-1">{f.icon}</div>
+                  <div className="text-xs font-bold text-white mb-0.5">{f.label}</div>
+                  <div className="text-[10px] text-slate-400">{f.desc}</div>
+                </div>
               ))}
             </div>
           </div>
         </div>
       </div>
 
-      {/* Bottom: Newsletter + Contact with new .form-box styles */}
-      <div className={isDarkMode ? "bg-slate-950/40" : "bg-indigo-50/40"}>
+      {/* ── Market Ticker — RIGHT BELOW HERO ── */}
+      <div className={isDarkMode ? "bg-[#0c1222] border-b border-slate-800" : "bg-white border-b border-slate-200"}>
+        <div className="container mx-auto px-4 py-6">
+          <div className={isDarkMode
+            ? "max-w-6xl mx-auto rounded-2xl border border-slate-800 bg-[#090d16]/70 p-5"
+            : "max-w-6xl mx-auto rounded-2xl border border-slate-200 bg-slate-50 p-5"
+          }>
+            <SimpleQuoteCards />
+          </div>
+        </div>
+      </div>
+
+      {/* ── FAQ Section ── */}
+      <FAQSection />
+
+      {/* ── Newsletter + Contact ── */}
+      <div className={isDarkMode ? "bg-slate-950/40" : "bg-slate-50"}>
         <div className="container mx-auto px-4 py-12">
           <div className="max-w-6xl mx-auto mb-8 text-center">
             <h2 className={isDarkMode ? "text-2xl md:text-3xl font-bold text-gray-100 mb-2" : "text-2xl md:text-3xl font-bold text-gray-900 mb-2"}>
@@ -103,7 +151,7 @@ const Home = () => {
                   className="input"
                   placeholder="Enter your email"
                   value={newsletterEmail}
-                  onChange={(e)=>setNewsletterEmail(e.target.value)}
+                  onChange={(e) => setNewsletterEmail(e.target.value)}
                   required
                 />
                 <button type="submit" className="button-primary">Subscribe</button>
@@ -116,54 +164,18 @@ const Home = () => {
               <h3>Contact Us</h3>
               <form onSubmit={onContactSubmit}>
                 <label className="sr-only" htmlFor="contact-name">Your name</label>
-                <input
-                  id="contact-name"
-                  type="text"
-                  className="input"
-                  placeholder="Your name"
-                  value={contactForm.name}
-                  onChange={(e)=>setContactForm((p)=>({...p, name:e.target.value}))}
-                  required
-                />
+                <input id="contact-name" type="text" className="input" placeholder="Your name"
+                  value={contactForm.name} onChange={(e) => setContactForm((p) => ({...p, name:e.target.value}))} required />
                 <label className="sr-only" htmlFor="contact-email">Your email</label>
-                <input
-                  id="contact-email"
-                  type="email"
-                  className="input"
-                  placeholder="Your email"
-                  value={contactForm.email}
-                  onChange={(e)=>setContactForm((p)=>({...p, email:e.target.value}))}
-                  required
-                />
+                <input id="contact-email" type="email" className="input" placeholder="Your email"
+                  value={contactForm.email} onChange={(e) => setContactForm((p) => ({...p, email:e.target.value}))} required />
                 <label className="sr-only" htmlFor="contact-message">Message</label>
-                <textarea
-                  id="contact-message"
-                  className="input"
-                  placeholder="Message"
-                  rows="4"
-                  value={contactForm.message}
-                  onChange={(e)=>setContactForm((p)=>({...p, message:e.target.value}))}
-                  required
-                ></textarea>
+                <textarea id="contact-message" className="input" placeholder="Message" rows="4"
+                  value={contactForm.message} onChange={(e) => setContactForm((p) => ({...p, message:e.target.value}))} required />
                 <button className="button-primary">Send</button>
               </form>
               {contactStatus && <p className="mt-2 text-xs" style={{color:'var(--color-text-secondary)'}}>{contactStatus}</p>}
             </div>
-          </div>
-        </div>
-      </div>
-
-      {/* FAQ Section */}
-      <FAQSection />
-
-      {/* Market Snapshot */}
-      <div className={isDarkMode ? "bg-gray-900" : "bg-white"}>
-        <div className="container mx-auto px-4 py-10">
-          <div className={isDarkMode ? "max-w-6xl mx-auto rounded-2xl border border-gray-700 bg-gray-900/70 p-5 shadow-lg" : "max-w-6xl mx-auto rounded-2xl border border-gray-200 bg-white p-5 shadow-lg"}>
-            <h2 className={isDarkMode ? "text-center text-lg font-semibold text-gray-100 mb-4" : "text-center text-lg font-semibold text-gray-900 mb-4"}>
-              Market Snapshot
-            </h2>
-            <SimpleQuoteCards />
           </div>
         </div>
       </div>

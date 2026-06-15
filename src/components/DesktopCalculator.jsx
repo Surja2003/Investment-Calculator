@@ -47,11 +47,14 @@ import {
   saveToCache,
   loadFromCache,
   serializeState,
-  deserializeState
+  deserializeState,
+  todaysMoney,
+  generateWhatsAppShare
 } from '../utils/calcEngine';
 import { updatePageSEO } from '../utils/SEOConfig';
 import { CountUp } from './animations';
 import { useTheme } from '../hooks/useTheme';
+import ShareCard from './ShareCard';
 
 const DesktopCalculator = ({ mode: initialMode = 'sip' }) => {
   const location = useLocation();
@@ -372,7 +375,7 @@ const DesktopCalculator = ({ mode: initialMode = 'sip' }) => {
         </div>
 
         {/* Global Controls */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 no-print">
           {/* Locale switcher */}
           <div className={`flex p-0.5 rounded-lg border transition-colors duration-200 ${isDarkMode ? 'bg-slate-800 border-slate-700' : 'bg-slate-100 border-slate-200'}`}>
             <button
@@ -407,6 +410,46 @@ const DesktopCalculator = ({ mode: initialMode = 'sip' }) => {
               <FileDownloadOutlinedIcon fontSize="small" />
             </IconButton>
           </Tooltip>
+
+          {/* WhatsApp Share */}
+          <Tooltip title="Share on WhatsApp">
+            <a
+              href={(() => {
+                const s = results?.summary || {};
+                return generateWhatsAppShare(mode, {
+                  ...s,
+                  monthlyInvestment: sipInputs?.monthlyInvestment,
+                  years: mode === 'sip' ? sipInputs?.years : mode === 'lumpsum' ? lumpsumInputs?.years : mode === 'swp' ? swpInputs?.years : goalInputs?.years,
+                }, locale);
+              })()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`p-2 border rounded-lg transition-all flex items-center justify-center ${isDarkMode ? 'bg-slate-900 border-slate-800 hover:border-green-600 hover:text-green-400 text-slate-300' : 'bg-white border-slate-200 text-slate-600 hover:border-green-400 hover:text-green-600'}`}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z M11.999 2C6.476 2 2 6.476 2 12c0 1.874.496 3.63 1.363 5.148L2 22l4.977-1.307A9.946 9.946 0 0 0 12 22c5.524 0 10-4.476 10-10 0-5.523-4.476-10-10-10z"/>
+              </svg>
+            </a>
+          </Tooltip>
+
+          {/* Print / PDF */}
+          <Tooltip title="Print or Save as PDF">
+            <IconButton
+              onClick={() => window.print()}
+              className={`p-2 border rounded-lg transition-all ${isDarkMode ? 'bg-slate-900 border-slate-800 text-slate-300 hover:border-slate-700' : 'bg-white border-slate-200 text-slate-600 hover:border-slate-300'}`}
+            >
+              <span style={{fontSize:'16px'}}>🖨️</span>
+            </IconButton>
+          </Tooltip>
+
+          {/* Share Card (screenshot-friendly result card) */}
+          <ShareCard
+            mode={mode}
+            locale={locale}
+            years={activeInputs?.years || 0}
+            rate={activeInputs?.rate || 0}
+            summary={calcResults?.summary || {}}
+          />
         </div>
       </div>
 
@@ -823,6 +866,21 @@ const DesktopCalculator = ({ mode: initialMode = 'sip' }) => {
                 {mode === 'sip' && `Invested Capital: ${formatCurrency(calcResults.summary.totalInvested, locale)}`}
                 {mode === 'lumpsum' && `Invested Capital: ${formatCurrency(calcResults.summary.totalInvested, locale)}`}
               </p>
+              {/* Today's Money inflation label */}
+              {(mode === 'sip' || mode === 'lumpsum') && (() => {
+                const fv = calcResults.summary.futureValue || 0;
+                const yrs = activeInputs.years || 0;
+                const inflRate = activeInputs.includeInflation ? (activeInputs.inflation || 6) : 6;
+                if (fv > 0 && yrs > 0) {
+                  const tm = todaysMoney(fv, yrs, inflRate);
+                  return (
+                    <div className={`mt-2 px-2 py-1.5 rounded-lg text-[9px] font-semibold border ${isDarkMode ? 'bg-amber-950/30 border-amber-900/40 text-amber-400' : 'bg-amber-50 border-amber-200 text-amber-700'}`}>
+                      💡 In today's money (6% inflation): {formatCompact(tm.todayValue, locale)}
+                    </div>
+                  );
+                }
+                return null;
+              })()}
             </motion.div>
 
             {/* Card 2: Total Investment */}

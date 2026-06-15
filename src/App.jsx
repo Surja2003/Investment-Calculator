@@ -1,6 +1,6 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, lazy, Suspense } from 'react';
 import { useTheme } from './hooks/useTheme';
-import { HashRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import { 
   ThemeProvider, 
   createTheme,
@@ -19,7 +19,8 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  Divider
+  Divider,
+  CircularProgress
 } from '@mui/material';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
@@ -29,14 +30,33 @@ import CalculatorLogo from './components/CalculatorLogo';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import FlagIcon from '@mui/icons-material/Flag';
 import TimelineIcon from '@mui/icons-material/Timeline';
+import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
 import CloseIcon from '@mui/icons-material/Close';
 
-import ResponsiveCalculator from './components/ResponsiveCalculator';
-import Home from './pages/Home';
-import Disclaimer from './components/Disclaimer';
+// ── Lazy-loaded route components (code splitting) ─────────────────────────────
+const ResponsiveCalculator = lazy(() => import('./components/ResponsiveCalculator'));
+const Home = lazy(() => import('./pages/Home'));
+const Disclaimer = lazy(() => import('./components/Disclaimer'));
+const CompareMode = lazy(() => import('./pages/CompareMode'));
+const EMICalculator = lazy(() => import('./pages/EMICalculator'));
+const Glossary = lazy(() => import('./pages/Glossary'));
+const ReverseSIP = lazy(() => import('./pages/ReverseSIP'));
+const FooterComp = lazy(() => import('./components/Footer'));
+
+import MobileBottomNav from './components/MobileBottomNav';
 import DevSimulatorToggle from './components/DevSimulatorToggle';
 import { THEME_CONSTANTS } from './constants/theme';
 import './App.css';
+
+// Loading fallback component
+function PageLoader({ isDark }) {
+  return (
+    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh', flexDirection: 'column', gap: 2 }}>
+      <CircularProgress sx={{ color: '#10B981' }} size={40} />
+      <Typography variant="body2" sx={{ color: isDark ? '#4b5563' : '#9ca3af', fontSize: '0.8rem' }}>Loading...</Typography>
+    </Box>
+  );
+}
 
 // Navigation routes and labels
 const NAV_ITEMS = [
@@ -44,7 +64,11 @@ const NAV_ITEMS = [
   { path: '/sip', label: 'SIP', icon: <CalculateIcon /> },
   { path: '/lumpsum', label: 'Lumpsum', icon: <AttachMoneyIcon /> },
   { path: '/swp', label: 'SWP', icon: <TimelineIcon /> },
-  { path: '/goals', label: 'Goal Calculator', icon: <FlagIcon /> },
+  { path: '/goals', label: 'Goal', icon: <FlagIcon /> },
+  { path: '/emi', label: 'EMI', icon: <AttachMoneyIcon /> },
+  { path: '/compare', label: 'Compare', icon: <CompareArrowsIcon /> },
+  { path: '/reverse', label: 'XIRR', icon: <CalculateIcon /> },
+  { path: '/glossary', label: 'Glossary', icon: <FlagIcon /> },
 ];
 
 function NavigationTabs() {
@@ -192,7 +216,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <DevSimulatorToggle>
-        <Router>
+        <Router basename="/Investment-Calculator">
         <Box sx={{ minHeight: '100vh', bgcolor: 'background.default', pb: 5 }}>
           <AppBar 
             position="sticky" 
@@ -251,19 +275,29 @@ function App() {
 
           <MobileDrawer open={drawerOpen} onClose={toggleDrawer} />
 
-          <Container maxWidth={false} sx={{ mt: { xs: 2, md: 3 }, px: { xs: 2, md: 4 } }}>
-            {/* Ticker removed per request: no TradingView details on Home */}
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/sip" element={<ResponsiveCalculator mode="sip" />} />
-              <Route path="/lumpsum" element={<ResponsiveCalculator mode="lumpsum" />} />
-              <Route path="/swp" element={<ResponsiveCalculator mode="swp" />} />
-              <Route path="/goals" element={<ResponsiveCalculator mode="goal" />} />
-              <Route path="*" element={<Home />} />
-            </Routes>
+          <MobileBottomNav />
+
+          <Container maxWidth={false} sx={{ mt: { xs: 2, md: 3 }, px: { xs: 0, md: 4 } }}>
+            <Suspense fallback={<PageLoader isDark={isDarkMode} />}>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/sip" element={<ResponsiveCalculator mode="sip" />} />
+                <Route path="/lumpsum" element={<ResponsiveCalculator mode="lumpsum" />} />
+                <Route path="/swp" element={<ResponsiveCalculator mode="swp" />} />
+                <Route path="/goals" element={<ResponsiveCalculator mode="goal" />} />
+                <Route path="/emi" element={<EMICalculator />} />
+                <Route path="/compare" element={<CompareMode />} />
+                <Route path="/reverse" element={<ReverseSIP />} />
+                <Route path="/glossary" element={<Glossary />} />
+                <Route path="*" element={<Home />} />
+              </Routes>
+            </Suspense>
           </Container>
         </Box>
-        <Disclaimer />
+        <Suspense fallback={null}>
+          <FooterComp />
+          <Disclaimer />
+        </Suspense>
       </Router>
       </DevSimulatorToggle>
     </ThemeProvider>

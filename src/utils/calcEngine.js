@@ -486,3 +486,62 @@ export const deserializeState = (queryString) => {
   });
   return state;
 };
+
+// --- 7. INFLATION "TODAY'S MONEY" UTILITY ---
+
+/**
+ * Converts a future value to its equivalent purchasing power in today's money.
+ * @param {number} futureValue - The projected future corpus
+ * @param {number} years - Number of years in the future
+ * @param {number} inflationRate - Annual inflation rate in % (default 6%)
+ * @returns {{ todayValue: number, discountFactor: number, label: string }}
+ */
+export const todaysMoney = (futureValue, years, inflationRate = 6) => {
+  const r = inflationRate / 100;
+  const discountFactor = Math.pow(1 + r, years);
+  const todayValue = Math.round(futureValue / discountFactor);
+  return {
+    todayValue,
+    discountFactor: parseFloat(discountFactor.toFixed(2)),
+    label: `In today's money (at ${inflationRate}% inflation)`
+  };
+};
+
+/**
+ * Generates a WhatsApp-shareable text for a calculator result.
+ * @param {string} mode - 'sip' | 'lumpsum' | 'swp' | 'goal' | 'emi'
+ * @param {Object} summary - Result summary object
+ * @param {string} locale - 'IN' | 'US'
+ * @returns {string} Encoded WhatsApp URL
+ */
+export const generateWhatsAppShare = (mode, summary, locale = 'IN') => {
+  const curr = locale === 'IN' ? '₹' : '$';
+  const fmt = (v) => {
+    if (locale === 'IN') {
+      if (v >= 1e7) return `${curr}${(v/1e7).toFixed(2)} Cr`;
+      if (v >= 1e5) return `${curr}${(v/1e5).toFixed(2)} L`;
+      return `${curr}${Math.round(v).toLocaleString('en-IN')}`;
+    }
+    if (v >= 1e9) return `${curr}${(v/1e9).toFixed(2)}B`;
+    if (v >= 1e6) return `${curr}${(v/1e6).toFixed(2)}M`;
+    return `${curr}${Math.round(v).toLocaleString('en-US')}`;
+  };
+
+  let text = '';
+  const url = 'https://surja2003.github.io/Investment-Calculator/';
+
+  if (mode === 'sip') {
+    text = `📈 My SIP Projection!\n\nMonthly Investment: ${fmt(summary.monthlyInvestment || 0)}\nDuration: ${summary.years || 0} years\nTotal Invested: ${fmt(summary.totalInvested || 0)}\nEstimated Returns: ${fmt(summary.totalReturns || 0)}\n🎯 Future Value: ${fmt(summary.futureValue || 0)}\n\nCalculate yours 👉 ${url}`;
+  } else if (mode === 'lumpsum') {
+    text = `💰 My Lumpsum Projection!\n\nInvested: ${fmt(summary.totalInvested || 0)}\nDuration: ${summary.years || 0} years\nEstimated Returns: ${fmt(summary.totalReturns || 0)}\n🎯 Future Value: ${fmt(summary.futureValue || 0)}\n\nCalculate yours 👉 ${url}`;
+  } else if (mode === 'swp') {
+    text = `🏦 My SWP Plan!\n\nCorpus: ${fmt(summary.initialInvestment || 0)}\nMonthly Withdrawal: ${fmt(summary.monthlyWithdrawal || 0)}\nTotal Withdrawn: ${fmt(summary.totalWithdrawn || 0)}\nFinal Corpus: ${fmt(summary.finalCorpus || 0)}\n\nCalculate yours 👉 ${url}`;
+  } else if (mode === 'goal') {
+    text = `🎯 My Goal Plan!\n\nTarget: ${fmt(summary.target || 0)}\nDuration: ${summary.years || 0} years\nRequired Monthly SIP: ${fmt(summary.requiredMonthlyInvestment || 0)}\n\nCalculate yours 👉 ${url}`;
+  } else if (mode === 'emi') {
+    text = `🏠 My EMI Calculation!\n\nLoan: ${fmt(summary.principal || 0)} @ ${summary.rate || 0}% for ${summary.years || 0} years\nMonthly EMI: ${fmt(summary.emi || 0)}\nTotal Interest: ${fmt(summary.totalInterest || 0)}\nTotal Payment: ${fmt(summary.totalPayment || 0)}\n\nCalculate yours 👉 ${url}`;
+  }
+
+  return `https://wa.me/?text=${encodeURIComponent(text)}`;
+};
+
