@@ -36,7 +36,7 @@ export default {
         warning: '#F59E0B',
       },
       fontFamily: {
-        sans: ['Inter', 'Roboto', 'Arial', 'sans-serif'],
+        sans: ['"Plus Jakarta Sans"', 'Inter', 'Roboto', 'Arial', 'sans-serif'],
       },
       borderRadius: {
         DEFAULT: '0.5rem',

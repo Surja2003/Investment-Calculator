@@ -1,7 +1,7 @@
 @layer base {
   :root {
     /* Typography */
-    --font-family-sans: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-family-sans: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif;
     --font-family-mono: ui-monospace, monospace;
     
     /* Spacing */

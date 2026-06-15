@@ -324,7 +324,7 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
           <div className={`border p-4 rounded-xl transition-colors duration-200 ${isDarkMode ? 'bg-[#0c1222]/80 border-slate-850' : 'bg-white border-slate-200 shadow-sm'}`}>
             <div className="flex justify-between items-baseline mb-1">
               <span className={`text-xs font-medium transition-colors duration-200 ${isDarkMode ? 'text-slate-300' : 'text-slate-650'}`}>Monthly Pay-out</span>
-              <span className={`text-xs font-bold transition-colors duration-200 ${isDarkMode ? 'text-indigo-400' : 'text-indigo-650'}`}>{formatCurrency(activeInputs.withdrawal, locale)}</span>
+              <span className={`text-xs font-bold transition-colors duration-200 ${isDarkMode ? 'text-cyan-400' : 'text-cyan-600'}`}>{formatCurrency(activeInputs.withdrawal, locale)}</span>
             </div>
             <div className="py-2.5">
               <Slider
@@ -334,9 +334,9 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
                 value={activeInputs.withdrawal}
                 onChange={(e, val) => handleInputChange('withdrawal', val)}
                 sx={{
-                  color: '#6366f1',
+                  color: '#06B6D4',
                   height: 6,
-                  '& .MuiSlider-thumb': { width: 20, height: 20, backgroundColor: '#6366f1', border: '2px solid #fff' },
+                  '& .MuiSlider-thumb': { width: 20, height: 20, backgroundColor: '#06B6D4', border: '2px solid #fff' },
                   '& .MuiSlider-rail': {
                     opacity: isDarkMode ? 0.1 : 0.2,
                     backgroundColor: isDarkMode ? '#cbd5e1' : '#64748b'
@@ -351,7 +351,7 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
         <div className={`border p-4 rounded-xl transition-colors duration-200 ${isDarkMode ? 'bg-[#0c1222]/80 border-slate-850' : 'bg-white border-slate-200 shadow-sm'}`}>
           <div className="flex justify-between items-baseline mb-1">
             <span className={`text-xs font-medium transition-colors duration-200 ${isDarkMode ? 'text-slate-300' : 'text-slate-650'}`}>Expected Rate (% p.a.)</span>
-            <span className={`text-xs font-bold transition-colors duration-200 ${isDarkMode ? 'text-indigo-400' : 'text-indigo-650'}`}>{activeInputs.rate}%</span>
+            <span className={`text-xs font-bold transition-colors duration-200 ${isDarkMode ? 'text-cyan-400' : 'text-cyan-600'}`}>{activeInputs.rate}%</span>
           </div>
           <div className="py-2.5">
             <Slider
@@ -361,9 +361,9 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
               value={activeInputs.rate}
               onChange={(e, val) => handleInputChange('rate', val)}
               sx={{
-                color: '#6366f1',
+                color: '#06B6D4',
                 height: 6,
-                '& .MuiSlider-thumb': { width: 20, height: 20, backgroundColor: '#6366f1', border: '2px solid #fff' },
+                '& .MuiSlider-thumb': { width: 20, height: 20, backgroundColor: '#06B6D4', border: '2px solid #fff' },
                 '& .MuiSlider-rail': {
                   opacity: isDarkMode ? 0.1 : 0.2,
                   backgroundColor: isDarkMode ? '#cbd5e1' : '#64748b'
@@ -377,7 +377,7 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
         <div className={`border p-4 rounded-xl transition-colors duration-200 ${isDarkMode ? 'bg-[#0c1222]/80 border-slate-850' : 'bg-white border-slate-200 shadow-sm'}`}>
           <div className="flex justify-between items-baseline mb-1">
             <span className={`text-xs font-medium transition-colors duration-200 ${isDarkMode ? 'text-slate-300' : 'text-slate-650'}`}>Duration</span>
-            <span className={`text-xs font-bold transition-colors duration-200 ${isDarkMode ? 'text-indigo-400' : 'text-indigo-650'}`}>{activeInputs.years} Years</span>
+            <span className={`text-xs font-bold transition-colors duration-200 ${isDarkMode ? 'text-cyan-400' : 'text-cyan-600'}`}>{activeInputs.years} Years</span>
           </div>
           <div className="py-2.5">
             <Slider
@@ -387,9 +387,9 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
               value={activeInputs.years}
               onChange={(e, val) => handleInputChange('years', val)}
               sx={{
-                color: '#6366f1',
+                color: '#06B6D4',
                 height: 6,
-                '& .MuiSlider-thumb': { width: 20, height: 20, backgroundColor: '#6366f1', border: '2px solid #fff' },
+                '& .MuiSlider-thumb': { width: 20, height: 20, backgroundColor: '#06B6D4', border: '2px solid #fff' },
                 '& .MuiSlider-rail': {
                   opacity: isDarkMode ? 0.1 : 0.2,
                   backgroundColor: isDarkMode ? '#cbd5e1' : '#64748b'
@@ -584,11 +584,11 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
             
             {/* Tax implication alert */}
             <div className={`p-3.5 rounded-xl flex gap-2.5 border transition-colors duration-200 ${isDarkMode ? 'bg-slate-900/60 border-slate-850' : 'bg-slate-50 border-slate-200'}`}>
-              <InfoOutlinedIcon className="text-indigo-400 mt-0.5 shrink-0" sx={{ fontSize: 16 }} />
+              <InfoOutlinedIcon className="text-cyan-400 mt-0.5 shrink-0" sx={{ fontSize: 16 }} />
               <div className="text-[11px]">
                 <div className="flex items-center gap-1.5 flex-wrap">
                   <span className={`font-bold transition-colors duration-200 ${isDarkMode ? 'text-slate-200' : 'text-slate-800'}`}>Gains Tax highlight</span>
-                  <span className={`text-[9px] px-1 rounded border transition-colors duration-200 ${isDarkMode ? 'bg-indigo-950 border-indigo-800 text-indigo-300' : 'bg-indigo-50 border-indigo-200 text-indigo-700'}`}>{taxDetails.rateText}</span>
+                  <span className={`text-[9px] px-1 rounded border transition-colors duration-200 ${isDarkMode ? 'bg-cyan-950 border-cyan-800 text-cyan-300' : 'bg-cyan-50 border-cyan-200 text-cyan-700'}`}>{taxDetails.rateText}</span>
                 </div>
                 <p className={`mt-1 transition-colors duration-200 ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>{taxDetails.explanation}</p>
                 <div className={`mt-1.5 transition-colors duration-200 ${isDarkMode ? 'text-slate-200' : 'text-slate-800'}`}>

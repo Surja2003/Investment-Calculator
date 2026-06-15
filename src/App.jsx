@@ -62,9 +62,11 @@ function NavigationTabs() {
       sx={{
         '& .MuiTab-root': {
           minWidth: isMobile ? 'auto' : 120,
-          color: 'text.secondary',
+          color: isDarkMode ? '#9ca3af' : '#475569',
+          fontWeight: 500,
           '&.Mui-selected': {
-            color: 'primary.main',
+            color: '#10B981',
+            fontWeight: 700,
           },
           textTransform: 'none',
           fontSize: '0.9rem',
@@ -152,12 +154,16 @@ function App() {
       ...(isDarkMode 
         ? THEME_CONSTANTS.colors 
         : {
-          primary: { main: '#3f51b5' },
-          secondary: { main: '#9c27b0' },
-          success: { main: '#4caf50' },
+          primary: { main: '#10B981' },
+          secondary: { main: '#06B6D4' },
+          success: { main: '#10B981' },
           background: {
-            default: '#f5f5f5',
+            default: '#f8fafc',
             paper: '#ffffff',
+          },
+          text: {
+            primary: '#0f172a',
+            secondary: '#475569',
           }
         }
       ),

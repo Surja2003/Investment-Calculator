@@ -244,16 +244,16 @@ const DesktopCalculator = ({ mode: initialMode = 'sip' }) => {
     if (mode === 'swp') {
       return [
         { name: 'Remaining Portfolio', value: calcResults.summary.finalCorpus, color: '#10B981' },
-        { name: 'Total Withdrawals', value: calcResults.summary.totalWithdrawn, color: '#6366f1' }
+        { name: 'Total Withdrawals', value: calcResults.summary.totalWithdrawn, color: '#06B6D4' }
       ];
     } else if (mode === 'goal') {
       return [
-        { name: 'Required Contributions', value: calcResults.summary.totalInvestment, color: '#6366f1' },
+        { name: 'Required Contributions', value: calcResults.summary.totalInvestment, color: '#06B6D4' },
         { name: 'Estimated Returns', value: calcResults.summary.wealthGained, color: '#10B981' }
       ];
     } else {
       return [
-        { name: 'Total Invested', value: calcResults.summary.totalInvested, color: '#6366f1' },
+        { name: 'Total Invested', value: calcResults.summary.totalInvested, color: '#06B6D4' },
         { name: 'Estimated Returns', value: calcResults.summary.totalReturns, color: '#10B981' }
       ];
     }
@@ -307,7 +307,7 @@ const DesktopCalculator = ({ mode: initialMode = 'sip' }) => {
             </button>
             <button
               onClick={() => setLocale('US')}
-              className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-all ${locale === 'US' ? 'bg-indigo-600 text-white shadow' : isDarkMode ? 'text-slate-400 hover:text-slate-200' : 'text-slate-500 hover:text-slate-800'}`}
+              className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-all ${locale === 'US' ? 'bg-cyan-600 text-white shadow' : isDarkMode ? 'text-slate-400 hover:text-slate-200' : 'text-slate-500 hover:text-slate-800'}`}
             >
               🇺🇸 Global (M/B)
             </button>
@@ -454,7 +454,7 @@ const DesktopCalculator = ({ mode: initialMode = 'sip' }) => {
                         id="withdrawal-text"
                         value={activeInputs.withdrawal}
                         onChange={(e) => handleInputChange('withdrawal', Math.max(0, parseInt(e.target.value, 10) || 0))}
-                        className={`w-32 border rounded px-2 py-1 text-right text-xs font-semibold focus:outline-none transition-colors duration-200 ${isDarkMode ? 'bg-slate-950 border-slate-800 text-indigo-400 focus:border-indigo-500' : 'bg-slate-50 border-slate-300 text-indigo-600 focus:border-indigo-600'}`}
+                        className={`w-32 border rounded px-2 py-1 text-right text-xs font-semibold focus:outline-none transition-colors duration-200 ${isDarkMode ? 'bg-slate-950 border-slate-800 text-cyan-400 focus:border-cyan-500' : 'bg-slate-50 border-slate-300 text-cyan-600 focus:border-cyan-600'}`}
                       />
                       <span className="absolute left-2 top-1.5 text-[10px] text-slate-500 font-bold">{locale === 'IN' ? '₹' : '$'}</span>
                     </div>
@@ -468,11 +468,11 @@ const DesktopCalculator = ({ mode: initialMode = 'sip' }) => {
                       value={activeInputs.withdrawal}
                       onChange={(e, val) => handleInputChange('withdrawal', val)}
                       sx={{
-                        color: '#6366f1',
+                        color: '#06B6D4',
                         height: 5,
                         '& .MuiSlider-thumb': {
                           width: 16, height: 16,
-                          backgroundColor: '#6366f1',
+                          backgroundColor: '#06B6D4',
                           border: '2px solid #fff',
                         },
                         '& .MuiSlider-track': { border: 'none' },
@@ -494,7 +494,7 @@ const DesktopCalculator = ({ mode: initialMode = 'sip' }) => {
                       step="0.1"
                       value={activeInputs.rate}
                       onChange={(e) => handleInputChange('rate', Math.min(30, Math.max(0, parseFloat(e.target.value) || 0)))}
-                      className={`w-20 border rounded px-2 py-1 text-right text-xs font-semibold focus:outline-none transition-colors duration-200 ${isDarkMode ? 'bg-slate-950 border-slate-800 text-indigo-400 focus:border-indigo-500' : 'bg-slate-50 border-slate-300 text-indigo-600 focus:border-indigo-600'}`}
+                      className={`w-20 border rounded px-2 py-1 text-right text-xs font-semibold focus:outline-none transition-colors duration-200 ${isDarkMode ? 'bg-slate-950 border-slate-800 text-cyan-400 focus:border-cyan-500' : 'bg-slate-50 border-slate-300 text-cyan-600 focus:border-cyan-600'}`}
                     />
                     <span className="absolute left-2 top-1.5 text-[10px] text-slate-500 font-bold">%</span>
                   </div>
@@ -508,11 +508,11 @@ const DesktopCalculator = ({ mode: initialMode = 'sip' }) => {
                     value={activeInputs.rate}
                     onChange={(e, val) => handleInputChange('rate', val)}
                     sx={{
-                      color: '#6366f1',
+                      color: '#06B6D4',
                       height: 5,
                       '& .MuiSlider-thumb': {
                         width: 16, height: 16,
-                        backgroundColor: '#6366f1',
+                        backgroundColor: '#06B6D4',
                         border: '2px solid #fff',
                       },
                       '& .MuiSlider-track': { border: 'none' },
@@ -532,7 +532,7 @@ const DesktopCalculator = ({ mode: initialMode = 'sip' }) => {
                       id="years-text"
                       value={activeInputs.years}
                       onChange={(e) => handleInputChange('years', Math.min(50, Math.max(1, parseInt(e.target.value, 10) || 1)))}
-                      className={`w-20 border rounded px-2 py-1 text-right text-xs font-semibold focus:outline-none transition-colors duration-200 ${isDarkMode ? 'bg-slate-950 border-slate-800 text-indigo-400 focus:border-indigo-500' : 'bg-slate-50 border-slate-300 text-indigo-600 focus:border-indigo-600'}`}
+                      className={`w-20 border rounded px-2 py-1 text-right text-xs font-semibold focus:outline-none transition-colors duration-200 ${isDarkMode ? 'bg-slate-950 border-slate-800 text-cyan-400 focus:border-cyan-500' : 'bg-slate-50 border-slate-300 text-cyan-600 focus:border-cyan-600'}`}
                     />
                     <span className="absolute left-2 top-1.5 text-[10px] text-slate-500 font-bold">Yrs</span>
                   </div>
@@ -546,11 +546,11 @@ const DesktopCalculator = ({ mode: initialMode = 'sip' }) => {
                     value={activeInputs.years}
                     onChange={(e, val) => handleInputChange('years', val)}
                     sx={{
-                      color: '#6366f1',
+                      color: '#06B6D4',
                       height: 5,
                       '& .MuiSlider-thumb': {
                         width: 16, height: 16,
-                        backgroundColor: '#6366f1',
+                        backgroundColor: '#06B6D4',
                         border: '2px solid #fff',
                       },
                       '& .MuiSlider-track': { border: 'none' },
@@ -733,8 +733,8 @@ const DesktopCalculator = ({ mode: initialMode = 'sip' }) => {
               variants={cardVariants} 
               className={`border rounded-2xl p-5 shadow-lg relative overflow-hidden group transition-all duration-200 ${
                 isDarkMode 
-                  ? 'bg-[#0c1222]/90 border-slate-800 hover:border-indigo-500/30 shadow-black/10' 
-                  : 'bg-white border-slate-200 hover:border-indigo-500/40 shadow-slate-200/10'
+                  ? 'bg-[#0c1222]/90 border-slate-800 hover:border-cyan-500/30 shadow-black/10' 
+                  : 'bg-white border-slate-200 hover:border-cyan-500/40 shadow-slate-200/10'
               }`}
             >
               <span className={`text-[11px] font-semibold uppercase tracking-wider transition-colors duration-200 ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>
@@ -826,8 +826,8 @@ const DesktopCalculator = ({ mode: initialMode = 'sip' }) => {
                   <AreaChart data={areaData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
                     <defs>
                       <linearGradient id="colorInvested" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#6366f1" stopOpacity={0.4}/>
-                        <stop offset="95%" stopColor="#6366f1" stopOpacity={0.01}/>
+                        <stop offset="5%" stopColor="#06b6d4" stopOpacity={0.4}/>
+                        <stop offset="95%" stopColor="#06b6d4" stopOpacity={0.01}/>
                       </linearGradient>
                       <linearGradient id="colorReturns" x1="0" y1="0" x2="0" y2="1">
                         <stop offset="5%" stopColor="#10B981" stopOpacity={0.4}/>
@@ -865,17 +865,17 @@ const DesktopCalculator = ({ mode: initialMode = 'sip' }) => {
                     {mode === 'swp' ? (
                       <>
                         <Area type="monotone" dataKey="Portfolio" stroke="#06b6d4" fillOpacity={1} fill="url(#colorPortfolio)" strokeWidth={2.5} />
-                        <Area type="monotone" dataKey="Withdrawals" stroke="#6366f1" fillOpacity={1} fill="url(#colorInvested)" strokeWidth={1.5} />
+                        <Area type="monotone" dataKey="Withdrawals" stroke="#06b6d4" fillOpacity={1} fill="url(#colorInvested)" strokeWidth={1.5} />
                       </>
                     ) : mode === 'goal' ? (
                       <>
                         <Area type="monotone" dataKey="Value" stroke="#10B981" fillOpacity={1} fill="url(#colorReturns)" strokeWidth={2.5} name="Total Target Value" />
-                        <Area type="monotone" dataKey="Invested" stroke="#6366f1" fillOpacity={1} fill="url(#colorInvested)" strokeWidth={1.5} name="Required Investments" />
+                        <Area type="monotone" dataKey="Invested" stroke="#06b6d4" fillOpacity={1} fill="url(#colorInvested)" strokeWidth={1.5} name="Required Investments" />
                       </>
                     ) : (
                       <>
                         <Area type="monotone" dataKey="Value" stroke="#10B981" fillOpacity={1} fill="url(#colorReturns)" strokeWidth={2.5} name="Total Growth" />
-                        <Area type="monotone" dataKey="Invested" stroke="#6366f1" fillOpacity={1} fill="url(#colorInvested)" strokeWidth={1.5} name="Principal Invested" />
+                        <Area type="monotone" dataKey="Invested" stroke="#06b6d4" fillOpacity={1} fill="url(#colorInvested)" strokeWidth={1.5} name="Principal Invested" />
                       </>
                     )}
                   </AreaChart>
@@ -971,14 +971,14 @@ const DesktopCalculator = ({ mode: initialMode = 'sip' }) => {
           <div className={`border p-4 rounded-xl flex gap-3 transition-colors duration-200 ${
             isDarkMode ? 'bg-slate-900/50 border-slate-800' : 'bg-slate-50 border-slate-200'
           }`}>
-            <InfoOutlinedIcon className="text-indigo-400 shrink-0 mt-0.5" />
+            <InfoOutlinedIcon className="text-cyan-400 shrink-0 mt-0.5" />
             <div className="text-xs">
               <div className="flex items-center gap-2">
                 <span className={`font-semibold transition-colors duration-200 ${isDarkMode ? 'text-slate-200' : 'text-slate-800'}`}>Estimated Capital Gains Tax Implication ({locale === 'IN' ? 'India' : 'International'})</span>
                 <span className={`text-[9px] px-1.5 py-0.5 rounded font-mono font-bold border transition-colors duration-200 ${
                   isDarkMode 
-                    ? 'bg-indigo-950/80 border-indigo-800 text-indigo-300' 
-                    : 'bg-indigo-50 border-indigo-200 text-indigo-700'
+                    ? 'bg-cyan-950/80 border-cyan-800 text-cyan-300' 
+                    : 'bg-cyan-50 border-cyan-200 text-cyan-750'
                 }`}>{taxDetails.rateText}</span>
               </div>
               <p className={`mt-1 transition-colors duration-200 ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>{taxDetails.explanation}</p>
@@ -1001,10 +1001,10 @@ const DesktopCalculator = ({ mode: initialMode = 'sip' }) => {
               }`}
             >
               <span className="flex items-center gap-2">
-                <TableViewIcon className="text-indigo-400" />
+                <TableViewIcon className="text-cyan-400" />
                 Year-by-Year Growth Table
               </span>
-              <span className="text-indigo-400">{showAmortization ? 'Hide Table ▴' : 'Show Table ▾'}</span>
+              <span className="text-cyan-400">{showAmortization ? 'Hide Table ▴' : 'Show Table ▾'}</span>
             </button>
 
             <Collapse in={showAmortization}>
@@ -1048,19 +1048,19 @@ const DesktopCalculator = ({ mode: initialMode = 'sip' }) => {
                         {mode === 'swp' ? (
                           <>
                             <td className={`py-3 px-6 transition-colors duration-200 ${isDarkMode ? 'text-slate-300' : 'text-slate-650'}`}>{formatCurrency(row.initialInvestment, locale)}</td>
-                            <td className={`py-3 px-6 font-medium transition-colors duration-200 ${isDarkMode ? 'text-indigo-400' : 'text-indigo-650'}`}>{formatCurrency(row.totalWithdrawn, locale)}</td>
+                            <td className={`py-3 px-6 font-medium transition-colors duration-200 ${isDarkMode ? 'text-cyan-400' : 'text-cyan-600'}`}>{formatCurrency(row.totalWithdrawn, locale)}</td>
                             <td className={`py-3 px-6 font-bold transition-colors duration-200 ${isDarkMode ? 'text-emerald-400' : 'text-emerald-600'}`}>{formatCurrency(row.corpus, locale)}</td>
                           </>
                         ) : mode === 'goal' ? (
                           <>
                             <td className={`py-3 px-6 transition-colors duration-200 ${isDarkMode ? 'text-slate-300' : 'text-slate-650'}`}>{formatCurrency(row.invested, locale)}</td>
-                            <td className={`py-3 px-6 font-medium transition-colors duration-200 ${isDarkMode ? 'text-indigo-400' : 'text-indigo-650'}`}>{formatCurrency(Math.max(0, row.projected - row.invested), locale)}</td>
+                            <td className={`py-3 px-6 font-medium transition-colors duration-200 ${isDarkMode ? 'text-cyan-400' : 'text-cyan-600'}`}>{formatCurrency(Math.max(0, row.projected - row.invested), locale)}</td>
                             <td className={`py-3 px-6 font-bold transition-colors duration-200 ${isDarkMode ? 'text-emerald-400' : 'text-emerald-600'}`}>{formatCurrency(row.projected, locale)}</td>
                           </>
                         ) : (
                           <>
                             <td className={`py-3 px-6 transition-colors duration-200 ${isDarkMode ? 'text-slate-300' : 'text-slate-650'}`}>{formatCurrency(row.invested, locale)}</td>
-                            <td className={`py-3 px-6 font-medium transition-colors duration-200 ${isDarkMode ? 'text-indigo-400' : 'text-indigo-650'}`}>{formatCurrency(row.returns, locale)}</td>
+                            <td className={`py-3 px-6 font-medium transition-colors duration-200 ${isDarkMode ? 'text-cyan-400' : 'text-cyan-600'}`}>{formatCurrency(row.returns, locale)}</td>
                             <td className={`py-3 px-6 font-bold transition-colors duration-200 ${isDarkMode ? 'text-emerald-400' : 'text-emerald-600'}`}>{formatCurrency(row.currentValue, locale)}</td>
                           </>
                         )}
