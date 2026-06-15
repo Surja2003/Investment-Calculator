@@ -674,8 +674,12 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
         <a
           href={generateWhatsAppShare(mode, {
             ...calcResults?.summary,
-            monthlyInvestment: activeInputs?.monthlyInvestment,
-            years: activeInputs?.years,
+            monthlyInvestment: mode === 'sip' ? activeInputs?.amount : undefined,
+            years: activeInputs?.years || 0,
+            initialInvestment: mode === 'swp' ? activeInputs?.amount : undefined,
+            monthlyWithdrawal: mode === 'swp' ? activeInputs?.withdrawal : undefined,
+            target: mode === 'goal' ? activeInputs?.target : undefined,
+            requiredMonthlyInvestment: calcResults?.summary?.requiredMonthlyInvestment || calcResults?.summary?.monthlySIP,
           }, locale)}
           target="_blank"
           rel="noopener noreferrer"

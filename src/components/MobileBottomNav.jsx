@@ -15,9 +15,8 @@ const MobileBottomNav = () => {
   const { isDarkMode } = useTheme();
   const location = useLocation();
 
-  // Calculator pages have their own sticky bottom bar — hide global nav there
-  const calcPaths = ['/sip', '/lumpsum', '/swp', '/goals'];
-  if (calcPaths.includes(location.pathname)) return null;
+  // Mobile bottom nav should be visible across the app so users can navigate between calculators
+  // calcPaths logic removed to fix 'calculators not opening / cannot switch' bug
 
   return (
     <>

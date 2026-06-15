@@ -388,17 +388,13 @@ Switch between modes using the **🇮🇳/🇺🇸 toggle** in the calculator he
 ];
 
 // ── Accordion Item ────────────────────────────────────────────────────────────
-function AccordionItem({ faq, index, isOpen, onToggle, isDarkMode }) {
+function AccordionItem({ faq, index, isOpen, onToggle }) {
   return (
     <div
       className={`border rounded-2xl overflow-hidden transition-all duration-300 ${
         isOpen
-          ? isDarkMode
-            ? 'border-emerald-500/40 bg-emerald-950/10'
-            : 'border-emerald-400/50 bg-emerald-50/60'
-          : isDarkMode
-          ? 'border-slate-800 bg-[#0c1222]/60 hover:border-slate-700'
-          : 'border-slate-200 bg-white hover:border-slate-300 shadow-sm'
+          ? 'border-emerald-400/50 bg-emerald-50/60 dark:border-emerald-500/40 dark:bg-emerald-950/10'
+          : 'border-slate-200 bg-white hover:border-slate-300 shadow-sm dark:border-slate-800 dark:bg-slate-800 dark:hover:border-slate-700'
       }`}
     >
       {/* Question header */}
@@ -413,9 +409,7 @@ function AccordionItem({ faq, index, isOpen, onToggle, isDarkMode }) {
           className={`text-sm sm:text-base font-semibold leading-snug transition-colors ${
             isOpen
               ? 'text-emerald-500'
-              : isDarkMode
-              ? 'text-slate-100'
-              : 'text-slate-800'
+              : 'text-slate-800 dark:text-slate-100'
           }`}
         >
           {faq.q}
@@ -424,9 +418,7 @@ function AccordionItem({ faq, index, isOpen, onToggle, isDarkMode }) {
           className={`flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-300 ${
             isOpen
               ? 'bg-emerald-500 text-white rotate-45'
-              : isDarkMode
-              ? 'bg-slate-800 text-slate-400'
-              : 'bg-slate-100 text-slate-500'
+              : 'bg-slate-100 text-slate-500 dark:bg-slate-700 dark:text-slate-300'
           }`}
         >
           +
@@ -442,12 +434,8 @@ function AccordionItem({ faq, index, isOpen, onToggle, isDarkMode }) {
           isOpen ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'
         }`}
       >
-        <div className={`px-5 pb-5 pt-0 border-t ${isDarkMode ? 'border-slate-800' : 'border-slate-100'}`}>
-          <div
-            className={`mt-4 text-sm leading-relaxed whitespace-pre-line space-y-2 ${
-              isDarkMode ? 'text-slate-300' : 'text-slate-600'
-            }`}
-          >
+        <div className="px-5 pb-5 pt-0 border-t border-slate-100 dark:border-slate-700">
+          <div className="mt-4 text-sm leading-relaxed whitespace-pre-line space-y-2 text-slate-600 dark:text-slate-300">
             {faq.a.split('\n').map((line, i) => {
               if (!line.trim()) return <br key={i} />;
               // Bold text between **
@@ -512,16 +500,12 @@ const FAQSection = () => {
             Investor FAQ
           </span>
           <h2
-            className={`text-3xl sm:text-4xl font-black tracking-tight mb-3 ${
-              isDarkMode ? 'text-white' : 'text-slate-900'
-            }`}
+            className="text-3xl sm:text-4xl font-black tracking-tight mb-3 text-slate-900 dark:text-white"
           >
             Everything you need to know
           </h2>
           <p
-            className={`text-base max-w-2xl mx-auto ${
-              isDarkMode ? 'text-slate-400' : 'text-slate-500'
-            }`}
+            className="text-base max-w-2xl mx-auto text-slate-500 dark:text-slate-400"
           >
             From your first investment to retirement planning — all your questions answered clearly.
           </p>

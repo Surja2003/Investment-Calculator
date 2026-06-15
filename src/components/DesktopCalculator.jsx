@@ -415,11 +415,15 @@ const DesktopCalculator = ({ mode: initialMode = 'sip' }) => {
           <Tooltip title="Share on WhatsApp">
             <a
               href={(() => {
-                const s = results?.summary || {};
+                const s = calcResults?.summary || {};
                 return generateWhatsAppShare(mode, {
                   ...s,
-                  monthlyInvestment: sipInputs?.monthlyInvestment,
-                  years: mode === 'sip' ? sipInputs?.years : mode === 'lumpsum' ? lumpsumInputs?.years : mode === 'swp' ? swpInputs?.years : goalInputs?.years,
+                  monthlyInvestment: mode === 'sip' ? activeInputs?.amount : undefined,
+                  years: activeInputs?.years || 0,
+                  initialInvestment: mode === 'swp' ? activeInputs?.amount : undefined,
+                  monthlyWithdrawal: mode === 'swp' ? activeInputs?.withdrawal : undefined,
+                  target: mode === 'goal' ? activeInputs?.target : undefined,
+                  requiredMonthlyInvestment: s.requiredMonthlyInvestment || s.monthlySIP,
                 }, locale);
               })()}
               target="_blank"
