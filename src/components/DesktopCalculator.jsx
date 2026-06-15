@@ -196,6 +196,23 @@ const DesktopCalculator = ({ mode: initialMode = 'sip' }) => {
     navigate(`?${queryParams.toString()}`, { replace: true });
   }, [mode, activeInputs, locale, navigate]);
 
+  // Raw text inputs state for graceful mid-typing (avoids clamping during edit)
+  const [rawInputs, setRawInputs] = useState({});
+
+  // Clamp helpers per field
+  const clampValue = (field, val) => {
+    const n = parseFloat(val);
+    if (isNaN(n)) return activeInputs[field];
+    if (field === 'amount') return Math.max(0, Math.round(n));
+    if (field === 'target') return Math.max(0, Math.round(n));
+    if (field === 'withdrawal') return Math.max(0, Math.round(n));
+    if (field === 'rate') return Math.min(50, Math.max(0, n));
+    if (field === 'years') return Math.min(50, Math.max(1, Math.round(n)));
+    if (field === 'stepUpPercent') return Math.min(50, Math.max(1, Math.round(n)));
+    if (field === 'inflation') return Math.min(20, Math.max(0.1, n));
+    return n;
+  };
+
   const handleInputChange = (field, value) => {
     setInputs(prev => ({
       ...prev,
@@ -204,6 +221,25 @@ const DesktopCalculator = ({ mode: initialMode = 'sip' }) => {
         [field]: value
       }
     }));
+  };
+
+  // Called when user types in a text input — store raw string
+  const handleRawChange = (field, strVal) => {
+    setRawInputs(prev => ({ ...prev, [field]: strVal }));
+  };
+
+  // Called on blur — clamp and commit to real state
+  const handleRawBlur = (field) => {
+    const raw = rawInputs[field];
+    if (raw !== undefined && raw !== '') {
+      handleInputChange(field, clampValue(field, raw));
+    }
+    setRawInputs(prev => { const n = { ...prev }; delete n[field]; return n; });
+  };
+
+  // Get display value for controlled input: prefer raw mid-edit value, else real value
+  const getRawDisplay = (field) => {
+    return rawInputs[field] !== undefined ? rawInputs[field] : activeInputs[field];
   };
 
   const handleShare = () => {
@@ -408,14 +444,16 @@ const DesktopCalculator = ({ mode: initialMode = 'sip' }) => {
                       {mode === 'sip' ? 'Monthly Savings' : mode === 'swp' ? 'Initial Capital' : 'Lumpsum Investment'}
                     </label>
                     <div className="relative">
+                      <span className="absolute left-2 top-1/2 -translate-y-1/2 text-[10px] text-slate-500 font-bold">{locale === 'IN' ? '₹' : '$'}</span>
                       <input
                         type="number"
                         id="amount-text"
-                        value={activeInputs.amount}
-                        onChange={(e) => handleInputChange('amount', Math.max(0, parseInt(e.target.value, 10) || 0))}
-                        className={`w-32 border rounded px-2 py-1 text-right text-xs font-semibold focus:outline-none transition-colors duration-200 ${isDarkMode ? 'bg-slate-950 border-slate-800 text-emerald-400 focus:border-emerald-500' : 'bg-slate-50 border-slate-300 text-emerald-600 focus:border-emerald-600'}`}
+                        value={getRawDisplay('amount')}
+                        onChange={(e) => handleRawChange('amount', e.target.value)}
+                        onBlur={() => handleRawBlur('amount')}
+                        onKeyDown={(e) => e.key === 'Enter' && handleRawBlur('amount')}
+                        className={`w-36 border rounded-lg pl-6 pr-2 py-1.5 text-right text-xs font-semibold focus:outline-none transition-colors duration-200 ${isDarkMode ? 'bg-slate-900 border-slate-700 text-emerald-400 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/30' : 'bg-slate-50 border-slate-300 text-emerald-600 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/20'}`}
                       />
-                      <span className="absolute left-2 top-1.5 text-[10px] text-slate-500 font-bold">{locale === 'IN' ? '₹' : '$'}</span>
                     </div>
                   </div>
                   <div className="px-1 py-3">
@@ -449,14 +487,16 @@ const DesktopCalculator = ({ mode: initialMode = 'sip' }) => {
                   <div className="flex justify-between items-center mb-1">
                     <label htmlFor="target-slider" className={`text-xs font-medium transition-colors duration-200 ${isDarkMode ? 'text-slate-300' : 'text-slate-600'}`}>Target Financial Goal</label>
                     <div className="relative">
+                      <span className="absolute left-2 top-1/2 -translate-y-1/2 text-[10px] text-slate-500 font-bold">{locale === 'IN' ? '₹' : '$'}</span>
                       <input
                         type="number"
                         id="target-text"
-                        value={activeInputs.target}
-                        onChange={(e) => handleInputChange('target', Math.max(0, parseInt(e.target.value, 10) || 0))}
-                        className={`w-32 border rounded px-2 py-1 text-right text-xs font-semibold focus:outline-none transition-colors duration-200 ${isDarkMode ? 'bg-slate-950 border-slate-800 text-emerald-400 focus:border-emerald-500' : 'bg-slate-50 border-slate-300 text-emerald-600 focus:border-emerald-600'}`}
+                        value={getRawDisplay('target')}
+                        onChange={(e) => handleRawChange('target', e.target.value)}
+                        onBlur={() => handleRawBlur('target')}
+                        onKeyDown={(e) => e.key === 'Enter' && handleRawBlur('target')}
+                        className={`w-36 border rounded-lg pl-6 pr-2 py-1.5 text-right text-xs font-semibold focus:outline-none transition-colors duration-200 ${isDarkMode ? 'bg-slate-900 border-slate-700 text-emerald-400 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/30' : 'bg-slate-50 border-slate-300 text-emerald-600 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/20'}`}
                       />
-                      <span className="absolute left-2 top-1.5 text-[10px] text-slate-500 font-bold">{locale === 'IN' ? '₹' : '$'}</span>
                     </div>
                   </div>
                   <div className="px-1 py-3">
@@ -489,14 +529,16 @@ const DesktopCalculator = ({ mode: initialMode = 'sip' }) => {
                   <div className="flex justify-between items-center mb-1">
                     <label htmlFor="withdrawal-slider" className={`text-xs font-medium transition-colors duration-200 ${isDarkMode ? 'text-slate-300' : 'text-slate-600'}`}>Monthly Pay-out</label>
                     <div className="relative">
+                      <span className="absolute left-2 top-1/2 -translate-y-1/2 text-[10px] text-slate-500 font-bold">{locale === 'IN' ? '₹' : '$'}</span>
                       <input
                         type="number"
                         id="withdrawal-text"
-                        value={activeInputs.withdrawal}
-                        onChange={(e) => handleInputChange('withdrawal', Math.max(0, parseInt(e.target.value, 10) || 0))}
-                        className={`w-32 border rounded px-2 py-1 text-right text-xs font-semibold focus:outline-none transition-colors duration-200 ${isDarkMode ? 'bg-slate-950 border-slate-800 text-cyan-400 focus:border-cyan-500' : 'bg-slate-50 border-slate-300 text-cyan-600 focus:border-cyan-600'}`}
+                        value={getRawDisplay('withdrawal')}
+                        onChange={(e) => handleRawChange('withdrawal', e.target.value)}
+                        onBlur={() => handleRawBlur('withdrawal')}
+                        onKeyDown={(e) => e.key === 'Enter' && handleRawBlur('withdrawal')}
+                        className={`w-36 border rounded-lg pl-6 pr-2 py-1.5 text-right text-xs font-semibold focus:outline-none transition-colors duration-200 ${isDarkMode ? 'bg-slate-900 border-slate-700 text-cyan-400 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/30' : 'bg-slate-50 border-slate-300 text-cyan-600 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/20'}`}
                       />
-                      <span className="absolute left-2 top-1.5 text-[10px] text-slate-500 font-bold">{locale === 'IN' ? '₹' : '$'}</span>
                     </div>
                   </div>
                   <div className="px-1 py-3">
@@ -528,15 +570,17 @@ const DesktopCalculator = ({ mode: initialMode = 'sip' }) => {
                 <div className="flex justify-between items-center mb-1">
                   <label htmlFor="rate-slider" className={`text-xs font-medium transition-colors duration-200 ${isDarkMode ? 'text-slate-300' : 'text-slate-600'}`}>Expected Return Rate (% p.a.)</label>
                   <div className="relative">
+                    <span className="absolute left-2 top-1/2 -translate-y-1/2 text-[10px] text-slate-500 font-bold">%</span>
                     <input
                       type="number"
                       id="rate-text"
                       step="0.1"
-                      value={activeInputs.rate}
-                      onChange={(e) => handleInputChange('rate', Math.min(30, Math.max(0, parseFloat(e.target.value) || 0)))}
-                      className={`w-20 border rounded px-2 py-1 text-right text-xs font-semibold focus:outline-none transition-colors duration-200 ${isDarkMode ? 'bg-slate-950 border-slate-800 text-cyan-400 focus:border-cyan-500' : 'bg-slate-50 border-slate-300 text-cyan-600 focus:border-cyan-600'}`}
+                      value={getRawDisplay('rate')}
+                      onChange={(e) => handleRawChange('rate', e.target.value)}
+                      onBlur={() => handleRawBlur('rate')}
+                      onKeyDown={(e) => e.key === 'Enter' && handleRawBlur('rate')}
+                      className={`w-24 border rounded-lg pl-6 pr-2 py-1.5 text-right text-xs font-semibold focus:outline-none transition-colors duration-200 ${isDarkMode ? 'bg-slate-900 border-slate-700 text-cyan-400 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/30' : 'bg-slate-50 border-slate-300 text-cyan-600 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/20'}`}
                     />
-                    <span className="absolute left-2 top-1.5 text-[10px] text-slate-500 font-bold">%</span>
                   </div>
                 </div>
                 <div className="px-1 py-3">
@@ -567,14 +611,16 @@ const DesktopCalculator = ({ mode: initialMode = 'sip' }) => {
                 <div className="flex justify-between items-center mb-1">
                   <label htmlFor="years-slider" className={`text-xs font-medium transition-colors duration-200 ${isDarkMode ? 'text-slate-300' : 'text-slate-600'}`}>Investment Duration</label>
                   <div className="relative">
+                    <span className="absolute left-2 top-1/2 -translate-y-1/2 text-[10px] text-slate-500 font-bold">Yr</span>
                     <input
                       type="number"
                       id="years-text"
-                      value={activeInputs.years}
-                      onChange={(e) => handleInputChange('years', Math.min(50, Math.max(1, parseInt(e.target.value, 10) || 1)))}
-                      className={`w-20 border rounded px-2 py-1 text-right text-xs font-semibold focus:outline-none transition-colors duration-200 ${isDarkMode ? 'bg-slate-950 border-slate-800 text-cyan-400 focus:border-cyan-500' : 'bg-slate-50 border-slate-300 text-cyan-600 focus:border-cyan-600'}`}
+                      value={getRawDisplay('years')}
+                      onChange={(e) => handleRawChange('years', e.target.value)}
+                      onBlur={() => handleRawBlur('years')}
+                      onKeyDown={(e) => e.key === 'Enter' && handleRawBlur('years')}
+                      className={`w-24 border rounded-lg pl-7 pr-2 py-1.5 text-right text-xs font-semibold focus:outline-none transition-colors duration-200 ${isDarkMode ? 'bg-slate-900 border-slate-700 text-cyan-400 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/30' : 'bg-slate-50 border-slate-300 text-cyan-600 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/20'}`}
                     />
-                    <span className="absolute left-2 top-1.5 text-[10px] text-slate-500 font-bold">Yrs</span>
                   </div>
                 </div>
                 <div className="px-1 py-3">
@@ -622,12 +668,17 @@ const DesktopCalculator = ({ mode: initialMode = 'sip' }) => {
                     <div className="flex flex-col gap-3 pt-2">
                       <div className="flex justify-between items-center">
                         <span className={`text-xs transition-colors duration-200 ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>Step-Up Rate (%)</span>
-                        <input
-                          type="number"
-                          value={activeInputs.stepUpPercent}
-                          onChange={(e) => handleInputChange('stepUpPercent', Math.min(50, Math.max(1, parseInt(e.target.value, 10) || 1)))}
-                          className={`w-16 border rounded px-2 py-0.5 text-right text-xs transition-colors duration-200 ${isDarkMode ? 'bg-slate-900 border-slate-800 text-emerald-400' : 'bg-white border-slate-300 text-emerald-600'}`}
-                        />
+                        <div className="relative">
+                          <span className="absolute left-2 top-1/2 -translate-y-1/2 text-[10px] text-slate-500 font-bold">%</span>
+                          <input
+                            type="number"
+                            value={getRawDisplay('stepUpPercent')}
+                            onChange={(e) => handleRawChange('stepUpPercent', e.target.value)}
+                            onBlur={() => handleRawBlur('stepUpPercent')}
+                            onKeyDown={(e) => e.key === 'Enter' && handleRawBlur('stepUpPercent')}
+                            className={`w-20 border rounded-lg pl-6 pr-2 py-1 text-right text-xs transition-colors duration-200 ${isDarkMode ? 'bg-slate-900 border-slate-700 text-emerald-400 focus:border-emerald-500 focus:outline-none' : 'bg-white border-slate-300 text-emerald-600 focus:border-emerald-500 focus:outline-none'}`}
+                          />
+                        </div>
                       </div>
                       <Slider
                         min={1}
@@ -681,12 +732,18 @@ const DesktopCalculator = ({ mode: initialMode = 'sip' }) => {
                   <div className="flex flex-col gap-3 pt-2">
                     <div className="flex justify-between items-center">
                       <span className={`text-xs transition-colors duration-200 ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>Inflation Rate (% p.a.)</span>
-                      <input
-                        type="number"
-                        value={activeInputs.inflation}
-                        onChange={(e) => handleInputChange('inflation', Math.min(20, Math.max(1, parseFloat(e.target.value) || 1)))}
-                        className={`w-16 border rounded px-2 py-0.5 text-right text-xs transition-colors duration-200 ${isDarkMode ? 'bg-slate-900 border-slate-800 text-amber-500' : 'bg-white border-slate-300 text-amber-600'}`}
-                      />
+                      <div className="relative">
+                        <span className="absolute left-2 top-1/2 -translate-y-1/2 text-[10px] text-slate-500 font-bold">%</span>
+                        <input
+                          type="number"
+                          step="0.1"
+                          value={getRawDisplay('inflation')}
+                          onChange={(e) => handleRawChange('inflation', e.target.value)}
+                          onBlur={() => handleRawBlur('inflation')}
+                          onKeyDown={(e) => e.key === 'Enter' && handleRawBlur('inflation')}
+                          className={`w-20 border rounded-lg pl-6 pr-2 py-1 text-right text-xs transition-colors duration-200 ${isDarkMode ? 'bg-slate-900 border-slate-700 text-amber-400 focus:border-amber-500 focus:outline-none' : 'bg-white border-slate-300 text-amber-600 focus:border-amber-500 focus:outline-none'}`}
+                        />
+                      </div>
                     </div>
                     <Slider
                       min={1}

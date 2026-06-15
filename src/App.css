@@ -4,6 +4,17 @@
   padding: 0;
 }
 
+/* Hide number input spinners globally for cleaner UI */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type=number] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;

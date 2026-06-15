@@ -192,6 +192,22 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
     navigate(`?${queryParams.toString()}`, { replace: true });
   }, [mode, activeInputs, locale, navigate]);
 
+  // Raw text inputs state for graceful mid-typing on mobile
+  const [rawInputs, setRawInputs] = useState({});
+
+  const clampValue = (field, val) => {
+    const n = parseFloat(val);
+    if (isNaN(n)) return activeInputs[field];
+    if (field === 'amount') return Math.max(0, Math.round(n));
+    if (field === 'target') return Math.max(0, Math.round(n));
+    if (field === 'withdrawal') return Math.max(0, Math.round(n));
+    if (field === 'rate') return Math.min(50, Math.max(0, n));
+    if (field === 'years') return Math.min(50, Math.max(1, Math.round(n)));
+    if (field === 'stepUpPercent') return Math.min(50, Math.max(1, Math.round(n)));
+    if (field === 'inflation') return Math.min(20, Math.max(0.1, n));
+    return n;
+  };
+
   const handleInputChange = (field, value) => {
     setInputs(prev => ({
       ...prev,
@@ -200,6 +216,22 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
         [field]: value
       }
     }));
+  };
+
+  const handleRawChange = (field, strVal) => {
+    setRawInputs(prev => ({ ...prev, [field]: strVal }));
+  };
+
+  const handleRawBlur = (field) => {
+    const raw = rawInputs[field];
+    if (raw !== undefined && raw !== '') {
+      handleInputChange(field, clampValue(field, raw));
+    }
+    setRawInputs(prev => { const n = { ...prev }; delete n[field]; return n; });
+  };
+
+  const getRawDisplay = (field) => {
+    return rawInputs[field] !== undefined ? rawInputs[field] : activeInputs[field];
   };
 
   const handleShare = () => {
@@ -326,117 +358,152 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
       <div className="px-4 mt-4 flex flex-col gap-4 flex-grow">
         
         {/* Slider 1: Amount */}
-        <div className={`border p-4 rounded-xl transition-colors duration-200 ${isDarkMode ? 'bg-[#0c1222]/80 border-slate-850' : 'bg-white border-slate-200 shadow-sm'}`}>
-          <div className="flex justify-between items-baseline mb-1">
-            <span className={`text-xs font-medium transition-colors duration-200 ${isDarkMode ? 'text-slate-300' : 'text-slate-650'}`}>
+        <div className={`border p-4 rounded-xl transition-colors duration-200 ${isDarkMode ? 'bg-[#0c1222]/80 border-slate-800' : 'bg-white border-slate-200 shadow-sm'}`}>
+          <div className="flex justify-between items-center mb-3">
+            <span className={`text-xs font-semibold transition-colors duration-200 ${isDarkMode ? 'text-slate-300' : 'text-slate-600'}`}>
               {mode === 'sip' ? 'Monthly Investment' : mode === 'swp' ? 'Initial Capital' : mode === 'goal' ? 'Goal Amount' : 'Lumpsum Amount'}
             </span>
-            <span className={`text-xs font-bold transition-colors duration-200 ${isDarkMode ? 'text-emerald-400' : 'text-emerald-600'}`}>
-              {formatCurrency(mode === 'goal' ? activeInputs.target : activeInputs.amount, locale)}
-            </span>
+            <div className="relative">
+              <span className={`absolute left-2.5 top-1/2 -translate-y-1/2 text-[11px] font-bold ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>{locale === 'IN' ? '₹' : '$'}</span>
+              <input
+                type="number"
+                inputMode="numeric"
+                value={getRawDisplay(mode === 'goal' ? 'target' : 'amount')}
+                onChange={(e) => handleRawChange(mode === 'goal' ? 'target' : 'amount', e.target.value)}
+                onBlur={() => handleRawBlur(mode === 'goal' ? 'target' : 'amount')}
+                onKeyDown={(e) => e.key === 'Enter' && handleRawBlur(mode === 'goal' ? 'target' : 'amount')}
+                className={`w-36 border rounded-xl pl-7 pr-2 py-2 text-right text-sm font-bold focus:outline-none transition-colors duration-200 ${
+                  isDarkMode
+                    ? 'bg-slate-800 border-slate-700 text-emerald-400 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/30'
+                    : 'bg-slate-50 border-slate-300 text-emerald-600 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/20'
+                }`}
+              />
+            </div>
           </div>
-          <div className="py-2.5">
-            <Slider
-              min={mode === 'swp' ? 100000 : 1000}
-              max={mode === 'swp' ? 50000000 : 5000000}
-              step={mode === 'swp' ? 100000 : 5000}
-              value={mode === 'goal' ? activeInputs.target : activeInputs.amount}
-              onChange={(e, val) => handleInputChange(mode === 'goal' ? 'target' : 'amount', val)}
-              sx={{
-                color: '#10B981',
-                height: 6,
-                '& .MuiSlider-thumb': {
-                  width: 20, height: 20, // larger for thumb dragging
-                  backgroundColor: '#10B981',
-                  border: '2px solid #fff',
-                },
-                '& .MuiSlider-rail': {
-                  opacity: isDarkMode ? 0.1 : 0.2,
-                  backgroundColor: isDarkMode ? '#cbd5e1' : '#64748b'
-                }
-              }}
-            />
-          </div>
+          <Slider
+            min={mode === 'swp' ? 100000 : 1000}
+            max={mode === 'swp' ? 50000000 : 5000000}
+            step={mode === 'swp' ? 100000 : 5000}
+            value={mode === 'goal' ? activeInputs.target : activeInputs.amount}
+            onChange={(e, val) => handleInputChange(mode === 'goal' ? 'target' : 'amount', val)}
+            sx={{
+              color: '#10B981',
+              height: 6,
+              '& .MuiSlider-thumb': { width: 20, height: 20, backgroundColor: '#10B981', border: '2px solid #fff' },
+              '& .MuiSlider-rail': { opacity: isDarkMode ? 0.1 : 0.2, backgroundColor: isDarkMode ? '#cbd5e1' : '#64748b' }
+            }}
+          />
         </div>
 
         {/* Slider 2: SWP Pay-out Rate */}
         {mode === 'swp' && (
-          <div className={`border p-4 rounded-xl transition-colors duration-200 ${isDarkMode ? 'bg-[#0c1222]/80 border-slate-850' : 'bg-white border-slate-200 shadow-sm'}`}>
-            <div className="flex justify-between items-baseline mb-1">
-              <span className={`text-xs font-medium transition-colors duration-200 ${isDarkMode ? 'text-slate-300' : 'text-slate-650'}`}>Monthly Pay-out</span>
-              <span className={`text-xs font-bold transition-colors duration-200 ${isDarkMode ? 'text-cyan-400' : 'text-cyan-600'}`}>{formatCurrency(activeInputs.withdrawal, locale)}</span>
+          <div className={`border p-4 rounded-xl transition-colors duration-200 ${isDarkMode ? 'bg-[#0c1222]/80 border-slate-800' : 'bg-white border-slate-200 shadow-sm'}`}>
+            <div className="flex justify-between items-center mb-3">
+              <span className={`text-xs font-semibold transition-colors duration-200 ${isDarkMode ? 'text-slate-300' : 'text-slate-600'}`}>Monthly Pay-out</span>
+              <div className="relative">
+                <span className={`absolute left-2.5 top-1/2 -translate-y-1/2 text-[11px] font-bold ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>{locale === 'IN' ? '₹' : '$'}</span>
+                <input
+                  type="number"
+                  inputMode="numeric"
+                  value={getRawDisplay('withdrawal')}
+                  onChange={(e) => handleRawChange('withdrawal', e.target.value)}
+                  onBlur={() => handleRawBlur('withdrawal')}
+                  onKeyDown={(e) => e.key === 'Enter' && handleRawBlur('withdrawal')}
+                  className={`w-36 border rounded-xl pl-7 pr-2 py-2 text-right text-sm font-bold focus:outline-none transition-colors duration-200 ${
+                    isDarkMode
+                      ? 'bg-slate-800 border-slate-700 text-cyan-400 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/30'
+                      : 'bg-slate-50 border-slate-300 text-cyan-600 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/20'
+                  }`}
+                />
+              </div>
             </div>
-            <div className="py-2.5">
-              <Slider
-                min={5000}
-                max={200000}
-                step={5000}
-                value={activeInputs.withdrawal}
-                onChange={(e, val) => handleInputChange('withdrawal', val)}
-                sx={{
-                  color: '#06B6D4',
-                  height: 6,
-                  '& .MuiSlider-thumb': { width: 20, height: 20, backgroundColor: '#06B6D4', border: '2px solid #fff' },
-                  '& .MuiSlider-rail': {
-                    opacity: isDarkMode ? 0.1 : 0.2,
-                    backgroundColor: isDarkMode ? '#cbd5e1' : '#64748b'
-                  }
-                }}
-              />
-            </div>
+            <Slider
+              min={5000}
+              max={200000}
+              step={5000}
+              value={activeInputs.withdrawal}
+              onChange={(e, val) => handleInputChange('withdrawal', val)}
+              sx={{
+                color: '#06B6D4',
+                height: 6,
+                '& .MuiSlider-thumb': { width: 20, height: 20, backgroundColor: '#06B6D4', border: '2px solid #fff' },
+                '& .MuiSlider-rail': { opacity: isDarkMode ? 0.1 : 0.2, backgroundColor: isDarkMode ? '#cbd5e1' : '#64748b' }
+              }}
+            />
           </div>
         )}
 
         {/* Slider 3: Returns Rate (%) */}
-        <div className={`border p-4 rounded-xl transition-colors duration-200 ${isDarkMode ? 'bg-[#0c1222]/80 border-slate-850' : 'bg-white border-slate-200 shadow-sm'}`}>
-          <div className="flex justify-between items-baseline mb-1">
-            <span className={`text-xs font-medium transition-colors duration-200 ${isDarkMode ? 'text-slate-300' : 'text-slate-650'}`}>Expected Rate (% p.a.)</span>
-            <span className={`text-xs font-bold transition-colors duration-200 ${isDarkMode ? 'text-cyan-400' : 'text-cyan-600'}`}>{activeInputs.rate}%</span>
+        <div className={`border p-4 rounded-xl transition-colors duration-200 ${isDarkMode ? 'bg-[#0c1222]/80 border-slate-800' : 'bg-white border-slate-200 shadow-sm'}`}>
+          <div className="flex justify-between items-center mb-3">
+            <span className={`text-xs font-semibold transition-colors duration-200 ${isDarkMode ? 'text-slate-300' : 'text-slate-600'}`}>Expected Rate (% p.a.)</span>
+            <div className="relative">
+              <span className={`absolute left-2.5 top-1/2 -translate-y-1/2 text-[11px] font-bold ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>%</span>
+              <input
+                type="number"
+                inputMode="decimal"
+                step="0.5"
+                value={getRawDisplay('rate')}
+                onChange={(e) => handleRawChange('rate', e.target.value)}
+                onBlur={() => handleRawBlur('rate')}
+                onKeyDown={(e) => e.key === 'Enter' && handleRawBlur('rate')}
+                className={`w-28 border rounded-xl pl-7 pr-2 py-2 text-right text-sm font-bold focus:outline-none transition-colors duration-200 ${
+                  isDarkMode
+                    ? 'bg-slate-800 border-slate-700 text-cyan-400 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/30'
+                    : 'bg-slate-50 border-slate-300 text-cyan-600 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/20'
+                }`}
+              />
+            </div>
           </div>
-          <div className="py-2.5">
-            <Slider
-              min={1}
-              max={25}
-              step={0.5}
-              value={activeInputs.rate}
-              onChange={(e, val) => handleInputChange('rate', val)}
-              sx={{
-                color: '#06B6D4',
-                height: 6,
-                '& .MuiSlider-thumb': { width: 20, height: 20, backgroundColor: '#06B6D4', border: '2px solid #fff' },
-                '& .MuiSlider-rail': {
-                  opacity: isDarkMode ? 0.1 : 0.2,
-                  backgroundColor: isDarkMode ? '#cbd5e1' : '#64748b'
-                }
-              }}
-            />
-          </div>
+          <Slider
+            min={1}
+            max={25}
+            step={0.5}
+            value={activeInputs.rate}
+            onChange={(e, val) => handleInputChange('rate', val)}
+            sx={{
+              color: '#06B6D4',
+              height: 6,
+              '& .MuiSlider-thumb': { width: 20, height: 20, backgroundColor: '#06B6D4', border: '2px solid #fff' },
+              '& .MuiSlider-rail': { opacity: isDarkMode ? 0.1 : 0.2, backgroundColor: isDarkMode ? '#cbd5e1' : '#64748b' }
+            }}
+          />
         </div>
 
         {/* Slider 4: Time (Years) */}
-        <div className={`border p-4 rounded-xl transition-colors duration-200 ${isDarkMode ? 'bg-[#0c1222]/80 border-slate-850' : 'bg-white border-slate-200 shadow-sm'}`}>
-          <div className="flex justify-between items-baseline mb-1">
-            <span className={`text-xs font-medium transition-colors duration-200 ${isDarkMode ? 'text-slate-300' : 'text-slate-650'}`}>Duration</span>
-            <span className={`text-xs font-bold transition-colors duration-200 ${isDarkMode ? 'text-cyan-400' : 'text-cyan-600'}`}>{activeInputs.years} Years</span>
+        <div className={`border p-4 rounded-xl transition-colors duration-200 ${isDarkMode ? 'bg-[#0c1222]/80 border-slate-800' : 'bg-white border-slate-200 shadow-sm'}`}>
+          <div className="flex justify-between items-center mb-3">
+            <span className={`text-xs font-semibold transition-colors duration-200 ${isDarkMode ? 'text-slate-300' : 'text-slate-600'}`}>Duration (Years)</span>
+            <div className="relative">
+              <span className={`absolute left-2.5 top-1/2 -translate-y-1/2 text-[11px] font-bold ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>Yr</span>
+              <input
+                type="number"
+                inputMode="numeric"
+                value={getRawDisplay('years')}
+                onChange={(e) => handleRawChange('years', e.target.value)}
+                onBlur={() => handleRawBlur('years')}
+                onKeyDown={(e) => e.key === 'Enter' && handleRawBlur('years')}
+                className={`w-28 border rounded-xl pl-8 pr-2 py-2 text-right text-sm font-bold focus:outline-none transition-colors duration-200 ${
+                  isDarkMode
+                    ? 'bg-slate-800 border-slate-700 text-cyan-400 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/30'
+                    : 'bg-slate-50 border-slate-300 text-cyan-600 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/20'
+                }`}
+              />
+            </div>
           </div>
-          <div className="py-2.5">
-            <Slider
-              min={1}
-              max={30}
-              step={1}
-              value={activeInputs.years}
-              onChange={(e, val) => handleInputChange('years', val)}
-              sx={{
-                color: '#06B6D4',
-                height: 6,
-                '& .MuiSlider-thumb': { width: 20, height: 20, backgroundColor: '#06B6D4', border: '2px solid #fff' },
-                '& .MuiSlider-rail': {
-                  opacity: isDarkMode ? 0.1 : 0.2,
-                  backgroundColor: isDarkMode ? '#cbd5e1' : '#64748b'
-                }
-              }}
-            />
-          </div>
+          <Slider
+            min={1}
+            max={30}
+            step={1}
+            value={activeInputs.years}
+            onChange={(e, val) => handleInputChange('years', val)}
+            sx={{
+              color: '#06B6D4',
+              height: 6,
+              '& .MuiSlider-thumb': { width: 20, height: 20, backgroundColor: '#06B6D4', border: '2px solid #fff' },
+              '& .MuiSlider-rail': { opacity: isDarkMode ? 0.1 : 0.2, backgroundColor: isDarkMode ? '#cbd5e1' : '#64748b' }
+            }}
+          />
         </div>
 
         {/* Dynamic Controls Toggles */}
@@ -455,10 +522,25 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
                 />
               </div>
               <Collapse in={activeInputs.isStepUp}>
-                <div className="flex flex-col gap-2 pt-3">
-                  <div className={`flex justify-between text-[11px] transition-colors duration-200 ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>
-                    <span>Rate (%)</span>
-                    <span className={`font-bold transition-colors duration-200 ${isDarkMode ? 'text-emerald-400' : 'text-emerald-600'}`}>+{activeInputs.stepUpPercent}%</span>
+                <div className="flex flex-col gap-3 pt-3">
+                  <div className="flex justify-between items-center">
+                    <span className={`text-[11px] transition-colors duration-200 ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>Step-Up Rate</span>
+                    <div className="relative">
+                      <span className={`absolute left-2.5 top-1/2 -translate-y-1/2 text-[11px] font-bold ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>%</span>
+                      <input
+                        type="number"
+                        inputMode="numeric"
+                        value={getRawDisplay('stepUpPercent')}
+                        onChange={(e) => handleRawChange('stepUpPercent', e.target.value)}
+                        onBlur={() => handleRawBlur('stepUpPercent')}
+                        onKeyDown={(e) => e.key === 'Enter' && handleRawBlur('stepUpPercent')}
+                        className={`w-24 border rounded-xl pl-7 pr-2 py-1.5 text-right text-sm font-bold focus:outline-none transition-colors duration-200 ${
+                          isDarkMode
+                            ? 'bg-slate-800 border-slate-700 text-emerald-400 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/30'
+                            : 'bg-slate-50 border-slate-300 text-emerald-600 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/20'
+                        }`}
+                      />
+                    </div>
                   </div>
                   <Slider
                     min={1}
@@ -469,10 +551,7 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
                     sx={{ 
                       color: '#10B981', 
                       height: 4,
-                      '& .MuiSlider-rail': {
-                        opacity: isDarkMode ? 0.1 : 0.2,
-                        backgroundColor: isDarkMode ? '#cbd5e1' : '#64748b'
-                      }
+                      '& .MuiSlider-rail': { opacity: isDarkMode ? 0.1 : 0.2, backgroundColor: isDarkMode ? '#cbd5e1' : '#64748b' }
                     }}
                   />
                 </div>
@@ -492,10 +571,26 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
               />
             </div>
             <Collapse in={activeInputs.includeInflation}>
-              <div className="flex flex-col gap-2 pt-3">
-                <div className={`flex justify-between text-[11px] transition-colors duration-200 ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>
-                  <span>Inflation Rate (% p.a.)</span>
-                  <span className="text-amber-550 font-bold">{activeInputs.inflation}%</span>
+              <div className="flex flex-col gap-3 pt-3">
+                <div className="flex justify-between items-center">
+                  <span className={`text-[11px] transition-colors duration-200 ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>Inflation Rate (% p.a.)</span>
+                  <div className="relative">
+                    <span className={`absolute left-2.5 top-1/2 -translate-y-1/2 text-[11px] font-bold ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>%</span>
+                    <input
+                      type="number"
+                      inputMode="decimal"
+                      step="0.5"
+                      value={getRawDisplay('inflation')}
+                      onChange={(e) => handleRawChange('inflation', e.target.value)}
+                      onBlur={() => handleRawBlur('inflation')}
+                      onKeyDown={(e) => e.key === 'Enter' && handleRawBlur('inflation')}
+                      className={`w-24 border rounded-xl pl-7 pr-2 py-1.5 text-right text-sm font-bold focus:outline-none transition-colors duration-200 ${
+                        isDarkMode
+                          ? 'bg-slate-800 border-slate-700 text-amber-400 focus:border-amber-500 focus:ring-1 focus:ring-amber-500/30'
+                          : 'bg-slate-50 border-slate-300 text-amber-600 focus:border-amber-500 focus:ring-1 focus:ring-amber-500/20'
+                      }`}
+                    />
+                  </div>
                 </div>
                 <Slider
                   min={1}
@@ -506,10 +601,7 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
                   sx={{ 
                     color: '#F59E0B', 
                     height: 4,
-                    '& .MuiSlider-rail': {
-                      opacity: isDarkMode ? 0.1 : 0.2,
-                      backgroundColor: isDarkMode ? '#cbd5e1' : '#64748b'
-                    }
+                    '& .MuiSlider-rail': { opacity: isDarkMode ? 0.1 : 0.2, backgroundColor: isDarkMode ? '#cbd5e1' : '#64748b' }
                   }}
                 />
               </div>
