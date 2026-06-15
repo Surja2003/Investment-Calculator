@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { useTheme } from '../hooks/useTheme';
 import { Link } from 'react-router-dom';
 import { saveNewsletter, saveContact } from '../utils/storage';
-// Removed blog/editor content for simplified home
 import SimpleQuoteCards from '../components/SimpleQuoteCards';
+import FAQSection from '../components/FAQSection';
 
 const Home = () => {
   // minimal home
@@ -153,7 +153,10 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Market Snapshot moved to bottom */}
+      {/* FAQ Section */}
+      <FAQSection />
+
+      {/* Market Snapshot */}
       <div className={isDarkMode ? "bg-gray-900" : "bg-white"}>
         <div className="container mx-auto px-4 py-10">
           <div className={isDarkMode ? "max-w-6xl mx-auto rounded-2xl border border-gray-700 bg-gray-900/70 p-5 shadow-lg" : "max-w-6xl mx-auto rounded-2xl border border-gray-200 bg-white p-5 shadow-lg"}>
