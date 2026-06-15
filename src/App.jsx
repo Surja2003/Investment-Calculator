@@ -31,10 +31,7 @@ import FlagIcon from '@mui/icons-material/Flag';
 import TimelineIcon from '@mui/icons-material/Timeline';
 import CloseIcon from '@mui/icons-material/Close';
 
-import SIPCalculator from './components/SIPCalculator';
-import LumpsumCalculator from './components/LumpsumCalculator';
-import SWPCalculator from './components/SWPCalculator';
-import GoalCalculator from './components/GoalCalculator';
+import ResponsiveCalculator from './components/ResponsiveCalculator';
 import Home from './pages/Home';
 import Disclaimer from './components/Disclaimer';
 import DevSimulatorToggle from './components/DevSimulatorToggle';
@@ -247,14 +244,14 @@ function App() {
 
           <MobileDrawer open={drawerOpen} onClose={toggleDrawer} />
 
-          <Container maxWidth="xl" sx={{ mt: { xs: 2, md: 3 } }}>
+          <Container maxWidth={false} sx={{ mt: { xs: 2, md: 3 }, px: { xs: 2, md: 4 } }}>
             {/* Ticker removed per request: no TradingView details on Home */}
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/sip" element={<SIPCalculator />} />
-              <Route path="/lumpsum" element={<LumpsumCalculator />} />
-              <Route path="/swp" element={<SWPCalculator />} />
-              <Route path="/goals" element={<GoalCalculator />} />
+              <Route path="/sip" element={<ResponsiveCalculator mode="sip" />} />
+              <Route path="/lumpsum" element={<ResponsiveCalculator mode="lumpsum" />} />
+              <Route path="/swp" element={<ResponsiveCalculator mode="swp" />} />
+              <Route path="/goals" element={<ResponsiveCalculator mode="goal" />} />
               <Route path="*" element={<Home />} />
             </Routes>
           </Container>
