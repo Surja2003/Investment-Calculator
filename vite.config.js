@@ -1,10 +1,38 @@
-// vite.config.js
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export default defineConfig({
   base: '/Investment-Calculator/',
-  plugins: [react()],
+  plugins: [
+    react(),
+    {
+      name: 'serve-manifest-at-root',
+      configureServer(server) {
+        server.middlewares.use((req, res, next) => {
+          const urlPath = req.url.split('?')[0];
+          if (urlPath === '/manifest.json') {
+            try {
+              const manifestPath = path.resolve(__dirname, 'public/manifest.json');
+              const manifestContent = fs.readFileSync(manifestPath, 'utf-8');
+              res.setHeader('Content-Type', 'application/json');
+              res.end(manifestContent);
+            } catch (err) {
+              res.statusCode = 500;
+              res.end(JSON.stringify({ error: err.message }));
+            }
+          } else {
+            next();
+          }
+        });
+      }
+    }
+  ],
   build: {
     outDir: 'docs',
     chunkSizeWarningLimit: 600,
