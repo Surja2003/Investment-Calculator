@@ -403,7 +403,7 @@ function AccordionItem({ faq, index, isOpen, onToggle }) {
         aria-expanded={isOpen}
         aria-controls={`faq-panel-${index}`}
         onClick={() => onToggle(index)}
-        className="w-full flex items-start justify-between gap-4 p-5 text-left cursor-pointer"
+        className="w-full flex items-start justify-between gap-4 p-5 text-left cursor-pointer bg-transparent"
       >
         <span
           className={`text-sm sm:text-base font-semibold leading-snug transition-colors ${

@@ -36,7 +36,6 @@ import CloseIcon from '@mui/icons-material/Close';
 // ── Lazy-loaded route components (code splitting) ─────────────────────────────
 const ResponsiveCalculator = lazy(() => import('./components/ResponsiveCalculator'));
 const Home = lazy(() => import('./pages/Home'));
-const Disclaimer = lazy(() => import('./components/Disclaimer'));
 const CompareMode = lazy(() => import('./pages/CompareMode'));
 const EMICalculator = lazy(() => import('./pages/EMICalculator'));
 const Glossary = lazy(() => import('./pages/Glossary'));
@@ -296,7 +295,6 @@ function App() {
         </Box>
         <Suspense fallback={null}>
           <FooterComp />
-          <Disclaimer />
         </Suspense>
       </Router>
       </DevSimulatorToggle>
