@@ -446,7 +446,7 @@ function AccordionItem({ faq, index, isOpen, onToggle }) {
                     j % 2 === 1 ? (
                       <strong
                         key={j}
-                        className={isDarkMode ? 'text-emerald-400 font-semibold' : 'text-emerald-700 font-semibold'}
+                        className="text-emerald-700 dark:text-emerald-400 font-semibold"
                       >
                         {part}
                       </strong>
@@ -548,7 +548,6 @@ const FAQSection = () => {
               index={i}
               isOpen={openIndex === i}
               onToggle={handleToggle}
-              isDarkMode={isDarkMode}
             />
           ))}
         </div>

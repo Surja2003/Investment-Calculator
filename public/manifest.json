@@ -12,15 +12,15 @@
   "categories": ["finance", "productivity", "utilities"],
   "icons": [
     {
-      "src": "/Investment-Calculator/icons/icon-192.png",
+      "src": "/Investment-Calculator/icons/icon-192.svg",
       "sizes": "192x192",
-      "type": "image/png",
+      "type": "image/svg+xml",
       "purpose": "any maskable"
     },
     {
-      "src": "/Investment-Calculator/icons/icon-512.png",
+      "src": "/Investment-Calculator/icons/icon-512.svg",
       "sizes": "512x512",
-      "type": "image/png",
+      "type": "image/svg+xml",
       "purpose": "any maskable"
     }
   ],
@@ -30,19 +30,19 @@
       "name": "SIP Calculator",
       "short_name": "SIP",
       "url": "/Investment-Calculator/#/sip",
-      "icons": [{ "src": "/Investment-Calculator/icons/icon-192.png", "sizes": "192x192" }]
+      "icons": [{ "src": "/Investment-Calculator/icons/icon-192.svg", "sizes": "192x192" }]
     },
     {
       "name": "Lumpsum Calculator",
       "short_name": "Lumpsum",
       "url": "/Investment-Calculator/#/lumpsum",
-      "icons": [{ "src": "/Investment-Calculator/icons/icon-192.png", "sizes": "192x192" }]
+      "icons": [{ "src": "/Investment-Calculator/icons/icon-192.svg", "sizes": "192x192" }]
     },
     {
       "name": "Goal Calculator",
       "short_name": "Goal",
       "url": "/Investment-Calculator/#/goals",
-      "icons": [{ "src": "/Investment-Calculator/icons/icon-192.png", "sizes": "192x192" }]
+      "icons": [{ "src": "/Investment-Calculator/icons/icon-192.svg", "sizes": "192x192" }]
     }
   ]
 }
