@@ -6,8 +6,8 @@
   "scope": "/Investment-Calculator/",
   "display": "standalone",
   "orientation": "portrait-primary",
-  "background_color": "#090d16",
-  "theme_color": "#10B981",
+  "background_color": "#060608",
+  "theme_color": "#3B6098",
   "lang": "en-IN",
   "categories": ["finance", "productivity", "utilities"],
   "icons": [

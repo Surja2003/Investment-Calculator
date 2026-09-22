@@ -1,22 +1,26 @@
 import { useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import { useTheme } from '../hooks/useTheme';
+import {
+  IconHome, IconTrendingUp, IconWallet, IconTarget, IconBank,
+  IconCalculator, IconScale, IconBook, IconMore, IconClose,
+} from './icons';
 
 // Four primary tabs always fit the smallest phones; everything else lives in the
 // glass "More" sheet — a web-app pattern that removes the need for a hamburger.
 const PRIMARY = [
-  { path: '/', icon: '🏠', label: 'Home' },
-  { path: '/sip', icon: '📈', label: 'SIP' },
-  { path: '/lumpsum', icon: '💰', label: 'Lumpsum' },
-  { path: '/goals', icon: '🎯', label: 'Goal' },
+  { path: '/', Icon: IconHome, label: 'Home' },
+  { path: '/sip', Icon: IconTrendingUp, label: 'SIP' },
+  { path: '/lumpsum', Icon: IconWallet, label: 'Lumpsum' },
+  { path: '/goals', Icon: IconTarget, label: 'Goal' },
 ];
 
 const MORE = [
-  { path: '/swp', icon: '🏦', label: 'SWP' },
-  { path: '/emi', icon: '🏠', label: 'EMI' },
-  { path: '/compare', icon: '⚖️', label: 'Compare' },
-  { path: '/reverse', icon: '🧮', label: 'XIRR' },
-  { path: '/glossary', icon: '📖', label: 'Glossary' },
+  { path: '/swp', Icon: IconBank, label: 'SWP' },
+  { path: '/emi', Icon: IconCalculator, label: 'EMI' },
+  { path: '/compare', Icon: IconScale, label: 'Compare' },
+  { path: '/reverse', Icon: IconCalculator, label: 'XIRR' },
+  { path: '/glossary', Icon: IconBook, label: 'Glossary' },
 ];
 
 const MobileBottomNav = () => {
@@ -69,7 +73,7 @@ const MobileBottomNav = () => {
                       borderColor: active ? 'var(--color-primary)' : undefined,
                     }}
                   >
-                    <span className="text-2xl leading-none">{item.icon}</span>
+                    <item.Icon size={26} />
                     <span className="text-xs font-semibold">{item.label}</span>
                   </Link>
                 );
@@ -100,8 +104,8 @@ const MobileBottomNav = () => {
                     style={{ background: 'var(--color-primary)' }}
                   />
                 )}
-                <span className={`mb-0.5 text-lg leading-none transition-transform duration-200 ${active ? 'scale-110' : ''}`}>
-                  {item.icon}
+                <span className={`mb-0.5 leading-none transition-transform duration-200 ${active ? 'scale-110' : ''}`}>
+                  <item.Icon size={22} />
                 </span>
                 <span className={`text-[10px] font-bold tracking-wide ${active ? '' : 'opacity-80'}`}>
                   {item.label}
@@ -125,8 +129,8 @@ const MobileBottomNav = () => {
                 style={{ background: 'var(--color-primary)' }}
               />
             )}
-            <span className={`mb-0.5 text-lg leading-none transition-transform duration-200 ${moreOpen ? 'scale-110' : ''}`}>
-              {moreOpen ? '✕' : '⋯'}
+            <span className={`mb-0.5 leading-none transition-transform duration-200 ${moreOpen ? 'scale-110' : ''}`}>
+              {moreOpen ? <IconClose size={22} /> : <IconMore size={22} />}
             </span>
             <span className="text-[10px] font-bold tracking-wide opacity-80">More</span>
           </button>

@@ -5,12 +5,13 @@ import { saveNewsletter, saveContact } from '../utils/storage';
 import SimpleQuoteCards from '../components/SimpleQuoteCards';
 import FAQSection from '../components/FAQSection';
 import Reveal from '../components/shared/Reveal';
+import { IconBarChart, IconReceipt, IconGlobe, IconShield } from '../components/icons';
 
 const TRUST = [
-  { icon: '📊', label: 'Year-by-year charts', desc: 'Clear visual projections' },
-  { icon: '🧾', label: 'Tax estimation', desc: 'LTCG & STCG built in' },
-  { icon: '🌍', label: 'India & global', desc: '₹ and $ modes' },
-  { icon: '🔒', label: 'Private by design', desc: 'Runs in your browser' },
+  { Icon: IconBarChart, label: 'Year-by-year charts', desc: 'Clear visual projections' },
+  { Icon: IconReceipt, label: 'Tax estimation', desc: 'LTCG & STCG built in' },
+  { Icon: IconGlobe, label: 'India & global', desc: '₹ and $ modes' },
+  { Icon: IconShield, label: 'Private by design', desc: 'Runs in your browser' },
 ];
 
 const Home = () => {
@@ -112,7 +113,9 @@ const Home = () => {
           {TRUST.map((f, i) => (
             <Reveal key={f.label} delay={i * 70}>
               <div className="glass-card h-full rounded-2xl p-4 text-center">
-                <div className="mb-1 text-2xl">{f.icon}</div>
+                <div className="mb-2 flex justify-center" style={{ color: 'var(--color-primary)' }}>
+                  <f.Icon size={26} />
+                </div>
                 <div className="text-sm font-bold" style={{ color: 'var(--color-text)' }}>{f.label}</div>
                 <div className="mt-0.5 text-xs" style={{ color: 'var(--color-text-secondary)' }}>{f.desc}</div>
               </div>
