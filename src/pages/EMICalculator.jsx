@@ -7,10 +7,10 @@ import { formatCurrency, formatCompact } from '../utils/calcEngine';
 import { useTheme } from '../hooks/useTheme';
 
 /* ─── constants ─────────────────────────────────────────────────────────────── */
-const EMERALD   = '#10B981';
+const EMERALD   = '#3B6098';
 const VIOLET    = '#8B5CF6';
 const AMBER     = '#F59E0B';
-const DARK_BG   = '#090d16';
+const DARK_BG   = '#060608';
 const CARD_DARK = 'rgba(255,255,255,0.04)';
 const CARD_LIT  = 'rgba(0,0,0,0.04)';
 const INFLATION_RATE = 0.06; // 6 % annual assumed inflation
@@ -290,8 +290,8 @@ export default function EMICalculator() {
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 36, flexWrap: 'wrap', gap: 16 }}>
           <div style={{ animation: 'fadeUp 0.5s ease' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 6 }}>
-              <div style={{ width: 40, height: 40, borderRadius: 12, background: `linear-gradient(135deg, ${EMERALD}, #059669)`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20 }}>🏦</div>
-              <h1 style={{ fontSize: 28, fontWeight: 900, margin: 0, letterSpacing: '-0.03em', background: `linear-gradient(135deg, ${EMERALD} 0%, #34d399 100%)`, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+              <div style={{ width: 40, height: 40, borderRadius: 12, background: `linear-gradient(135deg, ${EMERALD}, #2C4A78)`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20 }}>🏦</div>
+              <h1 style={{ fontSize: 28, fontWeight: 900, margin: 0, letterSpacing: '-0.03em', background: `linear-gradient(135deg, ${EMERALD} 0%, #5E82BC 100%)`, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
                 EMI Calculator
               </h1>
             </div>

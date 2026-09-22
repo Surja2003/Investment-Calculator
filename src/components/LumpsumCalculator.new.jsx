@@ -198,7 +198,7 @@ const LumpsumCalculator = () => {
                     <Typography variant="subtitle2" sx={{ color: 'rgba(255, 255, 255, 0.7)' }}>
                       Maturity Amount
                     </Typography>
-                    <Typography variant="h5" color="#3B82F6" sx={{ fontWeight: 'bold', my: 1 }}>
+                    <Typography variant="h5" color="#93A7C0" sx={{ fontWeight: 'bold', my: 1 }}>
                       <CountUp 
                         to={metrics.futureValue} 
                         formatter={(value) => formatCurrency(value)}
@@ -258,7 +258,7 @@ const LumpsumCalculator = () => {
                     <Typography variant="subtitle2" sx={{ color: 'rgba(255, 255, 255, 0.7)' }}>
                       Total Gains
                     </Typography>
-                    <Typography variant="h5" color="#10B981" sx={{ fontWeight: 'bold', my: 1 }}>
+                    <Typography variant="h5" color="#3B6098" sx={{ fontWeight: 'bold', my: 1 }}>
                       <CountUp 
                         to={metrics.gains} 
                         formatter={(value) => formatCurrency(value)}
@@ -266,7 +266,7 @@ const LumpsumCalculator = () => {
                         duration={1}
                       />
                     </Typography>
-                    <Typography variant="caption" color="#10B981">
+                    <Typography variant="caption" color="#3B6098">
                       +{metrics.returnPercentage.toFixed(2)}% returns
                     </Typography>
                   </CardContent>
@@ -476,9 +476,9 @@ const LumpsumCalculator = () => {
                           mt: 2,
                           py: 1.5,
                           borderRadius: 2,
-                          bgcolor: '#3B82F6',
+                          bgcolor: '#93A7C0',
                           '&:hover': {
-                            bgcolor: '#2563EB',
+                            bgcolor: '#2C4A78',
                           },
                           boxShadow: '0 4px 10px rgba(59, 130, 246, 0.3)',
                           fontSize: '1rem',

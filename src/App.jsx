@@ -1,37 +1,29 @@
-import { useState, useMemo, lazy, Suspense } from 'react';
+import { useState, useMemo, useEffect, lazy, Suspense } from 'react';
 import { useTheme } from './hooks/useTheme';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
-import { 
-  ThemeProvider, 
+import {
+  ThemeProvider,
   createTheme,
-  Box, 
-  AppBar, 
-  Toolbar, 
-  Typography, 
+  Box,
+  AppBar,
+  Toolbar,
+  Typography,
   IconButton,
   Tab,
   Tabs,
   CssBaseline,
   Container,
   useMediaQuery,
-  Drawer,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Divider,
   CircularProgress
 } from '@mui/material';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
-import MenuIcon from '@mui/icons-material/Menu';
 import CalculateIcon from '@mui/icons-material/Calculate';
 import CalculatorLogo from './components/CalculatorLogo';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import FlagIcon from '@mui/icons-material/Flag';
 import TimelineIcon from '@mui/icons-material/Timeline';
 import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
-import CloseIcon from '@mui/icons-material/Close';
 
 // ── Lazy-loaded route components (code splitting) ─────────────────────────────
 const ResponsiveCalculator = lazy(() => import('./components/ResponsiveCalculator'));
@@ -47,11 +39,13 @@ import DevSimulatorToggle from './components/DevSimulatorToggle';
 import { THEME_CONSTANTS } from './constants/theme';
 import './App.css';
 
+const BRAND = '#3B6098';
+
 // Loading fallback component
 function PageLoader({ isDark }) {
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh', flexDirection: 'column', gap: 2 }}>
-      <CircularProgress sx={{ color: '#10B981' }} size={40} />
+      <CircularProgress sx={{ color: 'var(--color-primary)' }} size={40} />
       <Typography variant="body2" sx={{ color: isDark ? '#4b5563' : '#9ca3af', fontSize: '0.8rem' }}>Loading...</Typography>
     </Box>
   );
@@ -72,24 +66,28 @@ const NAV_ITEMS = [
 
 function NavigationTabs() {
   const location = useLocation();
-  const isMobile = useMediaQuery('(max-width:768px)');
   const { isDarkMode } = useTheme();
-  
-  // Show all tabs; on mobile they are scrollable
-  const visibleTabs = NAV_ITEMS;
-  
+  const current = NAV_ITEMS.findIndex(item => item.path === location.pathname);
+
   return (
-    <Tabs 
-      value={NAV_ITEMS.findIndex(item => item.path === location.pathname)}
-      variant={isMobile ? "scrollable" : "standard"}
-      scrollButtons={isMobile ? "auto" : false}
+    <Tabs
+      value={current === -1 ? false : current}
+      variant="standard"
       sx={{
+        minHeight: 44,
+        '& .MuiTabs-indicator': {
+          height: 3,
+          borderRadius: 3,
+          backgroundColor: BRAND,
+        },
         '& .MuiTab-root': {
-          minWidth: isMobile ? 'auto' : 120,
-          color: isDarkMode ? '#9ca3af' : '#475569',
-          fontWeight: 500,
+          minHeight: 44,
+          minWidth: 'auto',
+          px: 1.75,
+          color: isDarkMode ? '#9BA9BA' : '#5A6B7E',
+          fontWeight: 600,
           '&.Mui-selected': {
-            color: '#10B981',
+            color: 'var(--color-primary)',
             fontWeight: 700,
           },
           textTransform: 'none',
@@ -97,12 +95,10 @@ function NavigationTabs() {
         },
       }}
     >
-      {visibleTabs.map((item) => (
-        <Tab 
+      {NAV_ITEMS.map((item) => (
+        <Tab
           key={item.path}
           label={item.label}
-          icon={isMobile ? item.icon : undefined}
-          iconPosition="start"
           component={Link}
           to={item.path}
         />
@@ -111,83 +107,34 @@ function NavigationTabs() {
   );
 }
 
-function MobileDrawer({ open, onClose }) {
-  const location = useLocation();
-  
-  return (
-    <Drawer
-      anchor="left"
-      open={open}
-      onClose={onClose}
-      sx={{
-        '& .MuiDrawer-paper': {
-          width: 280,
-          bgcolor: 'background.paper',
-        }
-      }}
-    >
-      <Box sx={{ p: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <div className="flex items-center gap-2">
-          <CalculatorLogo size="24" />
-          <Typography variant="h6">Investment Calculator</Typography>
-        </div>
-        <IconButton onClick={onClose}>
-          <CloseIcon />
-        </IconButton>
-      </Box>
-      <Divider />
-      <List>
-        {NAV_ITEMS.map((item) => (
-          <ListItem 
-            button 
-            key={item.path}
-            component={Link}
-            to={item.path}
-            selected={location.pathname === item.path}
-            onClick={onClose}
-            sx={{
-              '&.Mui-selected': {
-                bgcolor: 'rgba(90, 108, 234, 0.1)',
-                borderLeft: '3px solid',
-                borderColor: 'primary.main',
-              }
-            }}
-          >
-            <ListItemIcon sx={{ color: location.pathname === item.path ? 'primary.main' : 'inherit' }}>
-              {item.icon}
-            </ListItemIcon>
-            <ListItemText primary={item.label} />
-          </ListItem>
-        ))}
-      </List>
-    </Drawer>
-  );
-}
-
-// Header auth UI removed per request
-
 function App() {
-  // Use ThemeContext for dark mode
   const { isDarkMode, toggleDarkMode } = useTheme();
-  const [drawerOpen, setDrawerOpen] = useState(false);
   const isMobile = useMediaQuery('(max-width:768px)');
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   const theme = useMemo(() => createTheme({
     palette: {
       mode: isDarkMode ? 'dark' : 'light',
-      ...(isDarkMode 
-        ? THEME_CONSTANTS.colors 
+      ...(isDarkMode
+        ? THEME_CONSTANTS.colors
         : {
-          primary: { main: '#10B981' },
-          secondary: { main: '#06B6D4' },
-          success: { main: '#10B981' },
+          primary: { main: '#3B6098' },
+          secondary: { main: '#4C9A82' },
+          success: { main: '#4C9A82' },
           background: {
-            default: '#f8fafc',
-            paper: '#ffffff',
+            default: '#F1F0EC',
+            paper: '#FCFBF9',
           },
           text: {
-            primary: '#0f172a',
-            secondary: '#475569',
+            primary: '#1C2430',
+            secondary: '#5A6270',
           }
         }
       ),
@@ -198,18 +145,14 @@ function App() {
       MuiCard: {
         styleOverrides: {
           root: {
-            boxShadow: isDarkMode 
-              ? '0 4px 20px 0 rgba(0,0,0,0.2)' 
-              : '0 2px 10px 0 rgba(0,0,0,0.08)'
+            boxShadow: isDarkMode
+              ? '0 4px 20px 0 rgba(0,0,0,0.25)'
+              : '0 2px 12px 0 rgba(28,42,58,0.08)'
           }
         }
       }
     }
   }), [isDarkMode]);
-
-  const toggleDrawer = () => {
-    setDrawerOpen(!drawerOpen);
-  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -217,66 +160,55 @@ function App() {
       <DevSimulatorToggle>
         <Router basename="/Investment-Calculator">
         <Box sx={{ minHeight: '100vh', bgcolor: 'background.default', pb: 5 }}>
-          <AppBar 
-            position="sticky" 
-            color={isDarkMode ? "transparent" : "default"}
-            elevation={isDarkMode ? 0 : 1}
-            sx={{ 
-              borderBottom: isDarkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(15,23,42,0.08)',
-              backdropFilter: 'blur(8px)',
-              backgroundColor: isDarkMode ? 'rgba(15, 23, 42, 0.75)' : 'rgba(255, 255, 255, 0.92)',
+          <AppBar
+            position="sticky"
+            elevation={0}
+            enableColorOnDark
+            sx={{
+              color: 'text.primary',
+              backgroundColor: 'var(--glass-bg)',
+              backgroundImage: 'none',
+              backdropFilter: 'saturate(180%) blur(22px)',
+              WebkitBackdropFilter: 'saturate(180%) blur(22px)',
+              borderBottom: '1px solid var(--glass-border)',
+              boxShadow: scrolled ? 'var(--glass-shadow)' : 'none',
+              transition: 'box-shadow 0.25s ease, background-color 0.25s ease',
             }}
           >
-            <Toolbar>
-              {isMobile && (
-                <IconButton
-                  edge="start"
-                  color="inherit"
-                  aria-label="menu"
-                  onClick={toggleDrawer}
-                  sx={{ mr: 1 }}
-                >
-                  <MenuIcon />
-                </IconButton>
-              )}
-              
+            <Toolbar sx={{ minHeight: scrolled ? 56 : 64, transition: 'min-height 0.25s ease' }}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, flexGrow: 1 }}>
                 <CalculatorLogo size="28" />
-                <Typography 
-                  variant="h6" 
-                  component={Link} 
-                  to="/" 
-                  sx={{ 
-                    textDecoration: 'none', 
+                <Typography
+                  variant="h6"
+                  component={Link}
+                  to="/"
+                  sx={{
+                    textDecoration: 'none',
                     color: 'text.primary',
-                    fontWeight: 600,
-                    display: { xs: 'none', sm: 'block' }
+                    fontWeight: 700,
+                    letterSpacing: '-0.01em',
+                    fontSize: { xs: '1rem', sm: '1.15rem' },
                   }}
                 >
                   Investment Calculator
                 </Typography>
               </Box>
-              
+
               {!isMobile && <NavigationTabs />}
-              
-              <IconButton 
-                sx={{ ml: 2 }} 
+
+              <IconButton
+                sx={{ ml: 1.5, color: 'text.primary' }}
                 onClick={toggleDarkMode}
-                color="inherit"
+                aria-label="Toggle theme"
               >
                 {isDarkMode ? <LightModeIcon /> : <DarkModeIcon />}
               </IconButton>
-              {/* Optional login/email removed per request */}
             </Toolbar>
-            
-            {isMobile && <NavigationTabs />}
           </AppBar>
-
-          <MobileDrawer open={drawerOpen} onClose={toggleDrawer} />
 
           <MobileBottomNav />
 
-          <Container maxWidth={false} sx={{ mt: { xs: 2, md: 3 }, px: { xs: 0, md: 4 } }}>
+          <Container maxWidth={false} sx={{ mt: { xs: 2, md: 3 }, px: { xs: 2, md: 4 } }}>
             <Suspense fallback={<PageLoader isDark={isDarkMode} />}>
               <Routes>
                 <Route path="/" element={<Home />} />

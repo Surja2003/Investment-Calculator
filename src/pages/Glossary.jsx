@@ -523,7 +523,7 @@ export default function Glossary() {
         }
         .gls-hero__bg {
           position: absolute; inset: 0;
-          background: linear-gradient(135deg, #064e3b 0%, #065f46 40%, #047857 70%, #059669 100%);
+          background: linear-gradient(135deg, #064e3b 0%, #065f46 40%, #047857 70%, #2C4A78 100%);
           opacity: 0.92;
         }
         .gls-hero__orb {
@@ -569,7 +569,7 @@ export default function Glossary() {
         }
         .gls-search__icon {
           position: absolute; left: 1.1rem; top: 50%; transform: translateY(-50%);
-          color: #10b981; pointer-events: none;
+          color: #3B6098; pointer-events: none;
         }
         .gls-search__input {
           width: 100%; padding: 1rem 1rem 1rem 3rem;
@@ -580,21 +580,21 @@ export default function Glossary() {
         .gls-search__input--dark {
           background: #111827; color: #e2e8f0; border-color: #1f2d3d;
         }
-        .gls-search__input--dark:focus { border-color: #10b981; box-shadow: 0 0 0 3px rgba(16,185,129,0.15); }
+        .gls-search__input--dark:focus { border-color: #3B6098; box-shadow: 0 0 0 3px rgba(16,185,129,0.15); }
         .gls-search__input--light {
           background: #ffffff; color: #1a2e1a; border-color: #d1fae5;
         }
-        .gls-search__input--light:focus { border-color: #10b981; box-shadow: 0 0 0 3px rgba(16,185,129,0.1); }
+        .gls-search__input--light:focus { border-color: #3B6098; box-shadow: 0 0 0 3px rgba(16,185,129,0.1); }
         .gls-search__clear {
           position: absolute; right: 1rem; top: 50%; transform: translateY(-50%);
           background: none; border: none; cursor: pointer; padding: 0.25rem;
           color: #6b7280; border-radius: 6px; display: flex;
           transition: color 0.2s;
         }
-        .gls-search__clear:hover { color: #10b981; }
+        .gls-search__clear:hover { color: #3B6098; }
         .gls-search__count {
           text-align: center; font-size: 0.82rem; margin-top: 0.6rem;
-          color: #10b981; font-weight: 500;
+          color: #3B6098; font-weight: 500;
         }
 
         /* ── Body layout ── */
@@ -632,10 +632,10 @@ export default function Glossary() {
           transition: background 0.15s, color 0.15s, transform 0.15s;
         }
         .gls-sidebar__btn--available-dark { color: #e2e8f0; }
-        .gls-sidebar__btn--available-dark:hover { background: rgba(16,185,129,0.15); color: #10b981; transform: scale(1.1); }
+        .gls-sidebar__btn--available-dark:hover { background: rgba(16,185,129,0.15); color: #3B6098; transform: scale(1.1); }
         .gls-sidebar__btn--available-light { color: #374151; }
-        .gls-sidebar__btn--available-light:hover { background: rgba(16,185,129,0.12); color: #059669; transform: scale(1.1); }
-        .gls-sidebar__btn--active { background: linear-gradient(135deg, #10b981, #059669) !important; color: #fff !important; transform: scale(1.1); }
+        .gls-sidebar__btn--available-light:hover { background: rgba(16,185,129,0.12); color: #2C4A78; transform: scale(1.1); }
+        .gls-sidebar__btn--active { background: linear-gradient(135deg, #3B6098, #2C4A78) !important; color: #fff !important; transform: scale(1.1); }
         .gls-sidebar__btn--unavailable { color: #374151; opacity: 0.25; cursor: default; }
         .gls-sidebar__btn--unavailable-dark { color: #6b7280; opacity: 0.3; cursor: default; }
 
@@ -652,7 +652,7 @@ export default function Glossary() {
           width: 52px; height: 52px; border-radius: 14px; flex-shrink: 0;
           display: flex; align-items: center; justify-content: center;
           font-size: 1.5rem; font-weight: 900;
-          background: linear-gradient(135deg, #10b981, #059669);
+          background: linear-gradient(135deg, #3B6098, #2C4A78);
           color: #fff;
           box-shadow: 0 4px 14px rgba(16,185,129,0.35);
         }
@@ -692,7 +692,7 @@ export default function Glossary() {
         }
         .gls-card__term {
           font-size: 1rem; font-weight: 700; margin: 0 0 0.35rem;
-          color: #10b981;
+          color: #3B6098;
         }
         .gls-card__def {
           font-size: 0.875rem; line-height: 1.6; margin: 0;
@@ -712,7 +712,7 @@ export default function Glossary() {
         }
         .gls-card__btn--dark:hover { background: rgba(16,185,129,0.1); }
         .gls-card__btn:not(.gls-card__btn--dark) {
-          background: transparent; color: #059669; border-color: #a7f3d0;
+          background: transparent; color: #2C4A78; border-color: #a7f3d0;
         }
         .gls-card__btn:not(.gls-card__btn--dark):hover { background: rgba(16,185,129,0.08); }
 
@@ -729,7 +729,7 @@ export default function Glossary() {
         .gls-card__example-label {
           display: block; font-size: 0.72rem; font-weight: 700;
           text-transform: uppercase; letter-spacing: 0.08em;
-          color: #10b981; margin-bottom: 0.5rem;
+          color: #3B6098; margin-bottom: 0.5rem;
         }
         .gls-card__example-text {
           font-size: 0.85rem; line-height: 1.65; margin: 0;
@@ -754,7 +754,7 @@ export default function Glossary() {
           font-size: 3.5rem;
           animation: gls-float 3s ease-in-out infinite;
         }
-        .gls-empty__title { font-size: 1.25rem; font-weight: 700; color: #10b981; }
+        .gls-empty__title { font-size: 1.25rem; font-weight: 700; color: #3B6098; }
         .gls-empty__sub { font-size: 0.9rem; opacity: 0.6; }
 
         @keyframes gls-float {
@@ -766,7 +766,7 @@ export default function Glossary() {
         .gls-top-btn {
           position: fixed; bottom: 2rem; right: 2rem; z-index: 50;
           width: 44px; height: 44px; border-radius: 12px; border: none;
-          background: linear-gradient(135deg, #10b981, #059669);
+          background: linear-gradient(135deg, #3B6098, #2C4A78);
           color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center;
           box-shadow: 0 4px 16px rgba(16,185,129,0.4);
           transition: transform 0.2s, box-shadow 0.2s;

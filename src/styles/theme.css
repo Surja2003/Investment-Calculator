@@ -60,14 +60,14 @@
     background-clip: text;
     color: transparent;
     background-image: linear-gradient(to right, var(--tw-gradient-from), var(--tw-gradient-to));
-    --tw-gradient-from: #3B82F6;
-    --tw-gradient-to: #10B981;
+    --tw-gradient-from: #93A7C0;
+    --tw-gradient-to: #3B6098;
   }
   
   .bg-gradient {
     background-image: linear-gradient(to bottom right, var(--tw-gradient-from), var(--tw-gradient-to));
-    --tw-gradient-from: #60A5FA;
-    --tw-gradient-to: #2563EB;
+    --tw-gradient-from: #B4C6DD;
+    --tw-gradient-to: #2C4A78;
   }
   
   .card {
@@ -184,7 +184,7 @@
   .form-box .input:focus {
     border-color: var(--color-primary);
     outline: none;
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2), inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 0 3px rgba(59, 96, 152, 0.2), inset 0 1px 3px rgba(0, 0, 0, 0.1);
     background-color: rgba(255, 255, 255, 0.15);
   }
 
@@ -193,7 +193,7 @@
   }
 
   :root .form-box .input:focus {
-    background-color: rgba(99, 102, 241, 0.05);
+    background-color: rgba(59, 96, 152, 0.05);
   }
 
   .form-box .button-primary {

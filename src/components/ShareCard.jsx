@@ -41,7 +41,7 @@ const ShareCard = ({ mode, summary = {}, locale = 'IN', years = 0, rate = 0 }) =
           rows: [
             { label: 'Monthly Investment', value: fmt(summary.monthlyInvestment), color: '#94a3b8' },
             { label: 'Total Invested', value: fmt(summary.totalInvested), color: '#94a3b8' },
-            { label: 'Wealth Gained', value: fmt(summary.totalReturns || summary.wealthGained), color: '#10B981' },
+            { label: 'Wealth Gained', value: fmt(summary.totalReturns || summary.wealthGained), color: '#3B6098' },
           ],
           highlight: { label: 'Future Value', value: fmt(summary.futureValue) },
         };
@@ -51,7 +51,7 @@ const ShareCard = ({ mode, summary = {}, locale = 'IN', years = 0, rate = 0 }) =
           badge: `${rate}% p.a. · ${years} Years`,
           rows: [
             { label: 'Amount Invested', value: fmt(summary.totalInvested), color: '#94a3b8' },
-            { label: 'Gains', value: fmt(summary.totalReturns || summary.wealthGained), color: '#10B981' },
+            { label: 'Gains', value: fmt(summary.totalReturns || summary.wealthGained), color: '#3B6098' },
           ],
           highlight: { label: 'Maturity Value', value: fmt(summary.futureValue) },
         };
@@ -61,7 +61,7 @@ const ShareCard = ({ mode, summary = {}, locale = 'IN', years = 0, rate = 0 }) =
           badge: `${rate}% p.a. · ${years} Years`,
           rows: [
             { label: 'Starting Corpus', value: fmt(summary.initialInvestment), color: '#94a3b8' },
-            { label: 'Total Withdrawn', value: fmt(summary.totalWithdrawn), color: '#10B981' },
+            { label: 'Total Withdrawn', value: fmt(summary.totalWithdrawn), color: '#3B6098' },
           ],
           highlight: { label: 'Remaining Corpus', value: fmt(summary.finalCorpus) },
         };
@@ -101,7 +101,7 @@ const ShareCard = ({ mode, summary = {}, locale = 'IN', years = 0, rate = 0 }) =
         style={{
           display: 'flex', alignItems: 'center', gap: 6,
           padding: '8px 14px', borderRadius: 10, border: '1px solid rgba(16,185,129,0.3)',
-          background: 'rgba(16,185,129,0.08)', color: '#10B981',
+          background: 'rgba(16,185,129,0.08)', color: '#3B6098',
           cursor: 'pointer', fontSize: 12, fontWeight: 700,
           fontFamily: 'inherit', transition: 'all 0.2s',
         }}
@@ -169,7 +169,7 @@ const ShareCard = ({ mode, summary = {}, locale = 'IN', years = 0, rate = 0 }) =
                   <span style={{ fontSize: 24 }}>{data.emoji}</span>
                   <span style={{
                     fontSize: 19, fontWeight: 900, letterSpacing: '-0.02em',
-                    background: 'linear-gradient(135deg, #10B981, #34d399)',
+                    background: 'linear-gradient(135deg, #3B6098, #5E82BC)',
                     WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
                   }}>{data.title}</span>
                 </div>
@@ -178,7 +178,7 @@ const ShareCard = ({ mode, summary = {}, locale = 'IN', years = 0, rate = 0 }) =
                     display: 'inline-block', fontSize: 10, fontWeight: 700,
                     padding: '3px 10px', borderRadius: 99,
                     background: 'rgba(16,185,129,0.12)', border: '1px solid rgba(16,185,129,0.25)',
-                    color: '#10B981', letterSpacing: '0.05em', textTransform: 'uppercase',
+                    color: '#3B6098', letterSpacing: '0.05em', textTransform: 'uppercase',
                   }}>{data.badge}</span>
                 )}
               </div>
@@ -210,7 +210,7 @@ const ShareCard = ({ mode, summary = {}, locale = 'IN', years = 0, rate = 0 }) =
               <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.5)', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 6 }}>
                 {data.highlight.label}
               </div>
-              <div style={{ fontSize: 32, fontWeight: 900, letterSpacing: '-0.02em', color: '#10B981', lineHeight: 1 }}>
+              <div style={{ fontSize: 32, fontWeight: 900, letterSpacing: '-0.02em', color: '#3B6098', lineHeight: 1 }}>
                 {data.highlight.value}
               </div>
             </div>
@@ -218,7 +218,7 @@ const ShareCard = ({ mode, summary = {}, locale = 'IN', years = 0, rate = 0 }) =
             {/* Footer branding */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div>
-                <div style={{ fontSize: 11, fontWeight: 800, color: '#10B981', letterSpacing: '-0.01em' }}>Investment Calculator</div>
+                <div style={{ fontSize: 11, fontWeight: 800, color: '#3B6098', letterSpacing: '-0.01em' }}>Investment Calculator</div>
                 <div style={{ fontSize: 9, color: 'rgba(255,255,255,0.3)' }}>surja2003.github.io/Investment-Calculator</div>
               </div>
               <div style={{

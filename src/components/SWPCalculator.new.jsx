@@ -210,7 +210,7 @@ const SWPCalculator = () => {
                     <Typography variant="subtitle2" sx={{ color: 'rgba(255, 255, 255, 0.7)' }}>
                       Final Corpus
                     </Typography>
-                    <Typography variant="h5" color={metrics.finalCorpus > 0 ? "#3B82F6" : "#EF4444"} sx={{ fontWeight: 'bold', my: 1 }}>
+                    <Typography variant="h5" color={metrics.finalCorpus > 0 ? "#93A7C0" : "#EF4444"} sx={{ fontWeight: 'bold', my: 1 }}>
                       <CountUp 
                         to={metrics.finalCorpus} 
                         formatter={(value) => formatCurrency(value)}
@@ -275,7 +275,7 @@ const SWPCalculator = () => {
                     <Typography variant="subtitle2" sx={{ color: 'rgba(255, 255, 255, 0.7)' }}>
                       Total Withdrawals
                     </Typography>
-                    <Typography variant="h5" color="#10B981" sx={{ fontWeight: 'bold', my: 1 }}>
+                    <Typography variant="h5" color="#3B6098" sx={{ fontWeight: 'bold', my: 1 }}>
                       <CountUp 
                         to={metrics.totalWithdrawalAmount} 
                         formatter={(value) => formatCurrency(value)}
@@ -319,7 +319,7 @@ const SWPCalculator = () => {
                           width: 10, 
                           height: 10, 
                           borderRadius: '50%', 
-                          bgcolor: metrics.corpusSustainable ? '#10B981' : '#EF4444' 
+                          bgcolor: metrics.corpusSustainable ? '#3B6098' : '#EF4444' 
                         }} 
                       />
                       <Typography 
@@ -569,9 +569,9 @@ const SWPCalculator = () => {
                           mt: 2,
                           py: 1.5,
                           borderRadius: 2,
-                          bgcolor: '#3B82F6',
+                          bgcolor: '#93A7C0',
                           '&:hover': {
-                            bgcolor: '#2563EB',
+                            bgcolor: '#2C4A78',
                           },
                           boxShadow: '0 4px 10px rgba(59, 130, 246, 0.3)',
                           fontSize: '1rem',
@@ -801,11 +801,11 @@ const SWPCalculator = () => {
                         width: 16, 
                         height: 16, 
                         borderRadius: '50%', 
-                        bgcolor: metrics.corpusSustainable ? '#10B981' : '#EF4444',
+                        bgcolor: metrics.corpusSustainable ? '#3B6098' : '#EF4444',
                         mr: 2
                       }} 
                     />
-                    <Typography variant="h6" color={metrics.corpusSustainable ? '#10B981' : '#EF4444'}>
+                    <Typography variant="h6" color={metrics.corpusSustainable ? '#3B6098' : '#EF4444'}>
                       {metrics.corpusSustainable 
                         ? 'Your withdrawal plan is sustainable' 
                         : 'Your withdrawal plan may deplete your corpus'}

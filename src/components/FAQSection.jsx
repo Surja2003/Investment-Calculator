@@ -393,7 +393,7 @@ function AccordionItem({ faq, index, isOpen, onToggle }) {
     <div
       className={`border rounded-2xl overflow-hidden transition-all duration-300 ${
         isOpen
-          ? 'border-emerald-400/50 bg-emerald-50/60 dark:border-emerald-500/40 dark:bg-emerald-950/10'
+          ? 'border-[#5E82BC]/50 bg-[#EAF0F8]/60 dark:border-[#3B6098]/40 dark:bg-[#060608]/10'
           : 'border-slate-200 bg-white hover:border-slate-300 shadow-sm dark:border-slate-800 dark:bg-slate-800 dark:hover:border-slate-700'
       }`}
     >
@@ -408,7 +408,7 @@ function AccordionItem({ faq, index, isOpen, onToggle }) {
         <span
           className={`text-sm sm:text-base font-semibold leading-snug transition-colors ${
             isOpen
-              ? 'text-emerald-500'
+              ? 'text-[#3B6098]'
               : 'text-slate-800 dark:text-slate-100'
           }`}
         >
@@ -417,7 +417,7 @@ function AccordionItem({ faq, index, isOpen, onToggle }) {
         <span
           className={`flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-300 ${
             isOpen
-              ? 'bg-emerald-500 text-white rotate-45'
+              ? 'bg-[#3B6098] text-white rotate-45'
               : 'bg-slate-100 text-slate-500 dark:bg-slate-700 dark:text-slate-300'
           }`}
         >
@@ -446,7 +446,7 @@ function AccordionItem({ faq, index, isOpen, onToggle }) {
                     j % 2 === 1 ? (
                       <strong
                         key={j}
-                        className="text-emerald-700 dark:text-emerald-400 font-semibold"
+                        className="text-[#243D63] dark:text-[#5E82BC] font-semibold"
                       >
                         {part}
                       </strong>
@@ -483,7 +483,7 @@ const FAQSection = () => {
     <section
       aria-label="Frequently Asked Questions"
       className={`py-16 px-4 transition-colors duration-200 ${
-        isDarkMode ? 'bg-[#090d16]' : 'bg-slate-50'
+        isDarkMode ? 'bg-[#060608]' : 'bg-[#F1F0EC]'
       }`}
     >
       <div className="max-w-4xl mx-auto">
@@ -492,11 +492,11 @@ const FAQSection = () => {
           <span
             className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest mb-4 border ${
               isDarkMode
-                ? 'bg-emerald-950/40 border-emerald-800 text-emerald-400'
-                : 'bg-emerald-50 border-emerald-200 text-emerald-700'
+                ? 'bg-[#060608]/40 border-[#1D3251] text-[#5E82BC]'
+                : 'bg-[#EAF0F8] border-[#C3D3E8] text-[#243D63]'
             }`}
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#3B6098] inline-block" />
             Investor FAQ
           </span>
           <h2
@@ -522,7 +522,7 @@ const FAQSection = () => {
               }}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all duration-200 ${
                 activeCategory === cat.id
-                  ? 'bg-emerald-500 text-white border-emerald-500 shadow-lg shadow-emerald-500/20'
+                  ? 'bg-[#3B6098] text-white border-[#3B6098] shadow-lg shadow-[#3B6098]/20'
                   : isDarkMode
                   ? 'bg-slate-800/60 border-slate-700 text-slate-400 hover:border-slate-600 hover:text-slate-200'
                   : 'bg-white border-slate-200 text-slate-500 hover:border-slate-300 hover:text-slate-700'
@@ -556,11 +556,11 @@ const FAQSection = () => {
         <div
           className={`mt-12 rounded-2xl p-6 text-center border ${
             isDarkMode
-              ? 'bg-emerald-950/20 border-emerald-800/40'
-              : 'bg-emerald-50 border-emerald-200'
+              ? 'bg-[#060608]/20 border-[#1D3251]/40'
+              : 'bg-[#EAF0F8] border-[#C3D3E8]'
           }`}
         >
-          <p className={`text-base font-semibold mb-1 ${isDarkMode ? 'text-emerald-300' : 'text-emerald-800'}`}>
+          <p className={`text-base font-semibold mb-1 ${isDarkMode ? 'text-[#9DB6D6]' : 'text-[#1D3251]'}`}>
             Ready to start your investment journey?
           </p>
           <p className={`text-sm mb-4 ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>
@@ -578,8 +578,8 @@ const FAQSection = () => {
                 to={btn.to}
                 className={`px-4 py-2 rounded-xl text-sm font-semibold border transition-all duration-200 ${
                   isDarkMode
-                    ? 'bg-slate-800 border-slate-700 text-slate-200 hover:bg-emerald-600 hover:border-emerald-500 hover:text-white'
-                    : 'bg-white border-slate-200 text-slate-700 hover:bg-emerald-500 hover:border-emerald-500 hover:text-white shadow-sm'
+                    ? 'bg-slate-800 border-slate-700 text-slate-200 hover:bg-[#2C4A78] hover:border-[#3B6098] hover:text-white'
+                    : 'bg-white border-slate-200 text-slate-700 hover:bg-[#3B6098] hover:border-[#3B6098] hover:text-white shadow-sm'
                 }`}
               >
                 {btn.label}
