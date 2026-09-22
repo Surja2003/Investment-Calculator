@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import CalculatorLogo from './CalculatorLogo';
 
 const GitHubIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-label="GitHub">
@@ -57,20 +58,7 @@ export default function Footer() {
         {/* Brand */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-            <div
-              style={{
-                width: '36px',
-                height: '36px',
-                borderRadius: '10px',
-                background: 'linear-gradient(135deg, var(--color-primary), var(--color-primary-dark))',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                flexShrink: 0,
-              }}
-            >
-              <span style={{ color: '#fff', fontWeight: 800, fontSize: '1rem' }}>₹</span>
-            </div>
+            <CalculatorLogo size="34" />
             <span style={{ fontWeight: 800, fontSize: '1.05rem', letterSpacing: '-0.02em', color: 'var(--color-text)' }}>
               Investment Calculator
             </span>
