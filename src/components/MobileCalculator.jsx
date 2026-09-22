@@ -296,10 +296,10 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
   }, [calcResults, mode]);
 
   return (
-    <div className={`min-h-[100dvh] flex flex-col font-sans pb-24 transition-colors duration-200 ${isDarkMode ? 'text-slate-100 bg-[#090d16]' : 'text-slate-800 bg-slate-50'}`}>
+    <div className={`min-h-[100dvh] flex flex-col font-sans pb-40 transition-colors duration-200 ${isDarkMode ? 'text-slate-100 bg-[#0F1826]' : 'text-slate-800 bg-slate-50'}`}>
       
       {/* 1. STICKY TOP HEADER - Floating Live Summary */}
-      <div className={`sticky top-16 z-40 shadow-md backdrop-blur-md px-4 py-3 flex flex-col gap-2 transition-colors duration-200 ${isDarkMode ? 'bg-[#0c1222]/95 border-b border-slate-800' : 'bg-white/95 border-b border-slate-200 shadow-sm'}`}>
+      <div className={`sticky top-16 z-40 shadow-md backdrop-blur-md px-4 py-3 flex flex-col gap-2 transition-colors duration-200 ${isDarkMode ? 'bg-[#131C29]/95 border-b border-slate-800' : 'bg-white/95 border-b border-slate-200 shadow-sm'}`}>
         <div className="flex justify-between items-center">
           <span className={`text-[10px] font-semibold uppercase tracking-wider transition-colors duration-200 ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>
             {mode === 'goal' ? 'Required Monthly Contribution' : mode === 'swp' ? 'Remaining Corpus' : 'Future Valuation'}
@@ -308,7 +308,7 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
             {/* Quick Share */}
             <IconButton 
               onClick={handleShare}
-              className={`p-1.5 rounded-lg border text-xs min-h-[48px] min-w-[48px] transition-colors duration-200 ${shareCopied ? 'bg-emerald-950/40 border-emerald-500 text-emerald-400' : isDarkMode ? 'bg-slate-900 border-slate-800 text-slate-400' : 'bg-white border-slate-200 text-slate-500'}`}
+              className={`p-1.5 rounded-lg border text-xs min-h-[48px] min-w-[48px] transition-colors duration-200 ${shareCopied ? 'bg-[#0F1826]/40 border-[#3B6098] text-[#5E82BC]' : isDarkMode ? 'bg-slate-900 border-slate-800 text-slate-400' : 'bg-white border-slate-200 text-slate-500'}`}
             >
               {shareCopied ? <CheckCircleOutlineIcon sx={{ fontSize: 18 }} /> : <ShareOutlinedIcon sx={{ fontSize: 18 }} />}
             </IconButton>
@@ -334,7 +334,7 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
               <CountUp to={calcResults.summary.futureValue || 0} duration={0.8} />
             )}
           </h2>
-          <span className={`text-[11px] font-semibold transition-colors duration-200 ${isDarkMode ? 'text-emerald-400' : 'text-emerald-600'}`}>
+          <span className={`text-[11px] font-semibold transition-colors duration-200 ${isDarkMode ? 'text-[#5E82BC]' : 'text-[#2C4A78]'}`}>
             {mode === 'swp' && `Withdrawn: ${formatCompact(calcResults.summary.totalWithdrawn, locale)}`}
             {mode === 'goal' && `Yield: ${activeInputs.rate}% returns`}
             {mode === 'sip' && `Gains: +${formatCompact(calcResults.summary.totalReturns, locale)}`}
@@ -345,9 +345,9 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
 
       {/* Active Mode Title */}
       <div className="px-4 mt-4">
-        <div className={`border rounded-xl px-4 py-3 transition-colors duration-200 ${isDarkMode ? 'bg-[#0c1222]/90 border-slate-800' : 'bg-white border-slate-200 shadow-sm'}`}>
+        <div className={`border rounded-xl px-4 py-3 transition-colors duration-200 ${isDarkMode ? 'bg-[#131C29]/90 border-slate-800' : 'bg-white border-slate-200 shadow-sm'}`}>
           <span className={`text-xs font-bold tracking-wide uppercase flex items-center gap-1.5 transition-colors duration-200 ${isDarkMode ? 'text-white' : 'text-slate-800'}`}>
-            <span className="w-1.5 h-3.5 bg-emerald-500 rounded-full"></span>
+            <span className="w-1.5 h-3.5 bg-[#3B6098] rounded-full"></span>
             {mode === 'sip' && 'SIP Calculator'}
             {mode === 'lumpsum' && 'Lumpsum Calculator'}
             {mode === 'swp' && 'SWP Calculator'}
@@ -360,7 +360,7 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
       <div className="px-4 mt-4 flex flex-col gap-4 flex-grow">
         
         {/* Slider 1: Amount */}
-        <div className={`border p-4 rounded-xl transition-colors duration-200 ${isDarkMode ? 'bg-[#0c1222]/80 border-slate-800' : 'bg-white border-slate-200 shadow-sm'}`}>
+        <div className={`border p-4 rounded-xl transition-colors duration-200 ${isDarkMode ? 'bg-[#131C29]/80 border-slate-800' : 'bg-white border-slate-200 shadow-sm'}`}>
           <div className="flex justify-between items-center mb-3">
             <span className={`text-xs font-semibold transition-colors duration-200 ${isDarkMode ? 'text-slate-300' : 'text-slate-600'}`}>
               {mode === 'sip' ? 'Monthly Investment' : mode === 'swp' ? 'Initial Capital' : mode === 'goal' ? 'Goal Amount' : 'Lumpsum Amount'}
@@ -376,8 +376,8 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
                 onKeyDown={(e) => e.key === 'Enter' && handleRawBlur(mode === 'goal' ? 'target' : 'amount')}
                 className={`w-36 border rounded-xl pl-7 pr-2 py-2 text-right text-sm font-bold focus:outline-none transition-colors duration-200 ${
                   isDarkMode
-                    ? 'bg-slate-800 border-slate-700 text-emerald-400 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/30'
-                    : 'bg-slate-50 border-slate-300 text-emerald-600 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/20'
+                    ? 'bg-slate-800 border-slate-700 text-[#5E82BC] focus:border-[#3B6098] focus:ring-1 focus:ring-[#3B6098]/30'
+                    : 'bg-slate-50 border-slate-300 text-[#2C4A78] focus:border-[#3B6098] focus:ring-1 focus:ring-[#3B6098]/20'
                 }`}
               />
             </div>
@@ -389,9 +389,9 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
             value={mode === 'goal' ? activeInputs.target : activeInputs.amount}
             onChange={(e, val) => handleInputChange(mode === 'goal' ? 'target' : 'amount', val)}
             sx={{
-              color: '#10B981',
+              color: '#3B6098',
               height: 6,
-              '& .MuiSlider-thumb': { width: 20, height: 20, backgroundColor: '#10B981', border: '2px solid #fff' },
+              '& .MuiSlider-thumb': { width: 20, height: 20, backgroundColor: '#3B6098', border: '2px solid #fff' },
               '& .MuiSlider-rail': { opacity: isDarkMode ? 0.1 : 0.2, backgroundColor: isDarkMode ? '#cbd5e1' : '#64748b' }
             }}
           />
@@ -399,7 +399,7 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
 
         {/* Slider 2: SWP Pay-out Rate */}
         {mode === 'swp' && (
-          <div className={`border p-4 rounded-xl transition-colors duration-200 ${isDarkMode ? 'bg-[#0c1222]/80 border-slate-800' : 'bg-white border-slate-200 shadow-sm'}`}>
+          <div className={`border p-4 rounded-xl transition-colors duration-200 ${isDarkMode ? 'bg-[#131C29]/80 border-slate-800' : 'bg-white border-slate-200 shadow-sm'}`}>
             <div className="flex justify-between items-center mb-3">
               <span className={`text-xs font-semibold transition-colors duration-200 ${isDarkMode ? 'text-slate-300' : 'text-slate-600'}`}>Monthly Pay-out</span>
               <div className="relative">
@@ -413,8 +413,8 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
                   onKeyDown={(e) => e.key === 'Enter' && handleRawBlur('withdrawal')}
                   className={`w-36 border rounded-xl pl-7 pr-2 py-2 text-right text-sm font-bold focus:outline-none transition-colors duration-200 ${
                     isDarkMode
-                      ? 'bg-slate-800 border-slate-700 text-cyan-400 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/30'
-                      : 'bg-slate-50 border-slate-300 text-cyan-600 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/20'
+                      ? 'bg-slate-800 border-slate-700 text-[#5FB89C] focus:border-[#4C9A82] focus:ring-1 focus:ring-[#4C9A82]/30'
+                      : 'bg-slate-50 border-slate-300 text-[#3A7D68] focus:border-[#4C9A82] focus:ring-1 focus:ring-[#4C9A82]/20'
                   }`}
                 />
               </div>
@@ -426,9 +426,9 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
               value={activeInputs.withdrawal}
               onChange={(e, val) => handleInputChange('withdrawal', val)}
               sx={{
-                color: '#06B6D4',
+                color: '#4C9A82',
                 height: 6,
-                '& .MuiSlider-thumb': { width: 20, height: 20, backgroundColor: '#06B6D4', border: '2px solid #fff' },
+                '& .MuiSlider-thumb': { width: 20, height: 20, backgroundColor: '#4C9A82', border: '2px solid #fff' },
                 '& .MuiSlider-rail': { opacity: isDarkMode ? 0.1 : 0.2, backgroundColor: isDarkMode ? '#cbd5e1' : '#64748b' }
               }}
             />
@@ -436,7 +436,7 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
         )}
 
         {/* Slider 3: Returns Rate (%) */}
-        <div className={`border p-4 rounded-xl transition-colors duration-200 ${isDarkMode ? 'bg-[#0c1222]/80 border-slate-800' : 'bg-white border-slate-200 shadow-sm'}`}>
+        <div className={`border p-4 rounded-xl transition-colors duration-200 ${isDarkMode ? 'bg-[#131C29]/80 border-slate-800' : 'bg-white border-slate-200 shadow-sm'}`}>
           <div className="flex justify-between items-center mb-3">
             <span className={`text-xs font-semibold transition-colors duration-200 ${isDarkMode ? 'text-slate-300' : 'text-slate-600'}`}>Expected Rate (% p.a.)</span>
             <div className="relative">
@@ -451,8 +451,8 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
                 onKeyDown={(e) => e.key === 'Enter' && handleRawBlur('rate')}
                 className={`w-28 border rounded-xl pl-7 pr-2 py-2 text-right text-sm font-bold focus:outline-none transition-colors duration-200 ${
                   isDarkMode
-                    ? 'bg-slate-800 border-slate-700 text-cyan-400 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/30'
-                    : 'bg-slate-50 border-slate-300 text-cyan-600 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/20'
+                    ? 'bg-slate-800 border-slate-700 text-[#5FB89C] focus:border-[#4C9A82] focus:ring-1 focus:ring-[#4C9A82]/30'
+                    : 'bg-slate-50 border-slate-300 text-[#3A7D68] focus:border-[#4C9A82] focus:ring-1 focus:ring-[#4C9A82]/20'
                 }`}
               />
             </div>
@@ -464,16 +464,16 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
             value={activeInputs.rate}
             onChange={(e, val) => handleInputChange('rate', val)}
             sx={{
-              color: '#06B6D4',
+              color: '#4C9A82',
               height: 6,
-              '& .MuiSlider-thumb': { width: 20, height: 20, backgroundColor: '#06B6D4', border: '2px solid #fff' },
+              '& .MuiSlider-thumb': { width: 20, height: 20, backgroundColor: '#4C9A82', border: '2px solid #fff' },
               '& .MuiSlider-rail': { opacity: isDarkMode ? 0.1 : 0.2, backgroundColor: isDarkMode ? '#cbd5e1' : '#64748b' }
             }}
           />
         </div>
 
         {/* Slider 4: Time (Years) */}
-        <div className={`border p-4 rounded-xl transition-colors duration-200 ${isDarkMode ? 'bg-[#0c1222]/80 border-slate-800' : 'bg-white border-slate-200 shadow-sm'}`}>
+        <div className={`border p-4 rounded-xl transition-colors duration-200 ${isDarkMode ? 'bg-[#131C29]/80 border-slate-800' : 'bg-white border-slate-200 shadow-sm'}`}>
           <div className="flex justify-between items-center mb-3">
             <span className={`text-xs font-semibold transition-colors duration-200 ${isDarkMode ? 'text-slate-300' : 'text-slate-600'}`}>Duration (Years)</span>
             <div className="relative">
@@ -487,8 +487,8 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
                 onKeyDown={(e) => e.key === 'Enter' && handleRawBlur('years')}
                 className={`w-28 border rounded-xl pl-8 pr-2 py-2 text-right text-sm font-bold focus:outline-none transition-colors duration-200 ${
                   isDarkMode
-                    ? 'bg-slate-800 border-slate-700 text-cyan-400 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/30'
-                    : 'bg-slate-50 border-slate-300 text-cyan-600 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/20'
+                    ? 'bg-slate-800 border-slate-700 text-[#5FB89C] focus:border-[#4C9A82] focus:ring-1 focus:ring-[#4C9A82]/30'
+                    : 'bg-slate-50 border-slate-300 text-[#3A7D68] focus:border-[#4C9A82] focus:ring-1 focus:ring-[#4C9A82]/20'
                 }`}
               />
             </div>
@@ -500,9 +500,9 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
             value={activeInputs.years}
             onChange={(e, val) => handleInputChange('years', val)}
             sx={{
-              color: '#06B6D4',
+              color: '#4C9A82',
               height: 6,
-              '& .MuiSlider-thumb': { width: 20, height: 20, backgroundColor: '#06B6D4', border: '2px solid #fff' },
+              '& .MuiSlider-thumb': { width: 20, height: 20, backgroundColor: '#4C9A82', border: '2px solid #fff' },
               '& .MuiSlider-rail': { opacity: isDarkMode ? 0.1 : 0.2, backgroundColor: isDarkMode ? '#cbd5e1' : '#64748b' }
             }}
           />
@@ -538,8 +538,8 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
                         onKeyDown={(e) => e.key === 'Enter' && handleRawBlur('stepUpPercent')}
                         className={`w-24 border rounded-xl pl-7 pr-2 py-1.5 text-right text-sm font-bold focus:outline-none transition-colors duration-200 ${
                           isDarkMode
-                            ? 'bg-slate-800 border-slate-700 text-emerald-400 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/30'
-                            : 'bg-slate-50 border-slate-300 text-emerald-600 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/20'
+                            ? 'bg-slate-800 border-slate-700 text-[#5E82BC] focus:border-[#3B6098] focus:ring-1 focus:ring-[#3B6098]/30'
+                            : 'bg-slate-50 border-slate-300 text-[#2C4A78] focus:border-[#3B6098] focus:ring-1 focus:ring-[#3B6098]/20'
                         }`}
                       />
                     </div>
@@ -551,7 +551,7 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
                     value={activeInputs.stepUpPercent}
                     onChange={(e, val) => handleInputChange('stepUpPercent', val)}
                     sx={{ 
-                      color: '#10B981', 
+                      color: '#3B6098', 
                       height: 4,
                       '& .MuiSlider-rail': { opacity: isDarkMode ? 0.1 : 0.2, backgroundColor: isDarkMode ? '#cbd5e1' : '#64748b' }
                     }}
@@ -613,20 +613,20 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
         </div>
 
         {/* 4. REAL-TIME MINI CHART */}
-        <div className={`border p-3 rounded-xl h-[260px] flex flex-col justify-between mt-2 transition-colors duration-200 ${isDarkMode ? 'bg-[#0c1222]/80 border-slate-850' : 'bg-white border-slate-200 shadow-sm'}`}>
+        <div className={`border p-3 rounded-xl h-[260px] flex flex-col justify-between mt-2 transition-colors duration-200 ${isDarkMode ? 'bg-[#131C29]/80 border-slate-850' : 'bg-white border-slate-200 shadow-sm'}`}>
           <span className={`text-[10px] font-bold uppercase transition-colors duration-200 ${isDarkMode ? 'text-slate-400' : 'text-slate-555'}`}>Compounding Trend</span>
           <div className="h-[210px] w-full mt-1">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={areaData} margin={{ top: 2, right: 2, left: -25, bottom: 2 }}>
                 <defs>
                   <linearGradient id="mobileColorGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#10B981" stopOpacity={0.4}/>
-                    <stop offset="95%" stopColor="#10B981" stopOpacity={0.01}/>
+                    <stop offset="5%" stopColor="#3B6098" stopOpacity={0.4}/>
+                    <stop offset="95%" stopColor="#3B6098" stopOpacity={0.01}/>
                   </linearGradient>
                 </defs>
                 <XAxis dataKey="name" fontSize={8} stroke={isDarkMode ? "#475569" : "#94a3b8"} axisLine={false} tickLine={false} />
                 <YAxis fontSize={8} stroke={isDarkMode ? "#475569" : "#94a3b8"} axisLine={false} tickLine={false} tickFormatter={(v) => formatCompact(v, locale)} />
-                <Area type="monotone" dataKey={mode === 'swp' ? 'Portfolio' : 'Value'} stroke="#10B981" fillOpacity={1} fill="url(#mobileColorGrad)" strokeWidth={2} />
+                <Area type="monotone" dataKey={mode === 'swp' ? 'Portfolio' : 'Value'} stroke="#3B6098" fillOpacity={1} fill="url(#mobileColorGrad)" strokeWidth={2} />
               </AreaChart>
             </ResponsiveContainer>
           </div>
@@ -636,20 +636,23 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
         {calcResults.milestones && calcResults.milestones.length > 0 && (
           <div className={`border p-3 rounded-xl flex gap-2.5 items-start mt-2 transition-colors duration-200 ${
             isDarkMode 
-              ? 'bg-emerald-950/20 border-emerald-900/30 text-slate-300' 
-              : 'bg-emerald-50 border-emerald-200 text-emerald-850'
+              ? 'bg-[#0F1826]/20 border-emerald-900/30 text-slate-300' 
+              : 'bg-[#EAF0F8] border-[#C3D3E8] text-[#182A44]'
           }`}>
-            <StarsIcon className={`shrink-0 transition-colors duration-200 ${isDarkMode ? 'text-emerald-400' : 'text-emerald-600'}`} sx={{ fontSize: 16 }} />
+            <StarsIcon className={`shrink-0 transition-colors duration-200 ${isDarkMode ? 'text-[#5E82BC]' : 'text-[#2C4A78]'}`} sx={{ fontSize: 16 }} />
             <div className="text-[11px]">
-              Goal Milestone: Crossed <strong className={isDarkMode ? "text-emerald-300" : "text-emerald-700"}>{calcResults.milestones[0].label}</strong> in year <strong className={isDarkMode ? "text-white" : "text-slate-900"}>{calcResults.milestones[0].year}</strong>
+              Goal Milestone: Crossed <strong className={isDarkMode ? "text-[#9DB6D6]" : "text-[#243D63]"}>{calcResults.milestones[0].label}</strong> in year <strong className={isDarkMode ? "text-white" : "text-slate-900"}>{calcResults.milestones[0].year}</strong>
             </div>
           </div>
         )}
 
       </div>
 
-      {/* 5. STICKY BOTTOM BUTTONS DRAWER */}
-      <div className={`fixed bottom-0 left-0 right-0 z-40 border-t px-4 py-3 flex gap-2 shadow-lg transition-colors duration-200 ${isDarkMode ? 'bg-[#0c1222] border-slate-800/80' : 'bg-white border-slate-200 shadow-[0_-4px_10px_rgba(0,0,0,0.05)]'}`}>
+      {/* 5. STICKY BOTTOM BUTTONS DRAWER — sits directly above the global bottom nav */}
+      <div
+        className={`fixed left-0 right-0 z-40 border-t px-4 py-3 flex gap-2 shadow-lg transition-colors duration-200 md:bottom-0 ${isDarkMode ? 'bg-[#131C29] border-slate-800/80' : 'bg-white border-slate-200 shadow-[0_-4px_10px_rgba(0,0,0,0.05)]'}`}
+        style={{ bottom: 'calc(4rem + env(safe-area-inset-bottom))' }}
+      >
         {/* Slide-Up Bottom Drawer Trigger */}
         <Button
           fullWidth
@@ -720,7 +723,7 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
           {/* Drawer Drag handle indicator & header */}
           <div className={`p-4 flex justify-between items-center sticky top-0 z-10 border-b transition-colors duration-200 ${isDarkMode ? 'bg-[#0a0f1d] border-slate-800' : 'bg-white border-slate-200'}`}>
             <div className="flex items-center gap-2">
-              <TableViewIcon className="text-emerald-400" />
+              <TableViewIcon className="text-[#5E82BC]" />
               <Typography variant="subtitle1" fontWeight="bold">Amortization Table</Typography>
             </div>
             
@@ -744,11 +747,11 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
             
             {/* Tax implication alert */}
             <div className={`p-3.5 rounded-xl flex gap-2.5 border transition-colors duration-200 ${isDarkMode ? 'bg-slate-900/60 border-slate-850' : 'bg-slate-50 border-slate-200'}`}>
-              <InfoOutlinedIcon className="text-cyan-400 mt-0.5 shrink-0" sx={{ fontSize: 16 }} />
+              <InfoOutlinedIcon className="text-[#5FB89C] mt-0.5 shrink-0" sx={{ fontSize: 16 }} />
               <div className="text-[11px]">
                 <div className="flex items-center gap-1.5 flex-wrap">
                   <span className={`font-bold transition-colors duration-200 ${isDarkMode ? 'text-slate-200' : 'text-slate-800'}`}>Gains Tax highlight</span>
-                  <span className={`text-[9px] px-1 rounded border transition-colors duration-200 ${isDarkMode ? 'bg-cyan-950 border-cyan-800 text-cyan-300' : 'bg-cyan-50 border-cyan-200 text-cyan-700'}`}>{taxDetails.rateText}</span>
+                  <span className={`text-[9px] px-1 rounded border transition-colors duration-200 ${isDarkMode ? 'bg-cyan-950 border-[#274F43] text-[#8FC4B0]' : 'bg-[#EAF4F0] border-[#B4D8C9] text-[#316A58]'}`}>{taxDetails.rateText}</span>
                 </div>
                 <p className={`mt-1 transition-colors duration-200 ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>{taxDetails.explanation}</p>
                 <div className={`mt-1.5 transition-colors duration-200 ${isDarkMode ? 'text-slate-200' : 'text-slate-800'}`}>
@@ -774,17 +777,17 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
                       {mode === 'swp' ? (
                         <>
                           <td className={`py-2.5 px-4 transition-colors duration-200 ${isDarkMode ? 'text-slate-300' : 'text-slate-600'}`}>{formatCurrency(row.totalWithdrawn, locale)}</td>
-                          <td className={`py-2.5 px-4 font-bold transition-colors duration-200 ${isDarkMode ? 'text-emerald-400' : 'text-emerald-600'}`}>{formatCurrency(row.corpus, locale)}</td>
+                          <td className={`py-2.5 px-4 font-bold transition-colors duration-200 ${isDarkMode ? 'text-[#5E82BC]' : 'text-[#2C4A78]'}`}>{formatCurrency(row.corpus, locale)}</td>
                         </>
                       ) : mode === 'goal' ? (
                         <>
                           <td className={`py-2.5 px-4 transition-colors duration-200 ${isDarkMode ? 'text-slate-300' : 'text-slate-600'}`}>{formatCurrency(row.invested, locale)}</td>
-                          <td className={`py-2.5 px-4 font-bold transition-colors duration-200 ${isDarkMode ? 'text-emerald-400' : 'text-emerald-600'}`}>{formatCurrency(row.projected, locale)}</td>
+                          <td className={`py-2.5 px-4 font-bold transition-colors duration-200 ${isDarkMode ? 'text-[#5E82BC]' : 'text-[#2C4A78]'}`}>{formatCurrency(row.projected, locale)}</td>
                         </>
                       ) : (
                         <>
                           <td className={`py-2.5 px-4 transition-colors duration-200 ${isDarkMode ? 'text-slate-300' : 'text-slate-600'}`}>{formatCurrency(row.invested, locale)}</td>
-                          <td className={`py-2.5 px-4 font-bold transition-colors duration-200 ${isDarkMode ? 'text-emerald-400' : 'text-emerald-600'}`}>{formatCurrency(row.currentValue, locale)}</td>
+                          <td className={`py-2.5 px-4 font-bold transition-colors duration-200 ${isDarkMode ? 'text-[#5E82BC]' : 'text-[#2C4A78]'}`}>{formatCurrency(row.currentValue, locale)}</td>
                         </>
                       )}
                     </tr>

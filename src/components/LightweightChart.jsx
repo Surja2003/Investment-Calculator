@@ -27,7 +27,7 @@ const COLORS = {
   white: '#ffffff',
   gray: '#9ca3af',
   grayText: '#94a3b8',
-  green: '#10b981',
+  green: '#3B6098',
   blue: '#6366f1',
 };
 

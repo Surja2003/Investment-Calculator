@@ -43,10 +43,10 @@ const getTheme = (mode) => createTheme({
       ? {
           // Dark mode
           primary: {
-            main: '#3B82F6',
+            main: '#93A7C0',
           },
           secondary: {
-            main: '#10B981',
+            main: '#3B6098',
           },
           background: {
             default: '#111827',
@@ -60,10 +60,10 @@ const getTheme = (mode) => createTheme({
       : {
           // Light mode
           primary: {
-            main: '#3B82F6',
+            main: '#93A7C0',
           },
           secondary: {
-            main: '#10B981',
+            main: '#3B6098',
           },
           background: {
             default: '#F3F4F6',

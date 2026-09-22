@@ -413,7 +413,7 @@ function SWPCalculator() {
                         color: theme.palette.mode === 'dark' ? '#fff' : '#222',
                         borderRadius: 1.5,
                         '&:hover .MuiOutlinedInput-notchedOutline': {
-                          borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.3)' : '#3B82F6',
+                          borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.3)' : '#93A7C0',
                         },
                       },
                       '& .MuiInputLabel-root': {
@@ -493,7 +493,7 @@ function SWPCalculator() {
                         color: theme.palette.mode === 'dark' ? '#fff' : '#222',
                         borderRadius: 1.5,
                         '&:hover .MuiOutlinedInput-notchedOutline': {
-                          borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.3)' : '#3B82F6',
+                          borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.3)' : '#93A7C0',
                         },
                       },
                       '& .MuiInputLabel-root': {
@@ -778,7 +778,7 @@ function SWPCalculator() {
                     <Typography variant="subtitle2" sx={{ color: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(30, 41, 59, 0.7)' }}>
                       Final Corpus
                     </Typography>
-                    <Typography variant="h5" color="#3B82F6" sx={{ fontWeight: 'bold', my: 1 }}>
+                    <Typography variant="h5" color="#93A7C0" sx={{ fontWeight: 'bold', my: 1 }}>
                       ₹<CountUp 
                         to={finalCorpus} 
                         formatter={(value) => new Intl.NumberFormat('en-IN').format(Math.round(value))}
@@ -836,14 +836,14 @@ function SWPCalculator() {
                     <Typography variant="subtitle2" sx={{ color: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(30, 41, 59, 0.7)' }}>
                       Total Withdrawals
                     </Typography>
-                    <Typography variant="h5" color="#10B981" sx={{ fontWeight: 'bold', my: 1 }}>
+                    <Typography variant="h5" color="#3B6098" sx={{ fontWeight: 'bold', my: 1 }}>
                       ₹<CountUp 
                         to={scheduledTotalWithdrawals} 
                         formatter={(value) => new Intl.NumberFormat('en-IN').format(Math.round(value))}
                         key={`scheduledTotalWithdrawals-${formInputs._timestamp}`}
                       />
                     </Typography>
-                    <Typography variant="caption" color="#10B981">
+                    <Typography variant="caption" color="#3B6098">
                       {depletedAtYears && scheduledTotalWithdrawals !== totalWithdrawals
                         ? `Actual withdrawn ₹${new Intl.NumberFormat('en-IN').format(totalWithdrawals)} (depleted at year ${depletedAtYears.toFixed(1)})`
                         : `Over ${withdrawalPeriod} years`}
@@ -899,7 +899,7 @@ function SWPCalculator() {
                       <Typography variant="subtitle2" sx={{ color: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(30, 41, 59, 0.7)' }}>
                         Inflation-Adjusted Total
                       </Typography>
-                      <Typography variant="h5" color="#10B981" sx={{ fontWeight: 'bold', my: 1 }}>
+                      <Typography variant="h5" color="#3B6098" sx={{ fontWeight: 'bold', my: 1 }}>
                         ₹<CountUp 
                           to={totalWithdrawals} 
                           formatter={(value) => new Intl.NumberFormat('en-IN').format(Math.round(value))}

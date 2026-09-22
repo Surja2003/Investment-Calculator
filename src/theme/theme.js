@@ -4,8 +4,8 @@ export const lightTheme = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      main: '#2563eb', // Blue
-      light: '#60a5fa',
+      main: '#2C4A78', // Blue
+      light: '#B4C6DD',
       dark: '#1d4ed8',
     },
     secondary: {
@@ -14,9 +14,9 @@ export const lightTheme = createTheme({
       dark: '#5b21b6',
     },
     success: {
-      main: '#10b981', // Green
-      light: '#34d399',
-      dark: '#059669',
+      main: '#3B6098', // Green
+      light: '#5E82BC',
+      dark: '#2C4A78',
     },
     background: {
       default: '#f8fafc',
@@ -93,9 +93,9 @@ export const darkTheme = createTheme({
   palette: {
     mode: 'dark',
     primary: {
-      main: '#60a5fa', // Lighter blue for dark mode
+      main: '#B4C6DD', // Lighter blue for dark mode
       light: '#93c5fd',
-      dark: '#2563eb',
+      dark: '#2C4A78',
     },
     secondary: {
       main: '#a78bfa', // Lighter purple for dark mode
@@ -103,9 +103,9 @@ export const darkTheme = createTheme({
       dark: '#7c3aed',
     },
     success: {
-      main: '#34d399', // Lighter green for dark mode
+      main: '#5E82BC', // Lighter green for dark mode
       light: '#6ee7b7',
-      dark: '#10b981',
+      dark: '#3B6098',
     },
     background: {
       default: '#0f172a',

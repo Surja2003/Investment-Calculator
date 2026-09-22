@@ -18,9 +18,9 @@ const Results = ({
           <p className="text-sm font-medium text-blue-800 mb-2">{labels.invested}</p>
           <p className="text-2xl font-bold text-blue-700">₹{formatCurrency(totalInvested)}</p>
         </div>
-        <div className="p-6 bg-gradient-to-br from-green-50 to-green-100 rounded-xl border border-green-200 shadow-sm">
-          <p className="text-sm font-medium text-green-800 mb-2">{labels.returns}</p>
-          <p className="text-2xl font-bold text-green-700">₹{formatCurrency(totalReturns)}</p>
+        <div className="p-6 bg-gradient-to-br from-[#EAF4F0] to-[#D6EAE1] rounded-xl border border-[#B4D8C9] shadow-sm">
+          <p className="text-sm font-medium text-[#274F43] mb-2">{labels.returns}</p>
+          <p className="text-2xl font-bold text-[#316A58]">₹{formatCurrency(totalReturns)}</p>
         </div>
         <div className="p-6 bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl border border-purple-200 shadow-sm">
           <p className="text-sm font-medium text-purple-800 mb-2">{labels.future}</p>

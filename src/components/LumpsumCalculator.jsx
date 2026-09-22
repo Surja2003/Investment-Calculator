@@ -234,7 +234,7 @@ const LumpsumCalculator = () => {
                     <Typography variant="subtitle2" sx={{ color: 'rgba(255, 255, 255, 0.7)' }}>
                       Maturity Amount
                     </Typography>
-                    <Typography variant="h5" color="#3B82F6" sx={{ fontWeight: 'bold', my: 1 }}>
+                    <Typography variant="h5" color="#93A7C0" sx={{ fontWeight: 'bold', my: 1 }}>
                       ₹<CountUp 
                         to={isNaN(expectedAmount) ? 0 : expectedAmount} 
                         formatter={(value) => new Intl.NumberFormat('en-IN').format(Math.round(value))}
@@ -294,14 +294,14 @@ const LumpsumCalculator = () => {
                     <Typography variant="subtitle2" sx={{ color: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(30, 41, 59, 0.7)' }}>
                       Total Gains
                     </Typography>
-                    <Typography variant="h5" color="#10B981" sx={{ fontWeight: 'bold', my: 1 }}>
+                    <Typography variant="h5" color="#3B6098" sx={{ fontWeight: 'bold', my: 1 }}>
                       ₹<CountUp 
                         to={isNaN(gain) ? 0 : gain} 
                         formatter={(value) => new Intl.NumberFormat('en-IN').format(Math.round(value))}
                         duration={0.6}
                       />
                     </Typography>
-                    <Typography variant="caption" color="#10B981">
+                    <Typography variant="caption" color="#3B6098">
                       +{investedAmount > 0 ? ((gain / investedAmount) * 100).toFixed(2) : '0.00'}% returns
                     </Typography>
                   </CardContent>
@@ -382,7 +382,7 @@ const LumpsumCalculator = () => {
                               color: theme.palette.mode === 'dark' ? '#fff' : '#222',
                               borderRadius: 1.5,
                               '&:hover .MuiOutlinedInput-notchedOutline': {
-                                borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.3)' : '#3B82F6',
+                                borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.3)' : '#93A7C0',
                               },
                             },
                             '& .MuiInputLabel-root': {
@@ -612,9 +612,9 @@ const LumpsumCalculator = () => {
                           mt: 2,
                           py: 1.5,
                           borderRadius: 2,
-                          bgcolor: '#3B82F6',
+                          bgcolor: '#93A7C0',
                           '&:hover': {
-                            bgcolor: '#2563EB',
+                            bgcolor: '#2C4A78',
                           },
                           boxShadow: '0 4px 10px rgba(59, 130, 246, 0.3)',
                           fontSize: '1rem',

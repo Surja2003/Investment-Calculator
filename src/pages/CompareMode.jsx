@@ -153,7 +153,7 @@ function TypeSelector({ selected, onChange, isDark, side }) {
               padding: '7px 16px',
               borderRadius: 30,
               border: active
-                ? `2px solid ${side === 'A' ? '#10B981' : '#6366f1'}`
+                ? `2px solid ${side === 'A' ? '#3B6098' : '#6366f1'}`
                 : `2px solid ${isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.1)'}`,
               background: active
                 ? side === 'A'
@@ -161,7 +161,7 @@ function TypeSelector({ selected, onChange, isDark, side }) {
                   : 'rgba(99,102,241,0.15)'
                 : 'transparent',
               color: active
-                ? side === 'A' ? '#10B981' : '#818cf8'
+                ? side === 'A' ? '#3B6098' : '#818cf8'
                 : isDark ? '#9ca3af' : '#6b7280',
               fontWeight: active ? 700 : 500,
               fontSize: '0.82rem',
@@ -206,7 +206,7 @@ function FieldRow({ label, id, value, onChange, onBlur, placeholder, min = '0', 
             boxSizing: 'border-box',
             transition: 'border-color 150ms',
           }}
-          onFocus={e => { e.target.style.borderColor = '#10B981'; }}
+          onFocus={e => { e.target.style.borderColor = '#3B6098'; }}
           onBlurCapture={e => { e.target.style.borderColor = 'var(--color-border)'; }}
         />
         {suffix && (
@@ -280,7 +280,7 @@ function SummaryCard({ label, value, highlight, isDark }) {
       <div style={{ fontSize: '0.7rem', fontWeight: 600, color: 'var(--color-text-secondary)', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 5 }}>
         {label}
       </div>
-      <div style={{ fontSize: '1rem', fontWeight: 700, color: highlight ? '#10B981' : 'var(--color-text)', lineHeight: 1.2 }}>
+      <div style={{ fontSize: '1rem', fontWeight: 700, color: highlight ? '#3B6098' : 'var(--color-text)', lineHeight: 1.2 }}>
         {value}
       </div>
     </div>
@@ -312,7 +312,7 @@ const CustomTooltip = ({ active, payload, label, isDark }) => {
    PANEL COMPONENT
 ───────────────────────────────────────────────────────────────────────────── */
 function Panel({ side, type, setType, rawInputs, setRaw, result, isDark, labelA, labelB }) {
-  const accentColor = side === 'A' ? '#10B981' : '#6366f1';
+  const accentColor = side === 'A' ? '#3B6098' : '#6366f1';
   const bgGradient  = side === 'A'
     ? (isDark ? 'linear-gradient(135deg, rgba(16,185,129,0.07) 0%, rgba(6,182,212,0.04) 100%)' : 'linear-gradient(135deg, rgba(16,185,129,0.05) 0%, rgba(255,255,255,0) 100%)')
     : (isDark ? 'linear-gradient(135deg, rgba(99,102,241,0.09) 0%, rgba(139,92,246,0.04) 100%)' : 'linear-gradient(135deg, rgba(99,102,241,0.06) 0%, rgba(255,255,255,0) 100%)');
@@ -452,7 +452,7 @@ export default function CompareMode() {
   };
 
   /* ── Styles (inline, no external deps) ── */
-  const bg = isDarkMode ? '#090d16' : '#f0f4f8';
+  const bg = isDarkMode ? '#0F1826' : '#f0f4f8';
 
   const labelA = CALC_TYPES.find(c => c.value === typeA)?.label;
   const labelB = CALC_TYPES.find(c => c.value === typeB)?.label;
@@ -477,7 +477,7 @@ export default function CompareMode() {
           display: 'inline-flex', alignItems: 'center', gap: 8,
           background: 'rgba(16,185,129,0.12)', border: '1px solid rgba(16,185,129,0.25)',
           borderRadius: 30, padding: '5px 16px', fontSize: '0.78rem',
-          fontWeight: 600, color: '#10B981', marginBottom: 14, letterSpacing: '0.05em',
+          fontWeight: 600, color: '#3B6098', marginBottom: 14, letterSpacing: '0.05em',
           textTransform: 'uppercase',
         }}>
           ⚡ Side-by-Side Analysis
@@ -538,8 +538,8 @@ export default function CompareMode() {
             <div style={{
               width: 48, height: 48, borderRadius: '50%',
               background: isDarkMode
-                ? 'linear-gradient(135deg, #10B981 0%, #6366f1 100%)'
-                : 'linear-gradient(135deg, #10B981 0%, #6366f1 100%)',
+                ? 'linear-gradient(135deg, #3B6098 0%, #6366f1 100%)'
+                : 'linear-gradient(135deg, #3B6098 0%, #6366f1 100%)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               fontWeight: 900, fontSize: '0.9rem', color: '#fff',
               boxShadow: '0 4px 20px rgba(16,185,129,0.35)',
@@ -604,7 +604,7 @@ export default function CompareMode() {
                   </div>
                   <div style={{
                     fontWeight: 800, fontSize: 'clamp(1rem, 2.5vw, 1.3rem)',
-                    color: analysis.winner === 'A' ? '#10B981' : '#818cf8',
+                    color: analysis.winner === 'A' ? '#3B6098' : '#818cf8',
                   }}>
                     Strategy {analysis.winner} — {analysis.winner === 'A' ? labelA : labelB}
                   </div>
@@ -614,7 +614,7 @@ export default function CompareMode() {
                 <div style={{ fontSize: '0.72rem', color: 'var(--color-text-secondary)', textTransform: 'uppercase', letterSpacing: '0.07em' }}>
                   Ahead By
                 </div>
-                <div style={{ fontWeight: 800, fontSize: '1.2rem', color: '#10B981' }}>
+                <div style={{ fontWeight: 800, fontSize: '1.2rem', color: '#3B6098' }}>
                   {formatCompact(analysis.diff)}
                 </div>
                 <div style={{ fontSize: '0.78rem', color: 'var(--color-text-secondary)' }}>
@@ -633,7 +633,7 @@ export default function CompareMode() {
               {[
                 {
                   title: `Strategy A — ${labelA}`,
-                  color: '#10B981',
+                  color: '#3B6098',
                   invested: resA.invested,
                   returns:  resA.returns,
                   final:    resA.final,
@@ -704,8 +704,8 @@ export default function CompareMode() {
                 <AreaChart data={chartData} margin={{ top: 4, right: 12, left: 0, bottom: 0 }}>
                   <defs>
                     <linearGradient id="gradA" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%"  stopColor="#10B981" stopOpacity={0.35} />
-                      <stop offset="95%" stopColor="#10B981" stopOpacity={0.02} />
+                      <stop offset="5%"  stopColor="#3B6098" stopOpacity={0.35} />
+                      <stop offset="95%" stopColor="#3B6098" stopOpacity={0.02} />
                     </linearGradient>
                     <linearGradient id="gradB" x1="0" y1="0" x2="0" y2="1">
                       <stop offset="5%"  stopColor="#6366f1" stopOpacity={0.35} />
@@ -740,7 +740,7 @@ export default function CompareMode() {
                     type="monotone"
                     dataKey="A"
                     name={`Strategy A (${labelA})`}
-                    stroke="#10B981"
+                    stroke="#3B6098"
                     strokeWidth={2.5}
                     fill="url(#gradA)"
                     dot={false}
@@ -782,11 +782,11 @@ export default function CompareMode() {
                 color: isDarkMode ? '#94a3b8' : '#475569',
                 lineHeight: 1.7,
               }}>
-                <strong style={{ color: analysis.winner === 'A' ? '#10B981' : '#818cf8' }}>
+                <strong style={{ color: analysis.winner === 'A' ? '#3B6098' : '#818cf8' }}>
                   Strategy {analysis.winner} ({analysis.winner === 'A' ? labelA : labelB})
                 </strong>
                 {' '}wins by{' '}
-                <strong style={{ color: '#10B981' }}>
+                <strong style={{ color: '#3B6098' }}>
                   {formatCompact(analysis.diff)} ({analysis.pctDiff}%)
                 </strong>
                 {' '}after the investment tenure.

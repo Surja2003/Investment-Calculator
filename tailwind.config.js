@@ -13,27 +13,27 @@ export default {
     extend: {
       colors: {
         primary: {
-          DEFAULT: '#3B82F6',
-          light: '#60A5FA',
-          dark: '#2563EB',
+          DEFAULT: '#3B6098',
+          light: '#5E82BC',
+          dark: '#2C4A78',
         },
         secondary: {
-          DEFAULT: '#10B981',
-          light: '#34D399',
-          dark: '#059669',
+          DEFAULT: '#4C9A82',
+          light: '#77B9A4',
+          dark: '#3A7D68',
         },
         background: {
-          DEFAULT: '#0B1121',
-          paper: '#1E293B',
+          DEFAULT: '#0F1826',
+          paper: '#16202E',
         },
         text: {
-          DEFAULT: '#F3F4F6',
-          secondary: '#9CA3AF',
+          DEFAULT: '#ECF1F7',
+          secondary: '#9BA9BA',
         },
-        border: '#E5E7EB',
-        success: '#10B981',
-        error: '#EF4444',
-        warning: '#F59E0B',
+        border: '#E4E9F1',
+        success: '#4C9A82',
+        error: '#D46A6A',
+        warning: '#D9A45B',
       },
       fontFamily: {
         sans: ['"Plus Jakarta Sans"', 'Inter', 'Roboto', 'Arial', 'sans-serif'],

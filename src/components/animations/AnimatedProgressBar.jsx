@@ -7,7 +7,7 @@ const AnimatedProgressBar = ({
   height = 8,
   duration = 1.5,
   backgroundColor = '#e0e0e0',
-  foregroundColor = '#3B82F6',
+  foregroundColor = '#93A7C0',
   animateOnMount = true,
   ...props 
 }) => {

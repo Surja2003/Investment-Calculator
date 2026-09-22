@@ -10,7 +10,7 @@ const CalculatorLogo = ({ className = "", size = "32" }) => {
         <defs>
           <linearGradient id="logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" style={{stopColor:"#4F46E5", stopOpacity:1}} />
-            <stop offset="100%" style={{stopColor:"#10B981", stopOpacity:1}} />
+            <stop offset="100%" style={{stopColor:"#3B6098", stopOpacity:1}} />
           </linearGradient>
         </defs>
         

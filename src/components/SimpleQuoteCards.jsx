@@ -24,8 +24,8 @@ function QuoteCard({ name, price, changePercent, currency, isDarkMode, badge }) 
     <div
       className={`flex-shrink-0 min-w-[130px] rounded-2xl p-4 border transition-all duration-300 ${
         isDarkMode
-          ? 'bg-[#0c1222]/80 border-slate-800 hover:border-emerald-500/30'
-          : 'bg-white border-slate-200 hover:border-emerald-400/50 shadow-sm'
+          ? 'bg-[#131C29]/80 border-slate-800 hover:border-[#3B6098]/30'
+          : 'bg-white border-slate-200 hover:border-[#5E82BC]/50 shadow-sm'
       }`}
     >
       {badge && (
@@ -46,7 +46,7 @@ function QuoteCard({ name, price, changePercent, currency, isDarkMode, badge }) 
       <div
         className={`text-[11px] font-bold px-2 py-0.5 rounded-full inline-block ${
           positive
-            ? isDarkMode ? 'bg-emerald-950/60 text-emerald-400' : 'bg-emerald-50 text-emerald-700'
+            ? isDarkMode ? 'bg-[#0F1826]/60 text-[#5E82BC]' : 'bg-[#EAF0F8] text-[#243D63]'
             : isDarkMode ? 'bg-red-950/60 text-red-400' : 'bg-red-50 text-red-600'
         }`}
       >
@@ -60,7 +60,7 @@ function QuoteCard({ name, price, changePercent, currency, isDarkMode, badge }) 
 function SkeletonCard({ isDarkMode }) {
   return (
     <div className={`flex-shrink-0 min-w-[130px] rounded-2xl p-4 border animate-pulse ${
-      isDarkMode ? 'bg-[#0c1222]/80 border-slate-800' : 'bg-white border-slate-200'
+      isDarkMode ? 'bg-[#131C29]/80 border-slate-800' : 'bg-white border-slate-200'
     }`}>
       <div className={`h-2 w-12 rounded mb-3 ${isDarkMode ? 'bg-slate-800' : 'bg-slate-200'}`} />
       <div className={`h-3 w-20 rounded mb-2 ${isDarkMode ? 'bg-slate-800' : 'bg-slate-200'}`} />
@@ -114,13 +114,13 @@ const SimpleQuoteCards = () => {
       {/* Header row */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
-          <span className="w-1.5 h-4 bg-emerald-500 rounded-full inline-block" />
+          <span className="w-1.5 h-4 bg-[#3B6098] rounded-full inline-block" />
           <span className={`text-xs font-bold uppercase tracking-wider ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>
             Live Market Data
           </span>
           {!loading && (
             <span className="flex items-center gap-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse inline-block" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#3B6098] animate-pulse inline-block" />
               <span className={`text-[10px] ${isDarkMode ? 'text-slate-500' : 'text-slate-400'}`}>LIVE</span>
             </span>
           )}
@@ -130,8 +130,8 @@ const SimpleQuoteCards = () => {
             onClick={loadData}
             className={`text-[10px] px-2 py-1 rounded-lg border transition-colors ${
               isDarkMode
-                ? 'border-slate-700 text-slate-500 hover:text-emerald-400 hover:border-emerald-600'
-                : 'border-slate-200 text-slate-400 hover:text-emerald-600 hover:border-emerald-400'
+                ? 'border-slate-700 text-slate-500 hover:text-[#5E82BC] hover:border-[#2C4A78]'
+                : 'border-slate-200 text-slate-400 hover:text-[#2C4A78] hover:border-[#5E82BC]'
             }`}
           >
             ↻ Updated {timeStr}
