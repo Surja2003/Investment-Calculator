@@ -11,12 +11,12 @@ export const THEME_CONSTANTS = {
       dark: '#3A7D68',
     },
     background: {
-      default: '#0F1826',
-      paper: '#16202E',
+      default: '#060608',
+      paper: '#0F0F12',
     },
     text: {
-      primary: '#ECF1F7',
-      secondary: '#9BA9BA',
+      primary: '#F5F6F8',
+      secondary: '#9EA0A8',
     },
   },
   typography: {

@@ -129,12 +129,12 @@ function App() {
           secondary: { main: '#4C9A82' },
           success: { main: '#4C9A82' },
           background: {
-            default: '#F4F6FA',
-            paper: '#FFFFFF',
+            default: '#F1F0EC',
+            paper: '#FCFBF9',
           },
           text: {
-            primary: '#1C2A3A',
-            secondary: '#5A6B7E',
+            primary: '#1C2430',
+            secondary: '#5A6270',
           }
         }
       ),

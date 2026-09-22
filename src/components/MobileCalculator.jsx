@@ -296,10 +296,10 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
   }, [calcResults, mode]);
 
   return (
-    <div className={`min-h-[100dvh] flex flex-col font-sans pb-40 transition-colors duration-200 ${isDarkMode ? 'text-slate-100 bg-[#0F1826]' : 'text-slate-800 bg-slate-50'}`}>
+    <div className={`min-h-[100dvh] flex flex-col font-sans pb-40 transition-colors duration-200 ${isDarkMode ? 'text-slate-100 bg-[#060608]' : 'text-slate-800 bg-[#F1F0EC]'}`}>
       
       {/* 1. STICKY TOP HEADER - Floating Live Summary */}
-      <div className={`sticky top-16 z-40 shadow-md backdrop-blur-md px-4 py-3 flex flex-col gap-2 transition-colors duration-200 ${isDarkMode ? 'bg-[#131C29]/95 border-b border-slate-800' : 'bg-white/95 border-b border-slate-200 shadow-sm'}`}>
+      <div className={`sticky top-16 z-40 shadow-md backdrop-blur-md px-4 py-3 flex flex-col gap-2 transition-colors duration-200 ${isDarkMode ? 'bg-[#141416]/95 border-b border-slate-800' : 'bg-white/95 border-b border-slate-200 shadow-sm'}`}>
         <div className="flex justify-between items-center">
           <span className={`text-[10px] font-semibold uppercase tracking-wider transition-colors duration-200 ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>
             {mode === 'goal' ? 'Required Monthly Contribution' : mode === 'swp' ? 'Remaining Corpus' : 'Future Valuation'}
@@ -308,7 +308,7 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
             {/* Quick Share */}
             <IconButton 
               onClick={handleShare}
-              className={`p-1.5 rounded-lg border text-xs min-h-[48px] min-w-[48px] transition-colors duration-200 ${shareCopied ? 'bg-[#0F1826]/40 border-[#3B6098] text-[#5E82BC]' : isDarkMode ? 'bg-slate-900 border-slate-800 text-slate-400' : 'bg-white border-slate-200 text-slate-500'}`}
+              className={`p-1.5 rounded-lg border text-xs min-h-[48px] min-w-[48px] transition-colors duration-200 ${shareCopied ? 'bg-[#060608]/40 border-[#3B6098] text-[#5E82BC]' : isDarkMode ? 'bg-slate-900 border-slate-800 text-slate-400' : 'bg-white border-slate-200 text-slate-500'}`}
             >
               {shareCopied ? <CheckCircleOutlineIcon sx={{ fontSize: 18 }} /> : <ShareOutlinedIcon sx={{ fontSize: 18 }} />}
             </IconButton>
@@ -316,7 +316,7 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
             {/* Locale Toggle */}
             <button
               onClick={() => handleLocaleChange(locale === 'IN' ? 'US' : 'IN')}
-              className={`px-2 py-1 border rounded-lg text-[10px] font-bold min-h-[48px] px-3 transition-colors duration-200 ${isDarkMode ? 'bg-slate-900 border-slate-800 text-slate-300' : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50'}`}
+              className={`px-2 py-1 border rounded-lg text-[10px] font-bold min-h-[48px] px-3 transition-colors duration-200 ${isDarkMode ? 'bg-slate-900 border-slate-800 text-slate-300' : 'bg-white border-slate-200 text-slate-700 hover:bg-[#F1F0EC]'}`}
             >
               {locale === 'IN' ? '🇮🇳 ₹' : '🇺🇸 $'}
             </button>
@@ -345,7 +345,7 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
 
       {/* Active Mode Title */}
       <div className="px-4 mt-4">
-        <div className={`border rounded-xl px-4 py-3 transition-colors duration-200 ${isDarkMode ? 'bg-[#131C29]/90 border-slate-800' : 'bg-white border-slate-200 shadow-sm'}`}>
+        <div className={`border rounded-xl px-4 py-3 transition-colors duration-200 ${isDarkMode ? 'bg-[#141416]/90 border-slate-800' : 'bg-white border-slate-200 shadow-sm'}`}>
           <span className={`text-xs font-bold tracking-wide uppercase flex items-center gap-1.5 transition-colors duration-200 ${isDarkMode ? 'text-white' : 'text-slate-800'}`}>
             <span className="w-1.5 h-3.5 bg-[#3B6098] rounded-full"></span>
             {mode === 'sip' && 'SIP Calculator'}
@@ -360,7 +360,7 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
       <div className="px-4 mt-4 flex flex-col gap-4 flex-grow">
         
         {/* Slider 1: Amount */}
-        <div className={`border p-4 rounded-xl transition-colors duration-200 ${isDarkMode ? 'bg-[#131C29]/80 border-slate-800' : 'bg-white border-slate-200 shadow-sm'}`}>
+        <div className={`border p-4 rounded-xl transition-colors duration-200 ${isDarkMode ? 'bg-[#141416]/80 border-slate-800' : 'bg-white border-slate-200 shadow-sm'}`}>
           <div className="flex justify-between items-center mb-3">
             <span className={`text-xs font-semibold transition-colors duration-200 ${isDarkMode ? 'text-slate-300' : 'text-slate-600'}`}>
               {mode === 'sip' ? 'Monthly Investment' : mode === 'swp' ? 'Initial Capital' : mode === 'goal' ? 'Goal Amount' : 'Lumpsum Amount'}
@@ -377,7 +377,7 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
                 className={`w-36 border rounded-xl pl-7 pr-2 py-2 text-right text-sm font-bold focus:outline-none transition-colors duration-200 ${
                   isDarkMode
                     ? 'bg-slate-800 border-slate-700 text-[#5E82BC] focus:border-[#3B6098] focus:ring-1 focus:ring-[#3B6098]/30'
-                    : 'bg-slate-50 border-slate-300 text-[#2C4A78] focus:border-[#3B6098] focus:ring-1 focus:ring-[#3B6098]/20'
+                    : 'bg-[#F1F0EC] border-slate-300 text-[#2C4A78] focus:border-[#3B6098] focus:ring-1 focus:ring-[#3B6098]/20'
                 }`}
               />
             </div>
@@ -399,7 +399,7 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
 
         {/* Slider 2: SWP Pay-out Rate */}
         {mode === 'swp' && (
-          <div className={`border p-4 rounded-xl transition-colors duration-200 ${isDarkMode ? 'bg-[#131C29]/80 border-slate-800' : 'bg-white border-slate-200 shadow-sm'}`}>
+          <div className={`border p-4 rounded-xl transition-colors duration-200 ${isDarkMode ? 'bg-[#141416]/80 border-slate-800' : 'bg-white border-slate-200 shadow-sm'}`}>
             <div className="flex justify-between items-center mb-3">
               <span className={`text-xs font-semibold transition-colors duration-200 ${isDarkMode ? 'text-slate-300' : 'text-slate-600'}`}>Monthly Pay-out</span>
               <div className="relative">
@@ -414,7 +414,7 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
                   className={`w-36 border rounded-xl pl-7 pr-2 py-2 text-right text-sm font-bold focus:outline-none transition-colors duration-200 ${
                     isDarkMode
                       ? 'bg-slate-800 border-slate-700 text-[#5FB89C] focus:border-[#4C9A82] focus:ring-1 focus:ring-[#4C9A82]/30'
-                      : 'bg-slate-50 border-slate-300 text-[#3A7D68] focus:border-[#4C9A82] focus:ring-1 focus:ring-[#4C9A82]/20'
+                      : 'bg-[#F1F0EC] border-slate-300 text-[#3A7D68] focus:border-[#4C9A82] focus:ring-1 focus:ring-[#4C9A82]/20'
                   }`}
                 />
               </div>
@@ -436,7 +436,7 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
         )}
 
         {/* Slider 3: Returns Rate (%) */}
-        <div className={`border p-4 rounded-xl transition-colors duration-200 ${isDarkMode ? 'bg-[#131C29]/80 border-slate-800' : 'bg-white border-slate-200 shadow-sm'}`}>
+        <div className={`border p-4 rounded-xl transition-colors duration-200 ${isDarkMode ? 'bg-[#141416]/80 border-slate-800' : 'bg-white border-slate-200 shadow-sm'}`}>
           <div className="flex justify-between items-center mb-3">
             <span className={`text-xs font-semibold transition-colors duration-200 ${isDarkMode ? 'text-slate-300' : 'text-slate-600'}`}>Expected Rate (% p.a.)</span>
             <div className="relative">
@@ -452,7 +452,7 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
                 className={`w-28 border rounded-xl pl-7 pr-2 py-2 text-right text-sm font-bold focus:outline-none transition-colors duration-200 ${
                   isDarkMode
                     ? 'bg-slate-800 border-slate-700 text-[#5FB89C] focus:border-[#4C9A82] focus:ring-1 focus:ring-[#4C9A82]/30'
-                    : 'bg-slate-50 border-slate-300 text-[#3A7D68] focus:border-[#4C9A82] focus:ring-1 focus:ring-[#4C9A82]/20'
+                    : 'bg-[#F1F0EC] border-slate-300 text-[#3A7D68] focus:border-[#4C9A82] focus:ring-1 focus:ring-[#4C9A82]/20'
                 }`}
               />
             </div>
@@ -473,7 +473,7 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
         </div>
 
         {/* Slider 4: Time (Years) */}
-        <div className={`border p-4 rounded-xl transition-colors duration-200 ${isDarkMode ? 'bg-[#131C29]/80 border-slate-800' : 'bg-white border-slate-200 shadow-sm'}`}>
+        <div className={`border p-4 rounded-xl transition-colors duration-200 ${isDarkMode ? 'bg-[#141416]/80 border-slate-800' : 'bg-white border-slate-200 shadow-sm'}`}>
           <div className="flex justify-between items-center mb-3">
             <span className={`text-xs font-semibold transition-colors duration-200 ${isDarkMode ? 'text-slate-300' : 'text-slate-600'}`}>Duration (Years)</span>
             <div className="relative">
@@ -488,7 +488,7 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
                 className={`w-28 border rounded-xl pl-8 pr-2 py-2 text-right text-sm font-bold focus:outline-none transition-colors duration-200 ${
                   isDarkMode
                     ? 'bg-slate-800 border-slate-700 text-[#5FB89C] focus:border-[#4C9A82] focus:ring-1 focus:ring-[#4C9A82]/30'
-                    : 'bg-slate-50 border-slate-300 text-[#3A7D68] focus:border-[#4C9A82] focus:ring-1 focus:ring-[#4C9A82]/20'
+                    : 'bg-[#F1F0EC] border-slate-300 text-[#3A7D68] focus:border-[#4C9A82] focus:ring-1 focus:ring-[#4C9A82]/20'
                 }`}
               />
             </div>
@@ -539,7 +539,7 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
                         className={`w-24 border rounded-xl pl-7 pr-2 py-1.5 text-right text-sm font-bold focus:outline-none transition-colors duration-200 ${
                           isDarkMode
                             ? 'bg-slate-800 border-slate-700 text-[#5E82BC] focus:border-[#3B6098] focus:ring-1 focus:ring-[#3B6098]/30'
-                            : 'bg-slate-50 border-slate-300 text-[#2C4A78] focus:border-[#3B6098] focus:ring-1 focus:ring-[#3B6098]/20'
+                            : 'bg-[#F1F0EC] border-slate-300 text-[#2C4A78] focus:border-[#3B6098] focus:ring-1 focus:ring-[#3B6098]/20'
                         }`}
                       />
                     </div>
@@ -589,7 +589,7 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
                       className={`w-24 border rounded-xl pl-7 pr-2 py-1.5 text-right text-sm font-bold focus:outline-none transition-colors duration-200 ${
                         isDarkMode
                           ? 'bg-slate-800 border-slate-700 text-amber-400 focus:border-amber-500 focus:ring-1 focus:ring-amber-500/30'
-                          : 'bg-slate-50 border-slate-300 text-amber-600 focus:border-amber-500 focus:ring-1 focus:ring-amber-500/20'
+                          : 'bg-[#F1F0EC] border-slate-300 text-amber-600 focus:border-amber-500 focus:ring-1 focus:ring-amber-500/20'
                       }`}
                     />
                   </div>
@@ -613,7 +613,7 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
         </div>
 
         {/* 4. REAL-TIME MINI CHART */}
-        <div className={`border p-3 rounded-xl h-[260px] flex flex-col justify-between mt-2 transition-colors duration-200 ${isDarkMode ? 'bg-[#131C29]/80 border-slate-850' : 'bg-white border-slate-200 shadow-sm'}`}>
+        <div className={`border p-3 rounded-xl h-[260px] flex flex-col justify-between mt-2 transition-colors duration-200 ${isDarkMode ? 'bg-[#141416]/80 border-slate-850' : 'bg-white border-slate-200 shadow-sm'}`}>
           <span className={`text-[10px] font-bold uppercase transition-colors duration-200 ${isDarkMode ? 'text-slate-400' : 'text-slate-555'}`}>Compounding Trend</span>
           <div className="h-[210px] w-full mt-1">
             <ResponsiveContainer width="100%" height="100%">
@@ -636,7 +636,7 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
         {calcResults.milestones && calcResults.milestones.length > 0 && (
           <div className={`border p-3 rounded-xl flex gap-2.5 items-start mt-2 transition-colors duration-200 ${
             isDarkMode 
-              ? 'bg-[#0F1826]/20 border-emerald-900/30 text-slate-300' 
+              ? 'bg-[#060608]/20 border-emerald-900/30 text-slate-300' 
               : 'bg-[#EAF0F8] border-[#C3D3E8] text-[#182A44]'
           }`}>
             <StarsIcon className={`shrink-0 transition-colors duration-200 ${isDarkMode ? 'text-[#5E82BC]' : 'text-[#2C4A78]'}`} sx={{ fontSize: 16 }} />
@@ -650,7 +650,7 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
 
       {/* 5. STICKY BOTTOM BUTTONS DRAWER — sits directly above the global bottom nav */}
       <div
-        className={`fixed left-0 right-0 z-40 border-t px-4 py-3 flex gap-2 shadow-lg transition-colors duration-200 md:bottom-0 ${isDarkMode ? 'bg-[#131C29] border-slate-800/80' : 'bg-white border-slate-200 shadow-[0_-4px_10px_rgba(0,0,0,0.05)]'}`}
+        className={`fixed left-0 right-0 z-40 border-t px-4 py-3 flex gap-2 shadow-lg transition-colors duration-200 md:bottom-0 ${isDarkMode ? 'bg-[#141416] border-slate-800/80' : 'bg-white border-slate-200 shadow-[0_-4px_10px_rgba(0,0,0,0.05)]'}`}
         style={{ bottom: 'calc(4rem + env(safe-area-inset-bottom))' }}
       >
         {/* Slide-Up Bottom Drawer Trigger */}
@@ -746,7 +746,7 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
           <div className="overflow-y-auto px-4 pt-4 flex flex-col gap-6">
             
             {/* Tax implication alert */}
-            <div className={`p-3.5 rounded-xl flex gap-2.5 border transition-colors duration-200 ${isDarkMode ? 'bg-slate-900/60 border-slate-850' : 'bg-slate-50 border-slate-200'}`}>
+            <div className={`p-3.5 rounded-xl flex gap-2.5 border transition-colors duration-200 ${isDarkMode ? 'bg-slate-900/60 border-slate-850' : 'bg-[#F1F0EC] border-slate-200'}`}>
               <InfoOutlinedIcon className="text-[#5FB89C] mt-0.5 shrink-0" sx={{ fontSize: 16 }} />
               <div className="text-[11px]">
                 <div className="flex items-center gap-1.5 flex-wrap">
@@ -763,7 +763,7 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
             {/* Structured Table */}
             <div className={`border rounded-xl overflow-hidden transition-colors duration-200 ${isDarkMode ? 'border-slate-800 bg-slate-950/50' : 'border-slate-200 bg-white shadow-sm'}`}>
               <table className="w-full text-left text-[11px]">
-                <thead className={`border-b font-bold transition-colors duration-200 ${isDarkMode ? 'bg-slate-900 text-slate-400 border-slate-800' : 'bg-slate-50 text-slate-500 border-slate-200'}`}>
+                <thead className={`border-b font-bold transition-colors duration-200 ${isDarkMode ? 'bg-slate-900 text-slate-400 border-slate-800' : 'bg-[#F1F0EC] text-slate-500 border-slate-200'}`}>
                   <tr>
                     <th className="py-2.5 px-4">Year</th>
                     <th className="py-2.5 px-4">{mode === 'swp' ? 'Withdrawn' : 'Saved'}</th>
@@ -772,7 +772,7 @@ const MobileCalculator = ({ mode: initialMode = 'sip' }) => {
                 </thead>
                 <tbody className={`divide-y transition-colors duration-200 ${isDarkMode ? 'divide-slate-850' : 'divide-slate-200'}`}>
                   {calcResults.amortization.map((row, idx) => (
-                    <tr key={idx} className={`transition-colors duration-150 ${isDarkMode ? 'hover:bg-slate-900/60' : 'hover:bg-slate-50'}`}>
+                    <tr key={idx} className={`transition-colors duration-150 ${isDarkMode ? 'hover:bg-slate-900/60' : 'hover:bg-[#F1F0EC]'}`}>
                       <td className={`py-2.5 px-4 font-bold transition-colors duration-200 ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>Year {row.year}</td>
                       {mode === 'swp' ? (
                         <>

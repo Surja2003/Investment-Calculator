@@ -10,7 +10,7 @@ import { useTheme } from '../hooks/useTheme';
 const EMERALD   = '#3B6098';
 const VIOLET    = '#8B5CF6';
 const AMBER     = '#F59E0B';
-const DARK_BG   = '#0F1826';
+const DARK_BG   = '#060608';
 const CARD_DARK = 'rgba(255,255,255,0.04)';
 const CARD_LIT  = 'rgba(0,0,0,0.04)';
 const INFLATION_RATE = 0.06; // 6 % annual assumed inflation

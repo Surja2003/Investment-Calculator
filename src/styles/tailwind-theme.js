@@ -16,21 +16,21 @@ export default plugin(function({ addBase }) {
       '--color-secondary': '#4C9A82',
       '--color-secondary-light': '#77B9A4',
       '--color-secondary-dark': '#3A7D68',
-      // Light surfaces — soft, airy neutrals
-      '--color-background': '#F4F6FA',
-      '--color-background-elevated': '#FFFFFF',
-      '--color-surface': '#FFFFFF',
-      '--color-text': '#1C2A3A',
-      '--color-text-secondary': '#5A6B7E',
-      '--color-border': '#E4E9F1',
+      // Light surfaces — soft pearl / dull white
+      '--color-background': '#F1F0EC',
+      '--color-background-elevated': '#FCFBF9',
+      '--color-surface': '#FCFBF9',
+      '--color-text': '#1C2430',
+      '--color-text-secondary': '#5A6270',
+      '--color-border': '#E4E2DB',
       '--color-success': '#4C9A82',
       '--color-error': '#D46A6A',
       '--color-warning': '#D9A45B',
       // Liquid-glass tokens
-      '--glass-bg': 'rgba(255, 255, 255, 0.65)',
-      '--glass-border': 'rgba(28, 42, 58, 0.10)',
-      '--glass-shadow': '0 8px 30px rgba(28, 42, 58, 0.10)',
-      '--glass-highlight': 'rgba(255, 255, 255, 0.75)',
+      '--glass-bg': 'rgba(252, 251, 249, 0.68)',
+      '--glass-border': 'rgba(28, 36, 48, 0.10)',
+      '--glass-shadow': '0 8px 30px rgba(28, 36, 48, 0.10)',
+      '--glass-highlight': 'rgba(255, 255, 255, 0.80)',
     },
     '.dark': {
       // Brand lifts a little for contrast on deep navy
@@ -40,21 +40,21 @@ export default plugin(function({ addBase }) {
       '--color-secondary': '#5FB89C',
       '--color-secondary-light': '#82CBB2',
       '--color-secondary-dark': '#3A7D68',
-      // Dark surfaces — deep navy-slate, never pure black
-      '--color-background': '#0F1826',
-      '--color-background-elevated': '#1B2736',
-      '--color-surface': '#16202E',
-      '--color-text': '#ECF1F7',
-      '--color-text-secondary': '#9BA9BA',
-      '--color-border': '#27333F',
+      // Dark surfaces — deep black
+      '--color-background': '#060608',
+      '--color-background-elevated': '#141416',
+      '--color-surface': '#0F0F12',
+      '--color-text': '#F5F6F8',
+      '--color-text-secondary': '#9EA0A8',
+      '--color-border': '#26262C',
       '--color-success': '#5FB89C',
       '--color-error': '#E08C8C',
       '--color-warning': '#E3B675',
       // Liquid-glass tokens (dark)
-      '--glass-bg': 'rgba(22, 32, 46, 0.60)',
+      '--glass-bg': 'rgba(20, 20, 24, 0.62)',
       '--glass-border': 'rgba(255, 255, 255, 0.08)',
-      '--glass-shadow': '0 8px 30px rgba(0, 0, 0, 0.35)',
-      '--glass-highlight': 'rgba(255, 255, 255, 0.06)',
+      '--glass-shadow': '0 8px 30px rgba(0, 0, 0, 0.55)',
+      '--glass-highlight': 'rgba(255, 255, 255, 0.05)',
     }
   });
 });

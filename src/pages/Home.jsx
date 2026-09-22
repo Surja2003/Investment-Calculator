@@ -47,8 +47,8 @@ const Home = () => {
           className="glass-card relative overflow-hidden rounded-3xl px-5 py-12 text-center sm:px-10 sm:py-16"
           style={{
             background: isDarkMode
-              ? 'linear-gradient(160deg, #16202E 0%, #131C29 55%, #101826 100%)'
-              : 'linear-gradient(160deg, #FFFFFF 0%, #F1F5FB 55%, #EAF0F8 100%)',
+              ? 'linear-gradient(160deg, #141416 0%, #0C0C0E 55%, #060608 100%)'
+              : 'linear-gradient(160deg, #FCFBF9 0%, #F3F2EE 55%, #ECEBE6 100%)',
           }}
         >
           {/* contained soft glows */}

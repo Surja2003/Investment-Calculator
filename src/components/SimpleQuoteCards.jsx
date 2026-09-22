@@ -24,7 +24,7 @@ function QuoteCard({ name, price, changePercent, currency, isDarkMode, badge }) 
     <div
       className={`flex-shrink-0 min-w-[130px] rounded-2xl p-4 border transition-all duration-300 ${
         isDarkMode
-          ? 'bg-[#131C29]/80 border-slate-800 hover:border-[#3B6098]/30'
+          ? 'bg-[#141416]/80 border-slate-800 hover:border-[#3B6098]/30'
           : 'bg-white border-slate-200 hover:border-[#5E82BC]/50 shadow-sm'
       }`}
     >
@@ -46,7 +46,7 @@ function QuoteCard({ name, price, changePercent, currency, isDarkMode, badge }) 
       <div
         className={`text-[11px] font-bold px-2 py-0.5 rounded-full inline-block ${
           positive
-            ? isDarkMode ? 'bg-[#0F1826]/60 text-[#5E82BC]' : 'bg-[#EAF0F8] text-[#243D63]'
+            ? isDarkMode ? 'bg-[#060608]/60 text-[#5E82BC]' : 'bg-[#EAF0F8] text-[#243D63]'
             : isDarkMode ? 'bg-red-950/60 text-red-400' : 'bg-red-50 text-red-600'
         }`}
       >
@@ -60,7 +60,7 @@ function QuoteCard({ name, price, changePercent, currency, isDarkMode, badge }) 
 function SkeletonCard({ isDarkMode }) {
   return (
     <div className={`flex-shrink-0 min-w-[130px] rounded-2xl p-4 border animate-pulse ${
-      isDarkMode ? 'bg-[#131C29]/80 border-slate-800' : 'bg-white border-slate-200'
+      isDarkMode ? 'bg-[#141416]/80 border-slate-800' : 'bg-white border-slate-200'
     }`}>
       <div className={`h-2 w-12 rounded mb-3 ${isDarkMode ? 'bg-slate-800' : 'bg-slate-200'}`} />
       <div className={`h-3 w-20 rounded mb-2 ${isDarkMode ? 'bg-slate-800' : 'bg-slate-200'}`} />

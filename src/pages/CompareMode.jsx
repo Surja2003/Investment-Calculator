@@ -452,7 +452,7 @@ export default function CompareMode() {
   };
 
   /* ── Styles (inline, no external deps) ── */
-  const bg = isDarkMode ? '#0F1826' : '#f0f4f8';
+  const bg = isDarkMode ? '#060608' : '#f0f4f8';
 
   const labelA = CALC_TYPES.find(c => c.value === typeA)?.label;
   const labelB = CALC_TYPES.find(c => c.value === typeB)?.label;

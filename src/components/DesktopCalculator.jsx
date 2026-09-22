@@ -356,13 +356,13 @@ const DesktopCalculator = ({ mode: initialMode = 'sip' }) => {
 
   return (
     <motion.div 
-      className={`font-sans min-h-screen pb-12 transition-colors duration-200 ${isDarkMode ? 'text-slate-100 bg-[#0F1826]' : 'text-slate-800 bg-slate-50'}`}
+      className={`font-sans min-h-screen pb-12 transition-colors duration-200 ${isDarkMode ? 'text-slate-100 bg-[#060608]' : 'text-slate-800 bg-[#F1F0EC]'}`}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
       {/* Header Panel */}
-      <div className={`border-b sticky top-16 z-30 py-4 px-8 flex justify-between items-center transition-colors duration-200 ${isDarkMode ? 'border-slate-800 bg-[#131C29]/80 backdrop-blur-md' : 'border-slate-200 bg-white/80 backdrop-blur-md shadow-sm'}`}>
+      <div className={`border-b sticky top-16 z-30 py-4 px-8 flex justify-between items-center transition-colors duration-200 ${isDarkMode ? 'border-slate-800 bg-[#141416]/80 backdrop-blur-md' : 'border-slate-200 bg-white/80 backdrop-blur-md shadow-sm'}`}>
         <div>
           <h1 className={`text-2xl font-bold tracking-tight flex items-center gap-2 transition-colors duration-200 ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
             <AccountBalanceWalletIcon className="text-[#3B6098]" />
@@ -396,7 +396,7 @@ const DesktopCalculator = ({ mode: initialMode = 'sip' }) => {
           <Tooltip title={shareCopied ? "Link Copied!" : "Copy Configuration Link"}>
             <IconButton 
               onClick={handleShare}
-              className={`p-2 border rounded-lg transition-all ${shareCopied ? 'bg-[#0F1826]/40 border-[#3B6098] text-[#5E82BC]' : isDarkMode ? 'bg-slate-900 border-slate-800 text-slate-300 hover:border-slate-700' : 'bg-white border-slate-200 text-slate-600 hover:border-slate-300'}`}
+              className={`p-2 border rounded-lg transition-all ${shareCopied ? 'bg-[#060608]/40 border-[#3B6098] text-[#5E82BC]' : isDarkMode ? 'bg-slate-900 border-slate-800 text-slate-300 hover:border-slate-700' : 'bg-white border-slate-200 text-slate-600 hover:border-slate-300'}`}
             >
               {shareCopied ? <CheckCircleOutlineIcon fontSize="small" /> : <ShareOutlinedIcon fontSize="small" />}
             </IconButton>
@@ -462,7 +462,7 @@ const DesktopCalculator = ({ mode: initialMode = 'sip' }) => {
         
         {/* Left Control Column (Grid span 4) */}
         <div className="lg:col-span-4 lg:sticky lg:top-[90px] flex flex-col gap-6">
-          <div className={`border rounded-2xl p-6 backdrop-blur-xl shadow-xl transition-all duration-200 ${isDarkMode ? 'bg-[#131C29]/90 border-slate-800/80 shadow-black/30' : 'bg-white border-slate-200/80 shadow-slate-200/20'}`}>
+          <div className={`border rounded-2xl p-6 backdrop-blur-xl shadow-xl transition-all duration-200 ${isDarkMode ? 'bg-[#141416]/90 border-slate-800/80 shadow-black/30' : 'bg-white border-slate-200/80 shadow-slate-200/20'}`}>
             {/* Calculator Title Header */}
             <div className={`border-b pb-4 mb-6 transition-colors duration-200 ${isDarkMode ? 'border-slate-800/80' : 'border-slate-200'}`}>
               <h2 className={`text-sm font-bold tracking-wider uppercase flex items-center gap-2 transition-colors duration-200 ${isDarkMode ? 'text-white' : 'text-slate-800'}`}>
@@ -499,7 +499,7 @@ const DesktopCalculator = ({ mode: initialMode = 'sip' }) => {
                         onChange={(e) => handleRawChange('amount', e.target.value)}
                         onBlur={() => handleRawBlur('amount')}
                         onKeyDown={(e) => e.key === 'Enter' && handleRawBlur('amount')}
-                        className={`w-36 border rounded-lg pl-6 pr-2 py-1.5 text-right text-xs font-semibold focus:outline-none transition-colors duration-200 ${isDarkMode ? 'bg-slate-900 border-slate-700 text-[#5E82BC] focus:border-[#3B6098] focus:ring-1 focus:ring-[#3B6098]/30' : 'bg-slate-50 border-slate-300 text-[#2C4A78] focus:border-[#3B6098] focus:ring-1 focus:ring-[#3B6098]/20'}`}
+                        className={`w-36 border rounded-lg pl-6 pr-2 py-1.5 text-right text-xs font-semibold focus:outline-none transition-colors duration-200 ${isDarkMode ? 'bg-slate-900 border-slate-700 text-[#5E82BC] focus:border-[#3B6098] focus:ring-1 focus:ring-[#3B6098]/30' : 'bg-[#F1F0EC] border-slate-300 text-[#2C4A78] focus:border-[#3B6098] focus:ring-1 focus:ring-[#3B6098]/20'}`}
                       />
                     </div>
                   </div>
@@ -542,7 +542,7 @@ const DesktopCalculator = ({ mode: initialMode = 'sip' }) => {
                         onChange={(e) => handleRawChange('target', e.target.value)}
                         onBlur={() => handleRawBlur('target')}
                         onKeyDown={(e) => e.key === 'Enter' && handleRawBlur('target')}
-                        className={`w-36 border rounded-lg pl-6 pr-2 py-1.5 text-right text-xs font-semibold focus:outline-none transition-colors duration-200 ${isDarkMode ? 'bg-slate-900 border-slate-700 text-[#5E82BC] focus:border-[#3B6098] focus:ring-1 focus:ring-[#3B6098]/30' : 'bg-slate-50 border-slate-300 text-[#2C4A78] focus:border-[#3B6098] focus:ring-1 focus:ring-[#3B6098]/20'}`}
+                        className={`w-36 border rounded-lg pl-6 pr-2 py-1.5 text-right text-xs font-semibold focus:outline-none transition-colors duration-200 ${isDarkMode ? 'bg-slate-900 border-slate-700 text-[#5E82BC] focus:border-[#3B6098] focus:ring-1 focus:ring-[#3B6098]/30' : 'bg-[#F1F0EC] border-slate-300 text-[#2C4A78] focus:border-[#3B6098] focus:ring-1 focus:ring-[#3B6098]/20'}`}
                       />
                     </div>
                   </div>
@@ -584,7 +584,7 @@ const DesktopCalculator = ({ mode: initialMode = 'sip' }) => {
                         onChange={(e) => handleRawChange('withdrawal', e.target.value)}
                         onBlur={() => handleRawBlur('withdrawal')}
                         onKeyDown={(e) => e.key === 'Enter' && handleRawBlur('withdrawal')}
-                        className={`w-36 border rounded-lg pl-6 pr-2 py-1.5 text-right text-xs font-semibold focus:outline-none transition-colors duration-200 ${isDarkMode ? 'bg-slate-900 border-slate-700 text-[#5FB89C] focus:border-[#4C9A82] focus:ring-1 focus:ring-[#4C9A82]/30' : 'bg-slate-50 border-slate-300 text-[#3A7D68] focus:border-[#4C9A82] focus:ring-1 focus:ring-[#4C9A82]/20'}`}
+                        className={`w-36 border rounded-lg pl-6 pr-2 py-1.5 text-right text-xs font-semibold focus:outline-none transition-colors duration-200 ${isDarkMode ? 'bg-slate-900 border-slate-700 text-[#5FB89C] focus:border-[#4C9A82] focus:ring-1 focus:ring-[#4C9A82]/30' : 'bg-[#F1F0EC] border-slate-300 text-[#3A7D68] focus:border-[#4C9A82] focus:ring-1 focus:ring-[#4C9A82]/20'}`}
                       />
                     </div>
                   </div>
@@ -626,7 +626,7 @@ const DesktopCalculator = ({ mode: initialMode = 'sip' }) => {
                       onChange={(e) => handleRawChange('rate', e.target.value)}
                       onBlur={() => handleRawBlur('rate')}
                       onKeyDown={(e) => e.key === 'Enter' && handleRawBlur('rate')}
-                      className={`w-24 border rounded-lg pl-6 pr-2 py-1.5 text-right text-xs font-semibold focus:outline-none transition-colors duration-200 ${isDarkMode ? 'bg-slate-900 border-slate-700 text-[#5FB89C] focus:border-[#4C9A82] focus:ring-1 focus:ring-[#4C9A82]/30' : 'bg-slate-50 border-slate-300 text-[#3A7D68] focus:border-[#4C9A82] focus:ring-1 focus:ring-[#4C9A82]/20'}`}
+                      className={`w-24 border rounded-lg pl-6 pr-2 py-1.5 text-right text-xs font-semibold focus:outline-none transition-colors duration-200 ${isDarkMode ? 'bg-slate-900 border-slate-700 text-[#5FB89C] focus:border-[#4C9A82] focus:ring-1 focus:ring-[#4C9A82]/30' : 'bg-[#F1F0EC] border-slate-300 text-[#3A7D68] focus:border-[#4C9A82] focus:ring-1 focus:ring-[#4C9A82]/20'}`}
                     />
                   </div>
                 </div>
@@ -666,7 +666,7 @@ const DesktopCalculator = ({ mode: initialMode = 'sip' }) => {
                       onChange={(e) => handleRawChange('years', e.target.value)}
                       onBlur={() => handleRawBlur('years')}
                       onKeyDown={(e) => e.key === 'Enter' && handleRawBlur('years')}
-                      className={`w-24 border rounded-lg pl-7 pr-2 py-1.5 text-right text-xs font-semibold focus:outline-none transition-colors duration-200 ${isDarkMode ? 'bg-slate-900 border-slate-700 text-[#5FB89C] focus:border-[#4C9A82] focus:ring-1 focus:ring-[#4C9A82]/30' : 'bg-slate-50 border-slate-300 text-[#3A7D68] focus:border-[#4C9A82] focus:ring-1 focus:ring-[#4C9A82]/20'}`}
+                      className={`w-24 border rounded-lg pl-7 pr-2 py-1.5 text-right text-xs font-semibold focus:outline-none transition-colors duration-200 ${isDarkMode ? 'bg-slate-900 border-slate-700 text-[#5FB89C] focus:border-[#4C9A82] focus:ring-1 focus:ring-[#4C9A82]/30' : 'bg-[#F1F0EC] border-slate-300 text-[#3A7D68] focus:border-[#4C9A82] focus:ring-1 focus:ring-[#4C9A82]/20'}`}
                     />
                   </div>
                 </div>
@@ -695,7 +695,7 @@ const DesktopCalculator = ({ mode: initialMode = 'sip' }) => {
 
               {/* Optional Step-Up (SIP Only) */}
               {mode === 'sip' && (
-                <div className={`p-4 rounded-xl border flex flex-col gap-3 transition-colors duration-200 ${isDarkMode ? 'bg-slate-950/50 border-slate-850' : 'bg-slate-50 border-slate-200'}`}>
+                <div className={`p-4 rounded-xl border flex flex-col gap-3 transition-colors duration-200 ${isDarkMode ? 'bg-slate-950/50 border-slate-850' : 'bg-[#F1F0EC] border-slate-200'}`}>
                   <div className="flex justify-between items-center">
                     <div className="flex items-center gap-2">
                       <span className={`text-xs font-semibold transition-colors duration-200 ${isDarkMode ? 'text-slate-200' : 'text-slate-700'}`}>Annual Step-Up Contribution</span>
@@ -759,7 +759,7 @@ const DesktopCalculator = ({ mode: initialMode = 'sip' }) => {
               )}
 
               {/* Inflation Adjustment */}
-              <div className={`p-4 rounded-xl border flex flex-col gap-3 transition-colors duration-200 ${isDarkMode ? 'bg-slate-950/50 border-slate-850' : 'bg-slate-50 border-slate-200'}`}>
+              <div className={`p-4 rounded-xl border flex flex-col gap-3 transition-colors duration-200 ${isDarkMode ? 'bg-slate-950/50 border-slate-850' : 'bg-[#F1F0EC] border-slate-200'}`}>
                 <div className="flex justify-between items-center">
                   <div className="flex items-center gap-2">
                     <span className={`text-xs font-semibold transition-colors duration-200 ${isDarkMode ? 'text-slate-200' : 'text-slate-700'}`}>Adjust for Real Purchasing Power</span>
@@ -824,7 +824,7 @@ const DesktopCalculator = ({ mode: initialMode = 'sip' }) => {
               variants={cardVariants} 
               className={`border rounded-2xl p-5 shadow-lg relative overflow-hidden group transition-all duration-200 ${
                 isDarkMode 
-                  ? 'bg-[#131C29]/90 border-slate-800 hover:border-[#3B6098]/30 shadow-black/10' 
+                  ? 'bg-[#141416]/90 border-slate-800 hover:border-[#3B6098]/30 shadow-black/10' 
                   : 'bg-white border-slate-200 hover:border-[#3B6098]/40 shadow-slate-200/10'
               }`}
             >
@@ -892,7 +892,7 @@ const DesktopCalculator = ({ mode: initialMode = 'sip' }) => {
               variants={cardVariants} 
               className={`border rounded-2xl p-5 shadow-lg relative overflow-hidden group transition-all duration-200 ${
                 isDarkMode 
-                  ? 'bg-[#131C29]/90 border-slate-800 hover:border-[#4C9A82]/30 shadow-black/10' 
+                  ? 'bg-[#141416]/90 border-slate-800 hover:border-[#4C9A82]/30 shadow-black/10' 
                   : 'bg-white border-slate-200 hover:border-[#4C9A82]/40 shadow-slate-200/10'
               }`}
             >
@@ -929,7 +929,7 @@ const DesktopCalculator = ({ mode: initialMode = 'sip' }) => {
               variants={cardVariants} 
               className={`border rounded-2xl p-5 shadow-lg relative overflow-hidden group transition-all duration-200 ${
                 isDarkMode 
-                  ? 'bg-[#131C29]/90 border-slate-800 hover:border-teal-500/30 shadow-black/10' 
+                  ? 'bg-[#141416]/90 border-slate-800 hover:border-teal-500/30 shadow-black/10' 
                   : 'bg-white border-slate-200 hover:border-teal-500/40 shadow-slate-200/10'
               }`}
             >
@@ -972,7 +972,7 @@ const DesktopCalculator = ({ mode: initialMode = 'sip' }) => {
             {/* Glowing Area Chart (Width span 2) */}
             <div className={`xl:col-span-2 border rounded-2xl p-5 shadow-xl flex flex-col transition-colors duration-200 ${
               isDarkMode 
-                ? 'bg-[#131C29]/90 border-slate-800/80 shadow-black/10' 
+                ? 'bg-[#141416]/90 border-slate-800/80 shadow-black/10' 
                 : 'bg-white border-slate-200 shadow-slate-200/20'
             }`}>
               <div className="flex justify-between items-center mb-4">
@@ -1045,7 +1045,7 @@ const DesktopCalculator = ({ mode: initialMode = 'sip' }) => {
             {/* Asset Allocation Donut Chart (Width span 1) */}
             <div className={`xl:col-span-1 border rounded-2xl p-5 shadow-xl flex flex-col justify-between items-center text-center transition-colors duration-200 ${
               isDarkMode 
-                ? 'bg-[#131C29]/90 border-slate-800 shadow-black/10' 
+                ? 'bg-[#141416]/90 border-slate-800 shadow-black/10' 
                 : 'bg-white border-slate-200 shadow-slate-200/20'
             }`}>
               <div className="w-full text-left">
@@ -1106,7 +1106,7 @@ const DesktopCalculator = ({ mode: initialMode = 'sip' }) => {
             <motion.div 
               className={`border p-4 rounded-xl flex items-start gap-3 transition-colors duration-200 ${
                 isDarkMode 
-                  ? 'bg-[#0F1826]/20 border-emerald-900/40' 
+                  ? 'bg-[#060608]/20 border-emerald-900/40' 
                   : 'bg-[#EAF0F8] border-[#C3D3E8]'
               }`}
               initial={{ scale: 0.98, opacity: 0 }}
@@ -1128,7 +1128,7 @@ const DesktopCalculator = ({ mode: initialMode = 'sip' }) => {
 
           {/* Dynamic Localized Tax implications Highlight */}
           <div className={`border p-4 rounded-xl flex gap-3 transition-colors duration-200 ${
-            isDarkMode ? 'bg-slate-900/50 border-slate-800' : 'bg-slate-50 border-slate-200'
+            isDarkMode ? 'bg-slate-900/50 border-slate-800' : 'bg-[#F1F0EC] border-slate-200'
           }`}>
             <InfoOutlinedIcon className="text-[#5FB89C] shrink-0 mt-0.5" />
             <div className="text-xs">
@@ -1149,14 +1149,14 @@ const DesktopCalculator = ({ mode: initialMode = 'sip' }) => {
 
           {/* Year-by-Year Growth Amortization Table */}
           <div className={`border rounded-2xl shadow-xl overflow-hidden transition-colors duration-200 ${
-            isDarkMode ? 'bg-[#131C29]/90 border-slate-800' : 'bg-white border-slate-200'
+            isDarkMode ? 'bg-[#141416]/90 border-slate-800' : 'bg-white border-slate-200'
           }`}>
             <button
               onClick={() => setShowAmortization(!showAmortization)}
               className={`w-full px-6 py-4 flex justify-between items-center text-xs font-semibold border-b transition-colors duration-200 ${
                 isDarkMode 
                   ? 'text-white border-slate-800 hover:bg-slate-900/40' 
-                  : 'text-slate-800 border-slate-200 hover:bg-slate-50'
+                  : 'text-slate-800 border-slate-200 hover:bg-[#F1F0EC]'
               }`}
             >
               <span className="flex items-center gap-2">
@@ -1170,7 +1170,7 @@ const DesktopCalculator = ({ mode: initialMode = 'sip' }) => {
               <div className="overflow-x-auto max-h-[350px] overflow-y-auto">
                 <table className="w-full text-left text-xs border-collapse">
                   <thead className={`sticky top-0 font-bold border-b transition-colors duration-200 ${
-                    isDarkMode ? 'bg-slate-950 text-slate-400 border-slate-800' : 'bg-slate-50 text-slate-500 border-slate-200'
+                    isDarkMode ? 'bg-slate-950 text-slate-400 border-slate-800' : 'bg-[#F1F0EC] text-slate-500 border-slate-200'
                   }`}>
                     <tr>
                       <th className="py-3 px-6">Year</th>
@@ -1195,7 +1195,7 @@ const DesktopCalculator = ({ mode: initialMode = 'sip' }) => {
                       )}
                     </tr>
                   </thead>
-                  <tbody className={`divide-y transition-colors duration-200 ${isDarkMode ? 'divide-slate-850 bg-slate-900/10' : 'divide-slate-200 bg-slate-50/20'}`}>
+                  <tbody className={`divide-y transition-colors duration-200 ${isDarkMode ? 'divide-slate-850 bg-slate-900/10' : 'divide-slate-200 bg-[#F1F0EC]/20'}`}>
                     {calcResults.amortization.map((row, idx) => (
                       <tr 
                         key={idx} 

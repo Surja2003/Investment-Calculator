@@ -393,7 +393,7 @@ function AccordionItem({ faq, index, isOpen, onToggle }) {
     <div
       className={`border rounded-2xl overflow-hidden transition-all duration-300 ${
         isOpen
-          ? 'border-[#5E82BC]/50 bg-[#EAF0F8]/60 dark:border-[#3B6098]/40 dark:bg-[#0F1826]/10'
+          ? 'border-[#5E82BC]/50 bg-[#EAF0F8]/60 dark:border-[#3B6098]/40 dark:bg-[#060608]/10'
           : 'border-slate-200 bg-white hover:border-slate-300 shadow-sm dark:border-slate-800 dark:bg-slate-800 dark:hover:border-slate-700'
       }`}
     >
@@ -483,7 +483,7 @@ const FAQSection = () => {
     <section
       aria-label="Frequently Asked Questions"
       className={`py-16 px-4 transition-colors duration-200 ${
-        isDarkMode ? 'bg-[#0F1826]' : 'bg-slate-50'
+        isDarkMode ? 'bg-[#060608]' : 'bg-[#F1F0EC]'
       }`}
     >
       <div className="max-w-4xl mx-auto">
@@ -492,7 +492,7 @@ const FAQSection = () => {
           <span
             className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest mb-4 border ${
               isDarkMode
-                ? 'bg-[#0F1826]/40 border-[#1D3251] text-[#5E82BC]'
+                ? 'bg-[#060608]/40 border-[#1D3251] text-[#5E82BC]'
                 : 'bg-[#EAF0F8] border-[#C3D3E8] text-[#243D63]'
             }`}
           >
@@ -556,7 +556,7 @@ const FAQSection = () => {
         <div
           className={`mt-12 rounded-2xl p-6 text-center border ${
             isDarkMode
-              ? 'bg-[#0F1826]/20 border-[#1D3251]/40'
+              ? 'bg-[#060608]/20 border-[#1D3251]/40'
               : 'bg-[#EAF0F8] border-[#C3D3E8]'
           }`}
         >

@@ -51,7 +51,7 @@ function InputRow({ label, value, onChange, prefix, suffix, min, max, step = 1 }
       <div className="flex justify-between items-center mb-2">
         <span className={`text-sm font-semibold ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>{label}</span>
         <div className={`flex items-center gap-1 rounded-xl px-3 py-1.5 border text-sm font-bold ${
-          isDarkMode ? 'bg-slate-800 border-slate-700 text-[#5E82BC]' : 'bg-slate-50 border-slate-300 text-[#243D63]'
+          isDarkMode ? 'bg-slate-800 border-slate-700 text-[#5E82BC]' : 'bg-[#F1F0EC] border-slate-300 text-[#243D63]'
         }`}>
           {prefix && <span className={isDarkMode ? 'text-slate-400' : 'text-slate-500'}>{prefix}</span>}
           <input
@@ -119,12 +119,12 @@ const ReverseSIP = () => {
     : `https://wa.me/?text=${encodeURIComponent(`📊 My Lumpsum CAGR Result!\n\nI invested ${fmtINR(principal)} for ${lYears} years.\nFinal Value: ${fmtINR(fValue)}\nMy CAGR: ${lumpsumRate.toFixed(2)}% p.a.\n\nCalculate yours 👉 https://surja2003.github.io/Investment-Calculator/`)}`;
 
   return (
-    <div className={`min-h-screen py-8 px-4 ${isDarkMode ? 'bg-[#0F1826]' : 'bg-slate-50'}`}>
+    <div className={`min-h-screen py-8 px-4 ${isDarkMode ? 'bg-[#060608]' : 'bg-[#F1F0EC]'}`}>
       <div className="max-w-2xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
           <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest mb-3 border ${
-            isDarkMode ? 'bg-[#0F1826]/40 border-[#1D3251] text-[#5E82BC]' : 'bg-[#EAF0F8] border-[#C3D3E8] text-[#243D63]'
+            isDarkMode ? 'bg-[#060608]/40 border-[#1D3251] text-[#5E82BC]' : 'bg-[#EAF0F8] border-[#C3D3E8] text-[#243D63]'
           }`}>
             <span className="w-1.5 h-1.5 rounded-full bg-[#3B6098] inline-block" />
             Reverse Calculator
@@ -152,7 +152,7 @@ const ReverseSIP = () => {
         </div>
 
         {/* Input Card */}
-        <div className={`rounded-2xl border p-6 mb-6 ${isDarkMode ? 'bg-[#131C29] border-slate-800' : 'bg-white border-slate-200 shadow-sm'}`}>
+        <div className={`rounded-2xl border p-6 mb-6 ${isDarkMode ? 'bg-[#141416] border-slate-800' : 'bg-white border-slate-200 shadow-sm'}`}>
           {mode === 'sip' ? (
             <>
               <p className={`text-xs font-semibold uppercase tracking-wider mb-4 ${isDarkMode ? 'text-slate-500' : 'text-slate-400'}`}>
@@ -242,7 +242,7 @@ const ReverseSIP = () => {
           </a>
           <button onClick={() => window.print()}
             className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold border transition-colors ${
-              isDarkMode ? 'bg-slate-800 border-slate-700 text-slate-200 hover:bg-slate-700' : 'bg-white border-slate-300 text-slate-700 hover:bg-slate-50'
+              isDarkMode ? 'bg-slate-800 border-slate-700 text-slate-200 hover:bg-slate-700' : 'bg-white border-slate-300 text-slate-700 hover:bg-[#F1F0EC]'
             }`}>
             🖨️ Print / PDF
           </button>

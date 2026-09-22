@@ -39,7 +39,7 @@ const ResponsiveCalculator = ({ mode = 'sip' }) => {
   }, []);
 
   return (
-    <div ref={containerRef} className={`w-full h-full min-h-screen transition-colors duration-200 ${isDarkMode ? 'bg-[#0F1826]' : 'bg-slate-50'}`}>
+    <div ref={containerRef} className={`w-full h-full min-h-screen transition-colors duration-200 ${isDarkMode ? 'bg-[#060608]' : 'bg-[#F1F0EC]'}`}>
       {isMobile ? (
         <MobileCalculator mode={mode} />
       ) : (
