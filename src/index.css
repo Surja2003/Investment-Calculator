@@ -16,10 +16,12 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Mobile-first: never allow horizontal overflow / x-axis scroll */
+/* Mobile-first: prevent sideways overflow WITHOUT breaking vertical scroll.
+   `overflow-x: clip` clips horizontally but (unlike `hidden`) does not turn
+   the root into a scroll container, so native touch scrolling keeps working. */
 html, body, #root {
   max-width: 100%;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 body {
